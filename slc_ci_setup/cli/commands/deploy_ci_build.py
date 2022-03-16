@@ -11,8 +11,8 @@ SLC_PROJECT = "ScriptLanguages"
 SLC_RELEASE_PROJECT = "ScriptLanguagesRelease"
 
 GITHUB_URLS = {
-    SLC_PROJECT : "https://github.com/exasol/script-languages-release",
-    SLC_RELEASE_PROJECT : "https://github.com/exasol/script-languages"
+    SLC_PROJECT : "https://github.com/exasol/script-languages",
+    SLC_RELEASE_PROJECT : "https://github.com/exasol/script-languages-release"
 }
 
 
