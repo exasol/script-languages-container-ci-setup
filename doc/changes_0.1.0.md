@@ -13,7 +13,7 @@ n/a
 
 ## Features / Enhancements
 
-n/a
+ - #1: Implement codebuild deployment and buildspec generation
 
 ## Documentation
 
