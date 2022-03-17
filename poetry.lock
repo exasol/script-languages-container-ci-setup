@@ -40,6 +40,21 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "exasol-error-reporting-python"
+version = "0.1.0"
+description = "Exasol Python Error Reporting"
+category = "main"
+optional = false
+python-versions = ">=3.6.1,<4.0"
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/exasol/error-reporting-python.git"
+reference = "main"
+resolved_reference = "e58b7a8a853b7d7d179ffc6e8571f06ef5a2ed7a"
+
+[[package]]
 name = "iniconfig"
 version = "1.1.1"
 description = "iniconfig: brain-dead simple config-ini parsing"
@@ -142,8 +157,8 @@ python-versions = ">=3.7"
 
 [metadata]
 lock-version = "1.1"
-python-versions = ">=3.8.0"
-content-hash = "042048d8b7f6d68f84cc5b9e804e1cd639d7e1d5f1ec0e7f22623da0ffa218c6"
+python-versions = ">=3.8.0,<4.0"
+content-hash = "93bcea392830d5a319436af2faae0c44362ea850be272a72565ad707d48907c8"
 
 [metadata.files]
 atomicwrites = [
@@ -162,6 +177,7 @@ colorama = [
     {file = "colorama-0.4.4-py2.py3-none-any.whl", hash = "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"},
     {file = "colorama-0.4.4.tar.gz", hash = "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b"},
 ]
+exasol-error-reporting-python = []
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
     {file = "iniconfig-1.1.1.tar.gz", hash = "sha256:bc3af051d7d14b2ee5ef9969666def0cd1a000e121eaea580d4a313df4b37f32"},

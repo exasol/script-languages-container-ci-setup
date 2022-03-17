@@ -6,7 +6,6 @@ from slc_ci_setup.cli.common import add_options
 from slc_ci_setup.cli.options.aws_options import aws_options
 from slc_ci_setup.doctor import (
     health_checkup,
-    recommend_mitigation,
 )
 
 
@@ -28,12 +27,6 @@ def health(aws_profile: str):
     if not problems:
         sys.exit(success)
 
-    suggestion_template = cleandoc(
-        """
-        * {problem}
-          Fix: {suggestion}
-        """
-    )
     message = cleandoc(
         """
         {count} problem(s) have been identified.
@@ -44,10 +37,7 @@ def health(aws_profile: str):
         count=len(problems),
         problems="\n".join(
             (
-                suggestion_template.format(
-                    problem=icd.value, suggestion=recommend_mitigation(icd)
-                )
-                for icd in problems
+                str(icd) for icd in problems
             )
         ),
     )

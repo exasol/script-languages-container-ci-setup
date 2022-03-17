@@ -8,6 +8,10 @@ import sys
 from enum import Enum
 from typing import Iterator
 
+import exasol_error_reporting_python.error_message_builder
+from exasol_error_reporting_python.exa_error import ExaError
+
+
 SUPPORTED_PLATFORMS = ["linux", "darwin"]
 
 
@@ -23,28 +27,22 @@ def check_shell_cmd(cmd: str) -> bool:
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         ret_val = False
-    return  ret_val
+    return ret_val
 
 
 class ErrorCodes(Enum):
     """The equivalent of ICD-10 codes this doctor is using"""
 
-    Unknown = "Unknown issue"
-    TargetPlatformNotSupported = "The platform you are running on is not supported."
-    AWSNotInstalled = "AWS CLI not installed."
-    AWSProfileInvalid = "AWS Profile invalid."
-    AWSAccessKeyInvalid = "AWS Access Key invalid."
-
-
-def recommend_mitigation(error_code) -> str:
-    """Get treatment advice based on the error_code"""
-    return {
-        ErrorCodes.Unknown: "You are sick but this symptoms are unknown, please contact the maintainer.",
-        ErrorCodes.TargetPlatformNotSupported: f"Make sure you are using one of the following platforms: {SUPPORTED_PLATFORMS}.",
-        ErrorCodes.AWSNotInstalled: f"Install AWS CLI. Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html",
-        ErrorCodes.AWSProfileInvalid: f"Run 'aws configure --profile $your_profile' or 'aws configure' to configure the default profile.",
-        ErrorCodes.AWSAccessKeyInvalid: f"Go to the AWS console and create an access key for your user. Then register the access key with 'aws configure --profile $your_profile' or 'aws configure' for the default profile.",
-    }[error_code]
+    Unknown = ExaError.message_builder('E-SLCCS-01').message("Unknown issue")
+    TargetPlatformNotSupported = ExaError.message_builder('E-SLCCS-02')\
+        .message("The platform you are running on is not supported.")\
+        .mitigation("Make sure you are using one of the following platforms: {SUPPORTED_PLATFORMS}.")
+    AWSNotInstalled = ExaError.message_builder('E-SLCCS-03').message("AWS CLI not installed.")\
+        .mitigation("Install AWS CLI. Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html")
+    AWSProfileInvalid = ExaError.message_builder('E-SLCCS-04').message("AWS Profile invalid.")\
+        .mitigation("Run 'aws configure --profile $your_profile' or 'aws configure' to configure the default profile.")
+    AWSAccessKeyInvalid = ExaError.message_builder('E-SLCCS-05').message("AWS Access Key invalid.")\
+        .mitigation("Go to the AWS console and create an access key for your user. Then register the access key with 'aws configure --profile $your_profile' or 'aws configure' for the default profile.")
 
 
 def is_supported_platform(**kwargs) -> bool:
