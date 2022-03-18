@@ -37,7 +37,7 @@ def health(aws_profile: str):
         count=len(problems),
         problems="\n".join(
             (
-                str(icd) for icd in problems
+                str(icd.value) for icd in problems
             )
         ),
     )

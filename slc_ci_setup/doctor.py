@@ -38,11 +38,15 @@ class ErrorCodes(Enum):
         .message("The platform you are running on is not supported.")\
         .mitigation("Make sure you are using one of the following platforms: {SUPPORTED_PLATFORMS}.")
     AWSNotInstalled = ExaError.message_builder('E-SLCCS-03').message("AWS CLI not installed.")\
-        .mitigation("Install AWS CLI. Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html")
+        .mitigation("Install AWS CLI. "
+                    "Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html")
     AWSProfileInvalid = ExaError.message_builder('E-SLCCS-04').message("AWS Profile invalid.")\
-        .mitigation("Run 'aws configure --profile $your_profile' or 'aws configure' to configure the default profile.")
+        .mitigation("Run 'aws configure --profile $your_profile' or "
+                    "'aws configure' to configure the default profile.")
     AWSAccessKeyInvalid = ExaError.message_builder('E-SLCCS-05').message("AWS Access Key invalid.")\
-        .mitigation("Go to the AWS console and create an access key for your user. Then register the access key with 'aws configure --profile $your_profile' or 'aws configure' for the default profile.")
+        .mitigation("Go to the AWS console and create an access key for your user. "
+                    "Then register the access key with 'aws configure --profile $your_profile' or "
+                    "'aws configure' for the default profile.")
 
 
 def is_supported_platform(**kwargs) -> bool:
