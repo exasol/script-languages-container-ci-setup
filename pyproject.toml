@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "slc-ci-setup"
+name = "script-languages-container-ci-setup"
 version = "0.1.0"
 description = "Manages AWS cloud CI build infrastructure."
 
