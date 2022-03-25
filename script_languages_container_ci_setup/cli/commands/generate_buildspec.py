@@ -3,8 +3,8 @@ from typing import Tuple
 
 import click
 
-from slc_ci_setup.cli.cli import cli
-from slc_ci_setup.lib.run_generate_buildspec import run_generate_buildspec
+from script_languages_container_ci_setup.cli.cli import cli
+from script_languages_container_ci_setup.lib.run_generate_buildspec import run_generate_buildspec
 
 
 @cli.command()

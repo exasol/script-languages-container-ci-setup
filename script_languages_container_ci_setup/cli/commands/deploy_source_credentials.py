@@ -1,9 +1,9 @@
 import click
 
-from slc_ci_setup.cli.cli import cli
-from slc_ci_setup.cli.common import add_options
-from slc_ci_setup.lib.run_deploy_source_credentials import run_deploy_source_credentials
-from slc_ci_setup.cli.options.aws_options import aws_options
+from script_languages_container_ci_setup.cli.cli import cli
+from script_languages_container_ci_setup.cli.common import add_options
+from script_languages_container_ci_setup.lib.run_deploy_source_credentials import run_deploy_source_credentials
+from script_languages_container_ci_setup.cli.options.aws_options import aws_options
 
 SOURCE_CREDENTIALS_STACK_NAME = "SLCSourceCredentials"
 

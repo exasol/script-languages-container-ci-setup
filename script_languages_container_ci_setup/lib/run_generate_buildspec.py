@@ -1,7 +1,7 @@
 from pathlib import Path
 from typing import Tuple
 
-from slc_ci_setup.lib.render_template import render_template
+from script_languages_container_ci_setup.lib.render_template import render_template
 
 
 class Flavor(object):

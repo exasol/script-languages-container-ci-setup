@@ -1,5 +1,5 @@
-from slc_ci_setup.lib.render_template import render_template
-from slc_ci_setup.lib.upload_cloudformation import upload_cloudformation_stack
+from script_languages_container_ci_setup.lib.render_template import render_template
+from script_languages_container_ci_setup.lib.upload_cloudformation import upload_cloudformation_stack
 
 
 def run_deploy_source_credentials(

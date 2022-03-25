@@ -1,10 +1,10 @@
 import sys
 from inspect import cleandoc
 
-from slc_ci_setup.cli.cli import cli
-from slc_ci_setup.cli.common import add_options
-from slc_ci_setup.cli.options.aws_options import aws_options
-from slc_ci_setup.doctor import (
+from script_languages_container_ci_setup.cli.cli import cli
+from script_languages_container_ci_setup.cli.common import add_options
+from script_languages_container_ci_setup.cli.options.aws_options import aws_options
+from script_languages_container_ci_setup.doctor import (
     health_checkup,
 )
 
