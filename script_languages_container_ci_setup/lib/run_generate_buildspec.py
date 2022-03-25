@@ -22,7 +22,7 @@ class Flavor(object):
 
 def run_generate_buildspec(
         flavor_root_paths: Tuple[str, ...],
-        output_file: str,):
+        output_filename: str):
     flavors = set()
     for flavor_root_path in [Path(f).resolve() for f in flavor_root_paths]:
         assert flavor_root_path.is_dir()
@@ -39,4 +39,5 @@ def run_generate_buildspec(
                                                  flavor_formatted=flavor.flavor_formatted))
 
     result_yaml = render_template("buildspec_hull.yaml", batch_entries="\n".join(buildspec_body))
-    print(f"Result:\n {result_yaml}")
+    with open(output_filename, "w") as output_file:
+        output_file.write(result_yaml)

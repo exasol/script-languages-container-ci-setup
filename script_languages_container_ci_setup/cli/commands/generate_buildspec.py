@@ -12,7 +12,7 @@ from script_languages_container_ci_setup.lib.run_generate_buildspec import run_g
               type=click.Path(file_okay=False, dir_okay=True, exists=True),
               help="Path where script language container flavors are located.")
 @click.option('--output-file', type=click.Path(file_okay=True, dir_okay=False, exists=False, writable=True),
-              default="buildspec.yaml",
+              default="./buildspec.yaml",
               help="Path where script language container flavor are located.")
 def generate_buildspec(
         flavor_root_path: Tuple[str, ...],
