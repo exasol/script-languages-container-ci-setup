@@ -1,17 +1,7 @@
     - identifier: build_{{flavor_formatted}}
       env:
         variables:
-          _FLAVOR: {{flavor_original}}
-      buildspec: aws-code-build/ci/build_buildspec.yaml
+          FLAVOR: {{flavor_original}}
+      buildspec: {{out_path}}/build_buildspec.yaml
       privileged-mode: true
       type: BUILD_GENERAL1_MEDIUM
-    - identifier: test_{{flavor_formatted}}
-      env:
-        variables:
-          _FLAVOR: {{flavor_original}}
-      buildspec: aws-code-build/ci/test_buildspec.yaml
-      privileged-mode: true
-      type: BUILD_GENERAL1_MEDIUM
-      depend-on:
-        - build_{{flavor_formatted}}
-

@@ -130,7 +130,7 @@ Resources:
       Source:
         Type: GITHUB
         Location: {{github_url}}
-        BuildSpec: "aws-code-build/buildspec.yaml"
+        BuildSpec: "aws-code-build/ci/buildspec.yaml"
       TimeoutInMinutes: 240
       LogsConfig:
         S3Logs:

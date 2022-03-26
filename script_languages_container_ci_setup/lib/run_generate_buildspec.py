@@ -49,7 +49,8 @@ def run_generate_buildspec(
     for flavor in flavors:
         buildspec_body.append(render_template("buildspec_batch_entry.yaml",
                                                  flavor_original=flavor.flavor_original,
-                                                 flavor_formatted=flavor.flavor_formatted))
+                                                 flavor_formatted=flavor.flavor_formatted,
+                                                 out_path=output_pathname))
 
     result_yaml = render_template("buildspec_hull.yaml", batch_entries="\n".join(buildspec_body))
 
