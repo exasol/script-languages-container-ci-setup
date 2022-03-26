@@ -11,15 +11,15 @@ from script_languages_container_ci_setup.lib.run_generate_buildspec import run_g
 @click.option('--flavor-root-path', required=True, multiple=True,
               type=click.Path(file_okay=False, dir_okay=True, exists=True),
               help="Path where script language container flavors are located.")
-@click.option('--output-file', type=click.Path(file_okay=True, dir_okay=False, exists=False, writable=True),
-              default="./buildspec.yaml",
-              help="Path where script language container flavor are located.")
-def generate_buildspec(
+@click.option('--output-path', type=click.Path(file_okay=False, dir_okay=True, exists=True, writable=True),
+              default="./aws-code-build/ci",
+              help="Path where buildspec files will be deployed.")
+def generate_buildspecs(
         flavor_root_path: Tuple[str, ...],
-        output_file: str,
+        output_path: str,
         ):
     """
-    This command generates the buildspec file for AWS CodeBuild based on the flavors located in path "flavor_root_path".
+    This command generates the buildspec file(s) for AWS CodeBuild based on the flavors located in path "flavor_root_path".
     """
-    run_generate_buildspec(flavor_root_path, output_file)
+    run_generate_buildspec(flavor_root_path, output_path)
 
