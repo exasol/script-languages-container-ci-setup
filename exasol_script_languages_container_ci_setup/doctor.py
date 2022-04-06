@@ -8,7 +8,6 @@ import sys
 from enum import Enum
 from typing import Iterator
 
-import exasol_error_reporting_python.error_message_builder
 from exasol_error_reporting_python.exa_error import ExaError
 
 

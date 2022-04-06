@@ -1,10 +1,10 @@
 import sys
 from inspect import cleandoc
 
-from script_languages_container_ci_setup.cli.cli import cli
-from script_languages_container_ci_setup.cli.common import add_options
-from script_languages_container_ci_setup.cli.options.aws_options import aws_options
-from script_languages_container_ci_setup.doctor import (
+from exasol_script_languages_container_ci_setup.cli.cli import cli
+from exasol_script_languages_container_ci_setup.cli.common import add_options
+from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
+from exasol_script_languages_container_ci_setup.doctor import (
     health_checkup,
 )
 

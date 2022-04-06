@@ -1,9 +1,9 @@
 import click
 
-from script_languages_container_ci_setup.cli.cli import cli
-from script_languages_container_ci_setup.cli.common import add_options
-from script_languages_container_ci_setup.lib.run_deploy_source_credentials import run_deploy_source_credentials
-from script_languages_container_ci_setup.cli.options.aws_options import aws_options
+from exasol_script_languages_container_ci_setup.cli.cli import cli
+from exasol_script_languages_container_ci_setup.cli.common import add_options
+from exasol_script_languages_container_ci_setup.lib.run_deploy_source_credentials import run_deploy_source_credentials
+from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
 
 SOURCE_CREDENTIALS_STACK_NAME = "SLCSourceCredentials"
 

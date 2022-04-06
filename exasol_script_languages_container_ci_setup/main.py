@@ -1,8 +1,8 @@
 #! /usr/bin/env python3
 #
-from script_languages_container_ci_setup.cli.cli import cli
+from exasol_script_languages_container_ci_setup.cli.cli import cli
 # noinspection PyUnresolvedReferences
-from script_languages_container_ci_setup.cli.commands import (
+from exasol_script_languages_container_ci_setup.cli.commands import (
     health,
     generate_buildspec,
     deploy_source_credentials,
