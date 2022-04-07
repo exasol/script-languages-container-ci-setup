@@ -25,7 +25,8 @@ build-backend = "poetry.core.masonry.api"
 toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
-
+boto3 = "^1.21.34"
+cfn-lint = "^0.58.4"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
