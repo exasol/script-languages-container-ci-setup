@@ -8,8 +8,7 @@ import toml
 def get_git_version():
     repo = Repo()
     assert not repo.bare
-    tag_strings = [t.name for t in repo.tags]
-    tag_strings.sort(reverse=True)
+    tag_strings = sorted([t.name for t in repo.tags], reverse=True)
     tag_strings = [t for t in tag_strings if t != "latest"]
 
     if len(tag_strings) == 0:
