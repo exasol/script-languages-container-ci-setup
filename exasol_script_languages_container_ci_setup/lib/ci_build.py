@@ -6,7 +6,7 @@ import exasol_script_languages_container_ci_setup
 CODE_BUILD_STACK_NAME = "CIBuild"
 
 
-def _stack_name(project: str):
+def stack_name(project: str):
     return f"{project}{CODE_BUILD_STACK_NAME}"
 
 
@@ -21,7 +21,7 @@ def run_deploy_ci_build(aws_profile: str, project: str, github_url: str):
     yml = render_template("slc_code_build.yaml", project=project,
                           dockerhub_secret_arn=dockerhub_secret_arn, github_url=github_url)
     exasol_script_languages_container_ci_setup.lib.upload_cloudformation_stack(aws_profile, yml,
-                                                                               _stack_name(project))
+                                                                               stack_name(project))
 
 
 def run_validate_ci_build(aws_profile: str, project: str, github_url: str):
