@@ -3,7 +3,7 @@ import click
 from exasol_script_languages_container_ci_setup.cli.cli import cli
 from exasol_script_languages_container_ci_setup.cli.common import add_options
 from exasol_script_languages_container_ci_setup.cli.options.logging import logging_options, set_log_level
-from exasol_script_languages_container_ci_setup.lib.source_credentials import run_deploy_source_credentials
+from exasol_script_languages_container_ci_setup.lib.source_credentials import run_validate_source_credentials
 from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
 
 
@@ -16,11 +16,11 @@ from exasol_script_languages_container_ci_setup.cli.options.aws_options import a
               help="User key stored as secret in AWS Secret Manager.")
 @click.option('--secret-token-key', required=True, type=str,
               help="Token key stored as secret in AWS Secret Manager.")
-def deploy_source_credentials(
+def validate_source_credentials(
         aws_profile: str,
         log_level: str,
         secret_name: str,
         secret_user_key: str,
         secret_token_key: str):
     set_log_level(log_level)
-    run_deploy_source_credentials(aws_profile, secret_name, secret_user_key, secret_token_key)
+    run_validate_source_credentials(aws_profile, secret_name, secret_user_key, secret_token_key)

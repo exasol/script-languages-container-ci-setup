@@ -1,3 +1,4 @@
+import logging
 import sys
 from inspect import cleandoc
 
@@ -22,8 +23,7 @@ def health(aws_profile: str):
     """
     success, failure = 0, -1
 
-
-    problems = set(health_checkup(aws_profile = aws_profile))
+    problems = set(health_checkup(aws_profile=aws_profile))
     if not problems:
         sys.exit(success)
 
@@ -41,5 +41,5 @@ def health(aws_profile: str):
             )
         ),
     )
-    print(message, flush=True)
+    logging.error(message, flush=True)
     sys.exit(failure)

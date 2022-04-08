@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 from typing import Tuple
 
@@ -37,6 +38,7 @@ def run_generate_buildspec(
         flavor_root_paths: Tuple[str, ...],
         output_pathname: str):
     flavors = set()
+    logging.info(f"Run run_generate_buildspec for paths: {flavor_root_paths}")
     for flavor_root_path in [Path(f).resolve() for f in flavor_root_paths]:
         assert flavor_root_path.is_dir()
         assert flavor_root_path.exists()
@@ -44,7 +46,7 @@ def run_generate_buildspec(
         for child in flavor_root_path.iterdir():
             if child.is_dir():
                 flavors.add(Flavor(child.name))
-
+    logging.info(f"Found flavors: {flavors}")
     buildspec_body = []
     for flavor in flavors:
         buildspec_body.append(render_template("buildspec_batch_entry.yaml",
@@ -59,6 +61,7 @@ def run_generate_buildspec(
         output_file.write(result_yaml)
 
     script_languages_ci_location = get_pip_location_for_pkg("script-languages-container-ci")
+    logging.info(f"Found script languages ci location at: {script_languages_ci_location}")
     result_build_yaml = render_template("build_buildspec.yaml",
                                         script_languages_ci_location=script_languages_ci_location)
 

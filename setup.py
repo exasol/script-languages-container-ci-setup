@@ -12,7 +12,8 @@ package_data = \
 {'': ['*'], 'exasol_script_languages_container_ci_setup': ['templates/*']}
 
 install_requires = \
-['click>=8.0.3,<9.0.0',
+['boto3>=1.21.34,<2.0.0',
+ 'click>=8.0.3,<9.0.0',
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@main',
  'exasol_script_languages_container_tool @ '
