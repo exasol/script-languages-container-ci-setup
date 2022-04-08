@@ -27,10 +27,9 @@ There are actual 4 commands:
 
 The template expect to have 2 secrets stored on AWS' SecretManager for the respective AWS account:
 * Dockerhub (having secret keys: `User` and `AccessToken`). Used to pull/push Docker images from Dockerhub during the CI jobs.
-* github_personal_token (having secret keys: `github_user_name` and `github_personal_token`). Used to register the webhook and interact with the Github repositories.
+* A secret containing the GH username and personal-token. Used to register the webhook and interact with the Github repositories. 
 
 ## Deployements on AWS 
-
 
 ### Background
 

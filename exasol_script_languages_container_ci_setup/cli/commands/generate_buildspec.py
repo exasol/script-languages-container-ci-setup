@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, Optional
 
 import click
 
@@ -14,12 +14,15 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec impor
 @click.option('--output-path', type=click.Path(file_okay=False, dir_okay=True, exists=True, writable=True),
               default="./aws-code-build/ci",
               help="Path where buildspec files will be deployed.")
+@click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
+              help="Configuration file for build, project specific.")
 def generate_buildspecs(
         flavor_root_path: Tuple[str, ...],
         output_path: str,
+        config_file: Optional[str]
         ):
     """
     This command generates the buildspec file(s) for AWS CodeBuild based on the flavors located in path "flavor_root_path".
     """
-    run_generate_buildspec(flavor_root_path, output_path)
+    run_generate_buildspec(flavor_root_path, output_path, config_file)
 

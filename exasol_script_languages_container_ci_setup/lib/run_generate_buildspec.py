@@ -1,6 +1,8 @@
+import json
 import logging
 from pathlib import Path
-from typing import Tuple
+from typing import Tuple, Optional
+import jsonschema
 
 import pkg_resources
 
@@ -34,9 +36,31 @@ def get_pip_location_for_pkg(dependent_pkg: str):
     return searched_pgk_url[0]
 
 
+def validate_config_file(config_file: Optional[str]):
+    if config_file is not None:
+        with open(config_file, "r") as config_file_:
+            config = json.load(config_file_)
+            config_schema = json.loads(render_template("config_schema.json"))
+            jsonschema.validate(instance=config, schema=config_schema)
+            ignored_folders = config["build_ignore"]["ignored_folders"]
+            for folder in ignored_folders:
+                folder_path = Path(folder)
+                if not folder_path.exists():
+                    raise ValueError(f"Ignored folder '{folder}' does not exist.")
+
+
+def get_config_file_parameter(config_file: Optional[str]):
+    if config_file is not None:
+        return f"--config-file {config_file}"
+    else:
+        return ""
+
+
 def run_generate_buildspec(
         flavor_root_paths: Tuple[str, ...],
-        output_pathname: str):
+        output_pathname: str,
+        config_file: Optional[str]):
+    validate_config_file(config_file)
     flavors = set()
     logging.info(f"Run run_generate_buildspec for paths: {flavor_root_paths}")
     for flavor_root_path in [Path(f).resolve() for f in flavor_root_paths]:
@@ -63,7 +87,8 @@ def run_generate_buildspec(
     script_languages_ci_location = get_pip_location_for_pkg("script-languages-container-ci")
     logging.info(f"Found script languages ci location at: {script_languages_ci_location}")
     result_build_yaml = render_template("build_buildspec.yaml",
-                                        script_languages_ci_location=script_languages_ci_location)
+                                        script_languages_ci_location=script_languages_ci_location,
+                                        config_file_parameter=get_config_file_parameter(config_file))
 
     with open(output_pathname / "build_buildspec.yaml", "w") as output_file:
         output_file.write(result_build_yaml)

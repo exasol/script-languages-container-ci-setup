@@ -1,0 +1,15 @@
+{
+  "type" : "object",
+  "required": [ "build_ignore" ],
+  "additionalProperties" : false,
+  "properties" : {
+    "build_ignore": {
+      "type" : "object",
+      "additionalProperties" : false,
+      "required": [ "ignored_folders" ],
+      "properties" : {
+        "ignored_folders" : { "type" : "array"}
+      }
+    }
+  }
+}

@@ -24,7 +24,7 @@ phases:
   #      - bash aws-code-build/scripts/build_or_pull_build_container.sh $_BUILD_DOCKER_REPOSITORY $_DOCKER_USER
   build:
       commands:
-        - python3 -m script_languages_container_ci.main run_ci --flavor $FLAVOR --branch-name "$CODEBUILD_WEBHOOK_HEAD_REF" --docker-user "$DOCKER_USER" --docker-build-repository "$BUILD_DOCKER_REPOSITORY" --docker-release-repository "$RELEASE_DOCKER_REPOSITORY" --commit-sha "$CODEBUILD_SOURCE_VERSION"
+        - python3 -m script_languages_container_ci.main run_ci --flavor $FLAVOR --branch-name "$CODEBUILD_WEBHOOK_HEAD_REF" --docker-user "$DOCKER_USER" --docker-build-repository "$BUILD_DOCKER_REPOSITORY" --docker-release-repository "$RELEASE_DOCKER_REPOSITORY" --commit-sha "$CODEBUILD_SOURCE_VERSION" {{ config_file_parameter }}
 
 artifacts:
   files:
