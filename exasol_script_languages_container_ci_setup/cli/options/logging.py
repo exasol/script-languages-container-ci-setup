@@ -2,10 +2,10 @@ import logging
 
 import click
 
-_supported_log_levels = ["normal", "info", "debug"]
+SUPPORTED_LOG_LEVELS = { "normal": logging.WARNING, "info": logging.INFO, "debug": logging.DEBUG }
 
 logging_options = [
-    click.option('--log-level', type=click.Choice(_supported_log_levels), default="normal",
+    click.option('--log-level', type=click.Choice(SUPPORTED_LOG_LEVELS.keys()), default="normal",
                  help="Level of information printed out. "
                       "'Normal' prints only necessary information. "
                       "'Info' prints also internal status info. 'Debug' prints detailed information."),
@@ -13,11 +13,7 @@ logging_options = [
 
 
 def set_log_level(level: str):
-    if level == _supported_log_levels[0]:
-        logging.basicConfig(level=logging.WARNING)
-    elif level == _supported_log_levels[1]:
-        logging.basicConfig(level=logging.INFO)
-    elif level == _supported_log_levels[2]:
-        logging.basicConfig(level=logging.DEBUG)
-    else:
-        raise ValueError(f"log level {level} is not supported!")
+   try:
+      return SUPPORTED_LOG_LEVELS[level]
+   except KeyError as ex:
+      raise ValueError(f"log level {level} is not supported!") from ex
