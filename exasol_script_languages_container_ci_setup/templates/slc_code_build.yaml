@@ -59,7 +59,6 @@ Resources:
             Statement:
               - Effect: Allow
                 Action:
-                  - cloudformation:*
                   - codebuild:*
                   - logs:*
                 Resource: '*'
@@ -125,7 +124,7 @@ Resources:
       Environment:
         Type: LINUX_CONTAINER
         PrivilegedMode: true
-        ComputeType: BUILD_GENERAL1_MEDIUM
+        ComputeType: BUILD_GENERAL1_SMALL
         Image: aws/codebuild/standard:5.0
       Source:
         Type: GITHUB

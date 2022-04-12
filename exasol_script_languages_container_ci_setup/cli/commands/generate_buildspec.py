@@ -15,7 +15,7 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec impor
               default="./aws-code-build/ci",
               help="Path where buildspec files will be deployed.")
 @click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
-              help="Configuration file for build, project specific.")
+              help="Configuration file for build (project specific).")
 def generate_buildspecs(
         flavor_root_path: Tuple[str, ...],
         output_path: str,

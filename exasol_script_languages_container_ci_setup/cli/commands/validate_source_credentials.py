@@ -11,11 +11,11 @@ from exasol_script_languages_container_ci_setup.cli.options.aws_options import a
 @add_options(aws_options)
 @add_options(logging_options)
 @click.option('--secret-name', required=True, type=str,
-              help="Secret stored in AWS Secret Manager.")
+              help="Secret name for the Github user credentials stored in AWS Secret Manager.")
 @click.option('--secret-user-key', required=True, type=str,
-              help="User key stored as secret in AWS Secret Manager.")
+              help="Github user key stored as secret in AWS Secret Manager under the respective secret name.")
 @click.option('--secret-token-key', required=True, type=str,
-              help="Token key stored as secret in AWS Secret Manager.")
+              help="Github user token key stored as secret in AWS Secret Manager under the respective secret name.")
 def validate_source_credentials(
         aws_profile: str,
         log_level: str,

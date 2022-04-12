@@ -15,7 +15,7 @@ pip install https://github.com/exasol/script-languages-container-ci-setup/releas
 
 ## Usage
 
-There are actual 4 commands:
+The following commands are available:
 * `health` checks the current environment and setup of your AWS CLI installation
 * `deploy-ci-build` deploys the AWS Cloudformation Stack which runs CodeBuild on the given AWS profile
 * `deploy-source-credentials` deploys the AWS Cloudformation Stack for the source credentials

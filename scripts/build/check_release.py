@@ -13,10 +13,9 @@ def get_git_version():
 
     if len(tag_strings) == 0:
         return ""
-    else:
-        latest_tag = tag_strings[0].strip()
-        assert len(latest_tag) > 0
-        return latest_tag
+    latest_tag = tag_strings[0].strip()
+    assert len(latest_tag) > 0
+    return latest_tag
 
 
 def get_poetry_version():

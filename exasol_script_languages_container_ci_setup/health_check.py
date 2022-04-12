@@ -1,5 +1,5 @@
 """
-The doctor module provides functionality to check the health of the `slc-ci-setup`
+The health check module provides functionality to check the health of the `slc-ci-setup`
 package and also provide help to find potential fixes.
 """
 import shlex
@@ -20,17 +20,12 @@ def check_shell_cmd(cmd: str) -> bool:
     :param cmd: shell command to execute
     :return: returns True if exit code was 0, False otherwise
     """
-    ret_val = True
-    completed_process = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    try:
-        completed_process.check_returncode()
-    except subprocess.CalledProcessError as e:
-        ret_val = False
-    return ret_val
+    result = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return result.returncode == 0
 
 
 class ErrorCodes(Enum):
-    """The equivalent of ICD-10 codes this doctor is using"""
+    """The equivalent of ICD-10 codes this health check is using"""
 
     Unknown = ExaError.message_builder('E-SLCCS-01').message("Unknown issue")
     TargetPlatformNotSupported = ExaError.message_builder('E-SLCCS-02')\

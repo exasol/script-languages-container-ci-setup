@@ -26,16 +26,6 @@ class Flavor(object):
         return self.__str__()
 
 
-def get_pip_location_for_pkg(dependent_pkg: str):
-    self_pkg_requirements = pkg_resources.working_set.by_key["script-languages-container-ci-setup"].requires()
-    searched_pgk_url = [pkg.url for pkg in self_pkg_requirements if pkg.name == dependent_pkg]
-    if len(searched_pgk_url) == 0:
-        raise RuntimeError(f"Missing dependency to package '{dependent_pkg}'")
-    elif len(searched_pgk_url) > 1:
-        raise RuntimeError(f"Multiple dependency entries found for package '{dependent_pkg}'")
-    return searched_pgk_url[0]
-
-
 def validate_config_file(config_file: Optional[str]):
     if config_file is not None:
         with open(config_file, "r") as config_file_:
@@ -84,10 +74,7 @@ def run_generate_buildspec(
     with open(output_pathname / "buildspec.yaml", "w") as output_file:
         output_file.write(result_yaml)
 
-    script_languages_ci_location = get_pip_location_for_pkg("script-languages-container-ci")
-    logging.info(f"Found script languages ci location at: {script_languages_ci_location}")
     result_build_yaml = render_template("build_buildspec.yaml",
-                                        script_languages_ci_location=script_languages_ci_location,
                                         config_file_parameter=get_config_file_parameter(config_file))
 
     with open(output_pathname / "build_buildspec.yaml", "w") as output_file:
