@@ -20,7 +20,7 @@ batch:
           FLAVOR: test-flavor
       buildspec: {location}/build_buildspec.yaml
       privileged-mode: true
-      type: BUILD_GENERAL1_SMALL
+      type: BUILD_GENERAL1_MEDIUM
 """
 
 
@@ -35,9 +35,7 @@ def test_buildspec(tmp_path):
     out_path.mkdir(parents=False, exist_ok=False)
 
     script_languages_ci_location = "http://slc-ci"
-    with patch("exasol_script_languages_container_ci_setup.lib.run_generate_buildspec.get_pip_location_for_pkg",
-               MagicMock(return_value=script_languages_ci_location)):
-        run_generate_buildspec((str(root_path),), str(out_path.absolute()), config_file=None)
+    run_generate_buildspec((str(root_path),), str(out_path.absolute()), config_file=None)
 
     with open(out_path / "buildspec.yaml", "r") as res_file:
         res = res_file.read()
@@ -73,11 +71,8 @@ def test_buildspec_with_valid_config_file(tmp_path):
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
-    script_languages_ci_location = "http://slc-ci"
-    with patch("exasol_script_languages_container_ci_setup.lib.run_generate_buildspec.get_pip_location_for_pkg",
-               MagicMock(return_value=script_languages_ci_location)):
-        run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                               config_file=str(config_file_path.absolute()))
+    run_generate_buildspec((str(root_path),), str(out_path.absolute()),
+                           config_file=str(config_file_path.absolute()))
 
     with open(out_path / "buildspec.yaml", "r") as res_file:
         res = res_file.read()
@@ -89,11 +84,9 @@ def test_buildspec_with_valid_config_file(tmp_path):
 
         # For build_buildspec.yaml we re-use the template for testing
         expected_result_build_buildspec = render_template("build_buildspec.yaml",
-                                                          script_languages_ci_location=script_languages_ci_location,
                                                           config_file_parameter=
                                                           get_config_file_parameter(config_file_path))
-        assert res.strip() == expected_result_build_buildspec.strip(). \
-            format(script_languages_ci_location=script_languages_ci_location)
+        assert res.strip() == expected_result_build_buildspec.strip()
 
 
 def test_buildspec_with_invalid_config_file(tmp_path):
@@ -112,12 +105,9 @@ def test_buildspec_with_invalid_config_file(tmp_path):
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
-    script_languages_ci_location = "http://slc-ci"
-    with patch("exasol_script_languages_container_ci_setup.lib.run_generate_buildspec.get_pip_location_for_pkg",
-               MagicMock(return_value=script_languages_ci_location)):
-        with pytest.raises(jsonschema.exceptions.ValidationError):
-            run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                                   config_file=str(config_file_path.absolute()))
+    with pytest.raises(jsonschema.exceptions.ValidationError):
+        run_generate_buildspec((str(root_path),), str(out_path.absolute()),
+                               config_file=str(config_file_path.absolute()))
 
 
 def test_buildspec_with_invalid_folder(tmp_path):
@@ -138,10 +128,7 @@ def test_buildspec_with_invalid_folder(tmp_path):
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
-    script_languages_ci_location = "http://slc-ci"
-    with patch("exasol_script_languages_container_ci_setup.lib.run_generate_buildspec.get_pip_location_for_pkg",
-               MagicMock(return_value=script_languages_ci_location)):
-        with pytest.raises(ValueError):
-            run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                                   config_file=str(config_file_path.absolute()))
+    with pytest.raises(ValueError):
+        run_generate_buildspec((str(root_path),), str(out_path.absolute()),
+                               config_file=str(config_file_path.absolute()))
 
