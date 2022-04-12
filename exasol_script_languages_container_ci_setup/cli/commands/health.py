@@ -37,9 +37,9 @@ def health(aws_profile: str):
         count=len(problems),
         problems="\n".join(
             (
-                str(icd.value) for icd in problems
+                str(p) for p in problems
             )
         ),
     )
-    logging.error(message, flush=True)
+    print(message)
     sys.exit(failure)
