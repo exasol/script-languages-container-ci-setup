@@ -110,7 +110,7 @@ Resources:
           -  - Type: EVENT
                Pattern: PUSH,PULL_REQUEST_MERGED
              - Type: HEAD_REF
-               Pattern: ^refs/heads/feature/390_evaluate_aws_code_build_for_ci$
+               Pattern: ^refs/heads/(master|rebuild|feature|bug|enhancement|refactoring|ci|security)/.*
                ExcludeMatchedPattern: false
       ServiceRole: !GetAtt CodeBuildRole.Arn
       BuildBatchConfig:

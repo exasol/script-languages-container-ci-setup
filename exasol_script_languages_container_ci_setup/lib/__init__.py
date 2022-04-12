@@ -1,35 +1,35 @@
 import logging
-import shlex
-import subprocess
-import sys
-from pathlib import Path
-from tempfile import TemporaryDirectory
 from typing import Optional
 
 import boto3
 import jinja2
 from botocore.exceptions import ClientError
 
+from exasol_script_languages_container_ci_setup.lib.deployer import Deployer
+
 
 def upload_cloudformation_stack(aws_profile: str, yml: str, stack_name: str):
     """
-    Use the AWS CLI to deploy a stack. (Note we don't use Boto3 here
-    because it looks much more complicated than the CLI variant and there is not really good documentation for it.
+    Deploy the cloudformation stack.
     """
-    logging.info(f"Deploy stack with name='{stack_name}' for aws profile {aws_profile}")
-    with TemporaryDirectory() as yml_dir:
-        yml_file_path = Path(yml_dir) / "cloudformation.yaml"
-        with open(yml_file_path, "w") as yml_file:
-            yml_file.write(yml)
-        command = f"aws cloudformation deploy --stack-name {stack_name} " \
-                  f"--profile {aws_profile} --template-file {yml_file_path} " \
-                  f"--capabilities CAPABILITY_IAM"
-        logging.info(f"Invoking command: {command}")
-        completed_process = subprocess.run(shlex.split(command))
-        try:
-            completed_process.check_returncode()
-        except subprocess.CalledProcessError as e:
-            sys.exit(1)
+    if aws_profile is not None:
+        logging.debug(f"upload_cloudformation_stack for aws profile {aws_profile}")
+        aws_session = boto3.session.Session(profile_name=aws_profile)
+        cloud_client = aws_session.client('cloudformation')
+    else:
+        logging.debug(f"upload_cloudformation_stack for default aws profile.")
+        cloud_client = boto3.client('cloudformation')
+    try:
+        cfn_deployer = Deployer(cloudformation_client=cloud_client)
+        result = cfn_deployer.create_and_wait_for_changeset(stack_name=stack_name, cfn_template=yml,
+                                                            parameter_values=[],
+                                                            capabilities=("CAPABILITY_IAM",), role_arn=None,
+                                                            notification_arns=None, tags=tuple())
+        cfn_deployer.execute_changeset(changeset_id=result.changeset_id, stack_name=stack_name)
+        cfn_deployer.wait_for_execute(stack_name=stack_name, changeset_type=result.changeset_type)
+    except Exception as e:
+        logging.error(f"Error deploying cloud formation template: {e}")
+        raise e
 
 
 def read_secret_arn(aws_profile: str, secret_name: str):
