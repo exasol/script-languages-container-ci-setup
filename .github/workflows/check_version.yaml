@@ -1,6 +1,6 @@
 name: Check if versions are consistent
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   check-version-numbers:
