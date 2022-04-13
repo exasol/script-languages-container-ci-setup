@@ -139,7 +139,7 @@ class Deployer(object):
         :param stack_name:   Stack name
         :return: Latest status of the create-change-set operation
         """
-        LOG.info("\nWaiting for changeset to be created..\n")
+        LOG.info("Waiting for changeset to be created..")
 
         # Wait for changeset to be created
         waiter = self._client.get_waiter("change_set_create_complete")

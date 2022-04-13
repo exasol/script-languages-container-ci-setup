@@ -1,3 +1,6 @@
+import logging
+import sys
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -23,4 +26,9 @@ def deploy_source_credentials(
         secret_user_key: str,
         secret_token_key: str):
     set_log_level(log_level)
-    run_deploy_source_credentials(aws_profile, secret_name, secret_user_key, secret_token_key)
+    try:
+        run_deploy_source_credentials(aws_profile, secret_name, secret_user_key, secret_token_key)
+    except Exception:
+        logging.error("deploy_source_credentials failed.")
+        sys.exit(1)
+

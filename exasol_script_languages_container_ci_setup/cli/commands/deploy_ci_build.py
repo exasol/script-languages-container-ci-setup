@@ -1,3 +1,6 @@
+import logging
+import sys
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -20,5 +23,9 @@ def deploy_ci_build(
         project: str,
         project_url: str):
     set_log_level(log_level)
-    run_deploy_ci_build(aws_profile, project,
-                        project_url)
+    try:
+        run_deploy_ci_build(aws_profile, project,
+                            project_url)
+    except Exception:
+        logging.error("run_deploy_ci_build failed.")
+        sys.exit(1)

@@ -1,4 +1,3 @@
-import logging
 import sys
 from inspect import cleandoc
 

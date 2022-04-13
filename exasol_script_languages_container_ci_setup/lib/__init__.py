@@ -25,10 +25,15 @@ def upload_cloudformation_stack(aws_profile: str, yml: str, stack_name: str):
                                                             parameter_values=[],
                                                             capabilities=("CAPABILITY_IAM",), role_arn=None,
                                                             notification_arns=None, tags=tuple())
+    except Exception as e:
+        logging.error(f"Error creating changeset for cloud formation template: {e}")
+        raise e
+    try:
         cfn_deployer.execute_changeset(changeset_id=result.changeset_id, stack_name=stack_name)
         cfn_deployer.wait_for_execute(stack_name=stack_name, changeset_type=result.changeset_type)
     except Exception as e:
-        logging.error(f"Error deploying cloud formation template: {e}")
+        logging.error(f"Error executing changeset for cloud formation template: {e}")
+        logging.error(f"Run 'aws cloudformation describe-stack-events --stack-name {stack_name}' to get details.")
         raise e
 
 
