@@ -18,25 +18,6 @@ Resources:
           - Id: ExpirationRule
             Status: Enabled
             ExpirationInDays: 30
-  ArtifactsBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref ArtifactsBucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Effect: Deny
-            Action:
-              - s3:PutObject
-              - s3:GetObject
-            Resource:
-              - !Sub "arn:aws:s3:::${ArtifactsBucket}/*"
-            Principal: "*"
-            # https://aws.amazon.com/blogs/security/how-to-restrict-amazon-s3-bucket-access-to-a-specific-iam-role/
-            Condition:
-              StringNotLike:
-                aws:userId:
-                  - !Sub "${CodeBuildRole.RoleId}:*"
 
   CodeBuildRole:
     Type: AWS::IAM::Role
