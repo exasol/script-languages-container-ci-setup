@@ -122,7 +122,7 @@ Resources:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub "/aws/codebuild/${ {{project}}CodeBuild }"
-      RetentionInDays: 20
+      RetentionInDays: 31
 
 Outputs:
   ProjectName:
