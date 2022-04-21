@@ -37,14 +37,14 @@ dev = ["coverage (>=5.3,<6.0)", "flake8 (>=3.8.4,<3.9.0)", "tox (>=3.24,<4.0)", 
 
 [[package]]
 name = "boto3"
-version = "1.21.39"
+version = "1.21.44"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.6"
 
 [package.dependencies]
-botocore = ">=1.24.39,<1.25.0"
+botocore = ">=1.24.44,<1.25.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.5.0,<0.6.0"
 
@@ -53,7 +53,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.24.39"
+version = "1.24.44"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -191,7 +191,7 @@ url = "https://github.com/exasol/integration-test-docker-environment/releases/do
 
 [[package]]
 name = "exasol-script-languages-container-tool"
-version = "0.10.0"
+version = "0.11.0"
 description = "Script Languages Container Tool"
 category = "main"
 optional = false
@@ -203,7 +203,7 @@ importlib_metadata = ">=4.6.0"
 
 [package.source]
 type = "url"
-url = "https://github.com/exasol/script-languages-container-tool/releases/download/0.10.0/exasol_script_languages_container_tool-0.10.0-py3-none-any.whl"
+url = "https://github.com/exasol/script-languages-container-tool/releases/download/0.11.0/exasol_script_languages_container_tool-0.11.0-py3-none-any.whl"
 [[package]]
 name = "gitdb"
 version = "4.0.9"
@@ -722,7 +722,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.8.0,<4.0"
-content-hash = "aa21ec67e1d9a43ca5eedfebea63ba794b8be41d73f07661a793e768aabcf6bb"
+content-hash = "be6bba672cdc9167a266daa39868f2d1a191c1bed2fba719abf70f1b4482ef00"
 
 [metadata.files]
 atomicwrites = [
@@ -739,12 +739,12 @@ aws-sam-translator = [
     {file = "aws_sam_translator-1.45.0-py3-none-any.whl", hash = "sha256:40a6dd5a0aba32c7b38b0f5c54470396acdcd75e4b64251b015abdf922a18b5f"},
 ]
 boto3 = [
-    {file = "boto3-1.21.39-py3-none-any.whl", hash = "sha256:b709cb65ffc4e3f78c590145e2dee40758056c9edafb9ee692f67d170855dfc3"},
-    {file = "boto3-1.21.39.tar.gz", hash = "sha256:56425debf5f1fd2cf5494d9cb110b2a977453888f071898a12e6ab64bdd41796"},
+    {file = "boto3-1.21.44-py3-none-any.whl", hash = "sha256:0789842ca7d722723d7e9fae2158aea6f304c14df08929f9c62b6a277705ff39"},
+    {file = "boto3-1.21.44.tar.gz", hash = "sha256:1300661bd4defa42d7e019d515fbfd2984170cf3f5c0bf6bc275fbd9498faf5f"},
 ]
 botocore = [
-    {file = "botocore-1.24.39-py3-none-any.whl", hash = "sha256:94f50a544003918270ba726eb5652b2c31f6cb34accbf25e053ed6ea97ecf1fd"},
-    {file = "botocore-1.24.39.tar.gz", hash = "sha256:a0883dfe8b81689060af7bb2ca4ce3048b954b25bef4ed712c6760ce3da51485"},
+    {file = "botocore-1.24.44-py3-none-any.whl", hash = "sha256:ed07772c924984e5b3c1005f7ba4600cebd4169c23307cf6e92cccadf0b5d2e7"},
+    {file = "botocore-1.24.44.tar.gz", hash = "sha256:0030a11eac972be46859263820885ba650503622c5acfe58966f482d42cc538d"},
 ]
 certifi = [
     {file = "certifi-2021.10.8-py2.py3-none-any.whl", hash = "sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569"},

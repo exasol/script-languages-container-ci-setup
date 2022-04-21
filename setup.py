@@ -17,7 +17,7 @@ install_requires = \
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@main',
  'exasol_script_languages_container_tool @ '
- 'https://github.com/exasol/script-languages-container-tool/releases/download/0.10.0/exasol_script_languages_container_tool-0.10.0-py3-none-any.whl',
+ 'https://github.com/exasol/script-languages-container-tool/releases/download/0.11.0/exasol_script_languages_container_tool-0.11.0-py3-none-any.whl',
  'jinja2>=3.0.0',
  'jsonschema>=3.2.0,<4.0.0']
 
