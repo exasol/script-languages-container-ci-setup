@@ -10,6 +10,9 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec impor
 expected_result_root_buildspec = """
 version: 0.2
 
+# ---- AUTOMATICALLY GENERATED FILE --------
+# ---- DO NOT EDIT MANUALLY, BUT USE PYTHON MODULE "script-languages-container-ci-setup" TO UPDATE ---
+
 batch:
   fast-fail: false
   build-graph:
