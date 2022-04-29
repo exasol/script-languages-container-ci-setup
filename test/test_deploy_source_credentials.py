@@ -3,8 +3,10 @@ from unittest.mock import patch, MagicMock
 import pytest
 
 from exasol_script_languages_container_ci_setup.lib import render_template, validate_cloudformation_template
-from exasol_script_languages_container_ci_setup.lib.source_credentials import run_deploy_source_credentials, \
+from exasol_script_languages_container_ci_setup.lib.source_credentials import (
+    run_deploy_source_credentials,
     SOURCE_CREDENTIALS_STACK_NAME
+)
 
 from test.cloudformation_validation import validate_using_cfn_lint
 

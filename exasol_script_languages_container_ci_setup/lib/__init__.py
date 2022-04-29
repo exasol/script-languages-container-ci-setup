@@ -13,11 +13,11 @@ def upload_cloudformation_stack(aws_profile: str, yml: str, stack_name: str):
     Deploy the cloudformation stack.
     """
     if aws_profile is not None:
-        logging.debug(f"upload_cloudformation_stack for aws profile {aws_profile}")
+        logging.debug(f"Running upload_cloudformation_stack for aws profile {aws_profile}")
         aws_session = boto3.session.Session(profile_name=aws_profile)
         cloud_client = aws_session.client('cloudformation')
     else:
-        logging.debug(f"upload_cloudformation_stack for default aws profile.")
+        logging.debug(f"Running  upload_cloudformation_stack for default aws profile.")
         cloud_client = boto3.client('cloudformation')
     try:
         cfn_deployer = Deployer(cloudformation_client=cloud_client)
@@ -72,11 +72,11 @@ def validate_cloudformation_template(cloudformation_yml, aws_profile: Optional[s
     It requires to have the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env variables set correctly.
     """
     if aws_profile is not None:
-        logging.debug(f"validate_cloudformation_template for aws profile {aws_profile}")
+        logging.debug(f"Running validate_cloudformation_template for aws profile {aws_profile}")
         aws_session = boto3.session.Session(profile_name=aws_profile)
         cloud_client = aws_session.client('cloudformation')
         cloud_client.validate_template(TemplateBody=cloudformation_yml)
     else:
-        logging.debug(f"validate_cloudformation_template for default aws profile.")
+        logging.debug(f"Running validate_cloudformation_template for default aws profile.")
         cloud_client = boto3.client('cloudformation')
         cloud_client.validate_template(TemplateBody=cloudformation_yml)

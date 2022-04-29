@@ -66,7 +66,7 @@ def test_buildspec_with_valid_config_file(tmp_path):
     a_folder.mkdir(parents=False, exist_ok=False)
 
     config_file_path = tmp_path / "build_config.json"
-    config = {"build_ignore": {"ignored_folders": [str(a_folder)]}}
+    config = {"build_ignore": {"ignored_paths": [str(a_folder)]}}
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
@@ -99,8 +99,8 @@ def test_buildspec_with_invalid_config_file(tmp_path):
     out_path.mkdir(parents=False, exist_ok=False)
 
     config_file_path = tmp_path / "build_config.json"
-    # Incorrect config ('ignored_folder' instead of 'ignored_folders')
-    config = {"build_ignore": {"ignored_folder": ["a_folder"]}}
+    # Incorrect config ('ignored_path' instead of 'ignored_paths')
+    config = {"build_ignore": {"ignored_path": ["a_folder"]}}
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
@@ -123,7 +123,7 @@ def test_buildspec_with_invalid_folder(tmp_path):
 
     a_folder = tmp_path / "a_folder"
     # Incorrect config (tmp_path/a_folder does not exists)
-    config = {"build_ignore": {"ignored_folders": [str(a_folder)]}}
+    config = {"build_ignore": {"ignored_paths": [str(a_folder)]}}
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 

@@ -6,9 +6,9 @@
     "build_ignore": {
       "type" : "object",
       "additionalProperties" : false,
-      "required": [ "ignored_folders" ],
+      "required": [ "ignored_paths" ],
       "properties" : {
-        "ignored_folders" : { "type" : "array"}
+        "ignored_paths" : { "type" : "array"}
       }
     }
   }

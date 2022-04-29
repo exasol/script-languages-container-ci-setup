@@ -32,11 +32,11 @@ def validate_config_file(config_file: Optional[str]):
             config = json.load(config_file_)
             config_schema = json.loads(render_template("config_schema.json"))
             jsonschema.validate(instance=config, schema=config_schema)
-            ignored_folders = config["build_ignore"]["ignored_folders"]
-            for folder in ignored_folders:
-                folder_path = Path(folder)
+            ignored_paths = config["build_ignore"]["ignored_paths"]
+            for ignored_path in ignored_paths:
+                folder_path = Path(ignored_path)
                 if not folder_path.exists():
-                    raise ValueError(f"Ignored folder '{folder}' does not exist.")
+                    raise ValueError(f"Ignored folder '{ignored_path}' does not exist.")
 
 
 def get_config_file_parameter(config_file: Optional[str]):

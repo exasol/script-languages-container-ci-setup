@@ -13,7 +13,7 @@ def stack_name(project: str):
 def run_deploy_ci_build(aws_profile: str, project: str, github_url: str):
     """
     This command deploys the ci build cloudformation stack
-    1. It get's the dockerhub secret ARN from AWS via AWS CLI
+    1. It get's the dockerhub secret ARN from AWS via Boto3
     2. Then it renders the template and uploads the resulting cloudformation YAML file.
     """
     logging.info(f"run_deploy_ci_build for aws profile {aws_profile} for project {project} at {github_url}")

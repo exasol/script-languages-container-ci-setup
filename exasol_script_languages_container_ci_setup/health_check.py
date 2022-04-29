@@ -19,7 +19,7 @@ def check_shell_cmd(cmd: str) -> bool:
     :param cmd: shell command to execute
     :return: returns True if exit code was 0, False otherwise
     """
-    result = subprocess.run(shlex.split(cmd), stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    result = subprocess.run(shlex.split(cmd), capture_output=True)
     return result.returncode == 0
 
 
@@ -43,7 +43,7 @@ def aws_cli_available(**kwargs) -> Optional[ErrorMessageBuilder]:
 
 
 def aws_profile_valid(aws_profile: str) -> Optional[ErrorMessageBuilder]:
-    """Checks weather AWS cli is installed"""
+    """Checks weather the given AWS profile is configured properly."""
     command = f"aws --profile {aws_profile} configure list"
     if not check_shell_cmd(command):
         return ExaError.message_builder('E-SLCCS-04').message("AWS Profile invalid.") \
@@ -52,7 +52,7 @@ def aws_profile_valid(aws_profile: str) -> Optional[ErrorMessageBuilder]:
 
 
 def aws_access_key_valid(aws_profile: str) -> Optional[ErrorMessageBuilder]:
-    """Checks weather AWS cli is installed"""
+    """Checks weather AWS access key is configured for the given AWS profile."""
     command = f"aws --profile {aws_profile} iam list-access-keys"
     if not check_shell_cmd(command):
         return ExaError.message_builder('E-SLCCS-05').message("AWS Access Key invalid.") \

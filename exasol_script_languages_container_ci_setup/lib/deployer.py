@@ -157,7 +157,7 @@ class Deployer(object):
 
             raise RuntimeError("Failed to create the changeset: {0} "
                                "Status: {1}. Reason: {2}"
-                               .format(ex, status, reason))
+                               .format(ex, status, reason)) from ex
 
     def execute_changeset(self, changeset_id, stack_name,
                           disable_rollback=False):

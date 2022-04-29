@@ -91,7 +91,7 @@ Resources:
           -  - Type: EVENT
                Pattern: PUSH,PULL_REQUEST_MERGED
              - Type: HEAD_REF
-               Pattern: ^refs/heads/(master|rebuild|feature|bug|enhancement|refactoring|ci|security)/.*
+               Pattern: ^refs/heads/(main|master|rebuild|feature|bug|enhancement|refactoring|ci|security)/.*
                ExcludeMatchedPattern: false
       ServiceRole: !GetAtt CodeBuildRole.Arn
       BuildBatchConfig:

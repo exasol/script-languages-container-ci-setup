@@ -1,4 +1,5 @@
 import re
+import sys
 from pathlib import Path
 
 from git import Repo
@@ -37,9 +38,9 @@ if __name__ == '__main__':
     poetry_version = get_poetry_version()
     latest_tag = get_git_version()
     changelog_version = get_change_log_version()
-    print(f'Changelog version: "{changelog_version}"')
-    print(f'Current version: "{poetry_version}"')
-    print(f'Latest git tag: "{latest_tag}"')
+    print(f'Changelog version: "{changelog_version}"', file=sys.stderr)
+    print(f'Current version: "{poetry_version}"', file=sys.stderr)
+    print(f'Latest git tag: "{latest_tag}"', file=sys.stderr)
 
     # We expect that the current version in pyproject.toml is alway greater than the latest tag.
     # Thus we avoid creating a release without having the version number updated.
@@ -49,4 +50,4 @@ if __name__ == '__main__':
     if changelog_version != poetry_version:
         raise ValueError("Poetry version differs from Changelog version!")
 
-    print("Everything looks good")
+    print("Everything looks good", file=sys.stderr)
