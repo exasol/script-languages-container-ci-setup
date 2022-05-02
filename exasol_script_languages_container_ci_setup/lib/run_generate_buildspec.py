@@ -37,10 +37,9 @@ def validate_config_file(config_file: Optional[str]):
 
 
 def get_config_file_parameter(config_file: Optional[str]):
-    if config_file is not None:
-        return f"--config-file {config_file}"
-    else:
+    if config_file None:
         return ""
+    return f"--config-file {config_file}"
 
 
 def run_generate_buildspec(
@@ -54,9 +53,8 @@ def run_generate_buildspec(
         assert flavor_root_path.is_dir()
         assert flavor_root_path.exists()
         assert flavor_root_path.name == "flavors"
-        for child in flavor_root_path.iterdir():
-            if child.is_dir():
-                flavors.add(Flavor(child.name))
+        dirs = (d for d in flavor_root_path.iterdir() if d.is_dir())
+        flavors.update(map(lambda directory: Flavor(directory.name), dirs))
     logging.info(f"Found flavors: {flavors}")
     buildspec_body = []
     for flavor in flavors:
