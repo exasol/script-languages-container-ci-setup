@@ -2,7 +2,8 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from exasol_script_languages_container_ci_setup.lib import render_template, validate_cloudformation_template
+from exasol_script_languages_container_ci_setup.lib.aws_access import validate_cloudformation_template
+from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from exasol_script_languages_container_ci_setup.lib.source_credentials import (
     run_deploy_source_credentials,
     SOURCE_CREDENTIALS_STACK_NAME
@@ -29,7 +30,7 @@ def test_deploy_source_credentials_upload_invoked(source_credentials_yml):
     when we run run_deploy_source_credentials()
     """
     AWS_PROFILE = "test_aws"
-    with patch("exasol_script_languages_container_ci_setup.lib.upload_cloudformation_stack",
+    with patch("exasol_script_languages_container_ci_setup.lib.aws_access.upload_cloudformation_stack",
                MagicMock()) as patched_upload:
         run_deploy_source_credentials(aws_profile=AWS_PROFILE, secret_name=SECRET_NAME,
                                       secret_user_key=SECRET_USER_KEY, secret_token_key=SECRET_TOKEN_KEY)

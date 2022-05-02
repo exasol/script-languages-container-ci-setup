@@ -2,8 +2,9 @@ from unittest.mock import patch, MagicMock
 
 import pytest
 
-from exasol_script_languages_container_ci_setup.lib import render_template, validate_cloudformation_template
+from exasol_script_languages_container_ci_setup.lib.aws_access import validate_cloudformation_template
 from exasol_script_languages_container_ci_setup.lib.ci_build import run_deploy_ci_build, stack_name
+from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from test.cloudformation_validation import validate_using_cfn_lint
 
 PROJECT = "slc"
@@ -17,7 +18,7 @@ def ci_code_build_yml():
                            dockerhub_secret_arn=DOCKERHUB_SECRET_ARN, github_url=GH_URL)
 
 
-@patch("exasol_script_languages_container_ci_setup.lib.read_dockerhub_secret_arn",
+@patch("exasol_script_languages_container_ci_setup.lib.aws_access.read_dockerhub_secret_arn",
        MagicMock(return_value=DOCKERHUB_SECRET_ARN))
 def test_deploy_ci_upload_invoked(ci_code_build_yml):
     """"
@@ -25,7 +26,7 @@ def test_deploy_ci_upload_invoked(ci_code_build_yml):
     with expected values when we run run_deploy_ci_build()
     """
     AWS_PROFILE = "test_aws"
-    with patch("exasol_script_languages_container_ci_setup.lib.upload_cloudformation_stack",
+    with patch("exasol_script_languages_container_ci_setup.lib.aws_access.upload_cloudformation_stack",
                MagicMock()) as patched_upload:
         run_deploy_ci_build(aws_profile=AWS_PROFILE, project=PROJECT,
                             github_url=GH_URL)

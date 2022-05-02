@@ -4,10 +4,7 @@ from pathlib import Path
 from typing import Tuple, Optional
 import jsonschema
 
-import pkg_resources
-
-
-from exasol_script_languages_container_ci_setup.lib import render_template
+from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 
 
 class Flavor(object):
