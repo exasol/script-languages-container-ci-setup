@@ -37,7 +37,7 @@ def validate_config_file(config_file: Optional[str]):
 
 
 def get_config_file_parameter(config_file: Optional[str]):
-    if config_file None:
+    if config_file is None:
         return ""
     return f"--config-file {config_file}"
 
