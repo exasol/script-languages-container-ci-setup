@@ -1,0 +1,9 @@
+version: 0.2
+
+# ---- AUTOMATICALLY GENERATED FILE --------
+# ---- DO NOT EDIT MANUALLY, BUT USE PYTHON MODULE "script-languages-container-ci-setup" TO UPDATE ---
+
+batch:
+  fast-fail: false
+  build-graph:
+{{batch_entries}}

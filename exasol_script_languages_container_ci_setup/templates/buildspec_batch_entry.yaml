@@ -1,0 +1,7 @@
+    - identifier: build_{{flavor_formatted}}
+      env:
+        variables:
+          FLAVOR: {{flavor_original}}
+      buildspec: {{out_path}}/build_buildspec.yaml
+      privileged-mode: true
+      type: BUILD_GENERAL1_MEDIUM
