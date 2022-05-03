@@ -15,11 +15,20 @@ class Flavor(object):
     """
     flavor_original: str
 
+    @property
     def flavor_formatted(self) -> str:
         return self.flavor_original.replace(".", "").replace("-", "_")
 
 
 def validate_config_file(config_file: Optional[str]):
+    """
+    Validates config file, path given by parameter config_file.
+    :raises:
+
+        `jsonschema.exceptions.ValidationError` if the config file has invalid JSON format.
+        `jsonschema.exceptions.SchemaError` if the config file is not in accordance with the the schema.
+        `ValueError` if the ignored path given in the config file does not exist.
+    """
     if config_file is not None:
         with open(config_file, "r") as config_file_:
             config = json.load(config_file_)
@@ -56,7 +65,7 @@ def run_generate_buildspec(
     for flavor in flavors:
         buildspec_body.append(render_template("buildspec_batch_entry.yaml",
                                                  flavor_original=flavor.flavor_original,
-                                                 flavor_formatted=flavor.flavor_formatted(),
+                                                 flavor_formatted=flavor.flavor_formatted,
                                                  out_path=output_pathname))
 
     result_yaml = render_template("buildspec_hull.yaml", batch_entries="\n".join(buildspec_body))
