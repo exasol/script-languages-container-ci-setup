@@ -1,5 +1,6 @@
 import json
 import logging
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Tuple, Optional
 import jsonschema
@@ -7,20 +8,15 @@ import jsonschema
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 
 
+@dataclass(eq=True, frozen=True)
 class Flavor(object):
     """"
     Holds the name and the formatted name used for generating the buildspec.
     """
+    flavor_original: str
 
-    def __init__(self, flavor: str):
-        self.flavor_original = flavor
-        self.flavor_formatted = flavor.replace(".", "").replace("-", "_")
-
-    def __str__(self):
-        return f"Flavor(original={self.flavor_original}, formatted={self.flavor_formatted})"
-
-    def __repr__(self):
-        return self.__str__()
+    def flavor_formatted(self) -> str:
+        return self.flavor_original.replace(".", "").replace("-", "_")
 
 
 def validate_config_file(config_file: Optional[str]):
@@ -60,7 +56,7 @@ def run_generate_buildspec(
     for flavor in flavors:
         buildspec_body.append(render_template("buildspec_batch_entry.yaml",
                                                  flavor_original=flavor.flavor_original,
-                                                 flavor_formatted=flavor.flavor_formatted,
+                                                 flavor_formatted=flavor.flavor_formatted(),
                                                  out_path=output_pathname))
 
     result_yaml = render_template("buildspec_hull.yaml", batch_entries="\n".join(buildspec_body))
