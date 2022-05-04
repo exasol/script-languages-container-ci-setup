@@ -1,5 +1,6 @@
 import logging
-from typing import Optional
+import time
+from typing import Optional, List, Dict, Tuple
 
 import boto3
 from botocore.exceptions import ClientError
@@ -78,3 +79,62 @@ class AwsAccess(object):
             logging.debug(f"Running validate_cloudformation_template for default aws profile.")
             cloud_client = boto3.client('cloudformation')
             cloud_client.validate_template(TemplateBody=cloudformation_yml)
+
+    def _get_codebuild_client(self):
+        if self._aws_profile is not None:
+            logging.debug(f"Running validate_cloudformation_template for aws profile {self._aws_profile}")
+            aws_session = boto3.session.Session(profile_name=self._aws_profile)
+            codebuild_client = aws_session.client('codebuild')
+        else:
+            logging.debug(f"Running validate_cloudformation_template for default aws profile.")
+            codebuild_client = boto3.client('codebuild')
+        return codebuild_client
+
+    def get_all_codebuild_projects(self) -> List[str]:
+        """
+        This functions uses Boto3 to get all CodeBuild projects. The AWS API truncates at a size of 100, and
+        in order to get all chunks the method must be called passing the previous retrieved token until no token
+        is returned.
+        """
+        codebuild_client = self._get_codebuild_client()
+        current_result = codebuild_client.list_projects()
+        result = current_result["projects"]
+
+        while "nextToken" in current_result:
+            current_result = codebuild_client.list_projects(nextToken=current_result["nextToken"])
+            result.extend(current_result["projects"])
+        return result
+
+    def start_codebuild(self, project: str, environment_variables_overrides: List[Dict[str, str]], branch: str):
+        """
+        This functions uses Boto3 to start a batch build.
+        It forwards all variabkes from parameter env_variables as environment variables to the CodeBuild project.
+        If a branch is given, it starts the codebuild for the given branch.
+        After the build has triggered it waits until the batch build finished
+        """
+        codebuild_client = self._get_codebuild_client()
+        logging.info(f"Trigger codebuild for project {project} with branch {branch} "
+                     f"and env_variables ({environment_variables_overrides})")
+        ret_val = codebuild_client.start_build_batch(projectName=project,
+                                                     sourceVersion=branch,
+                                                     environmentVariablesOverride=list(
+                                                         environment_variables_overrides))
+        build_id = ret_val['buildBatch']['id']
+        logging.debug(f"Codebuild for project {project} with branch {branch} triggered. Id is {build_id}.")
+
+        for counter in range(120):  #We wait for maximal 1h + (something)
+            time.sleep(30)
+            logging.debug(f"Checking status of codebuild id {build_id}.")
+            build_response = codebuild_client.batch_get_build_batches(ids=[build_id])
+            logging.debug(f"Build response of codebuild id {build_id} is {build_response}")
+            if len(build_response['buildBatches']) != 1:
+                logging.error(f"Unexpected return value from 'batch_get_build_batches': {build_response}")
+            build_status = build_response['buildBatches'][0]['buildBatchStatus']
+            logging.info(f"Build status of codebuild id {build_id} is {build_status}")
+            if build_status == 'SUCCEEDED':
+                break
+            elif build_status in ['FAILED', 'FAULT', 'STOPPED', 'TIMED_OUT']:
+                raise RuntimeError(f"Build ({build_id}) failed with status: {build_status}")
+            elif build_status is not "IN_PROGRESS":
+                raise RuntimeError(f"Batch build {build_id} has unknown build status.")
+
