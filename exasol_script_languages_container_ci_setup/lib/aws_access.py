@@ -82,11 +82,9 @@ class AwsAccess(object):
 
     def _get_codebuild_client(self):
         if self._aws_profile is not None:
-            logging.debug(f"Running validate_cloudformation_template for aws profile {self._aws_profile}")
             aws_session = boto3.session.Session(profile_name=self._aws_profile)
             codebuild_client = aws_session.client('codebuild')
         else:
-            logging.debug(f"Running validate_cloudformation_template for default aws profile.")
             codebuild_client = boto3.client('codebuild')
         return codebuild_client
 
@@ -96,6 +94,7 @@ class AwsAccess(object):
         in order to get all chunks the method must be called passing the previous retrieved token until no token
         is returned.
         """
+        logging.debug(f"Running get_all_codebuild_projects for aws profile {self._aws_profile}")
         codebuild_client = self._get_codebuild_client()
         current_result = codebuild_client.list_projects()
         result = current_result["projects"]
@@ -105,12 +104,14 @@ class AwsAccess(object):
             result.extend(current_result["projects"])
         return result
 
-    def start_codebuild(self, project: str, environment_variables_overrides: List[Dict[str, str]], branch: str):
+    def start_codebuild(self, project: str, environment_variables_overrides: List[Dict[str, str]], branch: str) -> None:
         """
         This functions uses Boto3 to start a batch build.
         It forwards all variabkes from parameter env_variables as environment variables to the CodeBuild project.
         If a branch is given, it starts the codebuild for the given branch.
         After the build has triggered it waits until the batch build finished
+        :raises
+            `RuntimeError` if build fails or AWS Batch build returns unknown status
         """
         codebuild_client = self._get_codebuild_client()
         logging.info(f"Trigger codebuild for project {project} with branch {branch} "
