@@ -84,9 +84,6 @@ Resources:
     Type: AWS::CodeBuild::Project
     Properties:
       Description: {{ project }} Container ReleaseCodeBuild
-      Triggers:
-        BuildType: BUILD_BATCH
-        Webhook: False
       ServiceRole: !GetAtt ReleaseCodeBuildRole.Arn
       BuildBatchConfig:
          BatchReportMode: REPORT_INDIVIDUAL_BUILDS
