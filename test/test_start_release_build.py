@@ -6,7 +6,7 @@ from dateutil.tz import tzutc
 
 from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_release_build
 
-UPLOAD_URL = "http://deploy-release-artifacts-here.com"
+UPLOAD_URL = "https://uploads.github.com/repos/exasol/script-languages-repo/releases/123/assets{?name,label}"
 BRANCH = "main"
 GITHUB_TOKEN = "gh_secret"
 
@@ -55,9 +55,9 @@ def test_run_release_build():
     os.environ["GITHUB_TOKEN"] = GITHUB_TOKEN
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
     run_start_release_build(aws_access=aws_access_mock, project="slc",
-                            upload_url=UPLOAD_URL, branch=BRANCH, dry_run=False)
+                            upload_url=UPLOAD_URL, branch=BRANCH)
     expected_env_variable_overrides = [
-        {"name": "UPLOAD_URL", "value": UPLOAD_URL, "type": "PLAINTEXT"},
+        {"name": "RELEASE_KEY", "value": "Id:123", "type": "PLAINTEXT"},
         {"name": "DRY_RUN", "value": "--no-dry-run", "type": "PLAINTEXT"},
         {"name": "GITHUB_TOKEN", "value": GITHUB_TOKEN, "type": "PLAINTEXT"}
     ]

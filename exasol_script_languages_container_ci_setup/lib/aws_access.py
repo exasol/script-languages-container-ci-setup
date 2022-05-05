@@ -114,7 +114,7 @@ class AwsAccess(object):
         logging.debug(f"Codebuild for project {project} with branch {branch} triggered. Id is {build_id}.")
 
         succeeded = False
-        for counter in range(120):  #We wait for maximal 1h + (something)
+        for counter in range(240):  #We wait for maximal 2h + (something)
             time.sleep(30)
             logging.debug(f"Checking status of codebuild id {build_id}.")
             build_response = codebuild_client.batch_get_build_batches(ids=[build_id])
