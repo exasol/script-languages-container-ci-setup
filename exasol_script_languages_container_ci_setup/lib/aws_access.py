@@ -113,6 +113,7 @@ class AwsAccess(object):
         build_id = ret_val['buildBatch']['id']
         logging.debug(f"Codebuild for project {project} with branch {branch} triggered. Id is {build_id}.")
 
+        succeeded = False
         for counter in range(120):  #We wait for maximal 1h + (something)
             time.sleep(30)
             logging.debug(f"Checking status of codebuild id {build_id}.")
@@ -123,8 +124,11 @@ class AwsAccess(object):
             build_status = build_response['buildBatches'][0]['buildBatchStatus']
             logging.info(f"Build status of codebuild id {build_id} is {build_status}")
             if build_status == 'SUCCEEDED':
+                succeeded = True
                 break
             elif build_status in ['FAILED', 'FAULT', 'STOPPED', 'TIMED_OUT']:
                 raise RuntimeError(f"Build ({build_id}) failed with status: {build_status}")
             elif build_status != "IN_PROGRESS":
                 raise RuntimeError(f"Batch build {build_id} has unknown build status: {build_status}")
+        if not succeeded:
+            raise RuntimeError(f"Batch build {build_id} ran into timeout.")
