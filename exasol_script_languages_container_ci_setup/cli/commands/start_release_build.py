@@ -5,7 +5,6 @@ from exasol_script_languages_container_ci_setup.cli.common import add_options
 from exasol_script_languages_container_ci_setup.cli.options.logging import logging_options, set_log_level
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
-from exasol_script_languages_container_ci_setup.lib.release_build import run_validate_release_build
 from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_release_build
 
 
@@ -13,7 +12,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
 @add_options(aws_options)
 @add_options(logging_options)
 @click.option('--project', type=str, required=True,
-              help="""The project for which the stack will be created.""")
+              help="""The project name. Must be same name as used for the AWS CodeBuild release stack creation.""")
 @click.option('--upload-url', type=str, required=True,
               help="""The URL of the Github release where artifacts will be stored.""")
 @click.option('--branch', type=str, required=True,
