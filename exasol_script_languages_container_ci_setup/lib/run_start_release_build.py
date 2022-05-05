@@ -23,7 +23,7 @@ def run_start_release_build(aws_access: AwsAccess, project: str, upload_url: str
     logging.info(f"run_start_release_build for aws profile {aws_access.aws_profile} for project {project} "
                  f"with upload url: {upload_url}")
     projects = aws_access.get_all_codebuild_projects()
-    matching_project = [p for p in projects if p.startswith(f"{project}CodeBuild")]
+    matching_project = [p for p in projects if p.startswith(f"{project}ReleaseCodeBuild")]
     if len(matching_project) == 0:
         raise ValueError(f"No project deployed for {project}. Found following projects: {projects}")
     if len(matching_project) > 1:
