@@ -1,3 +1,5 @@
+from typing import Optional
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -16,7 +18,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
 @click.option('--release-tag', type=str, required=False,
               help="""The tag of the release for which the artifacts will be stored.""")
 def start_release_build(
-        aws_profile: str,
+        aws_profile: Optional[str],
         log_level: str,
         project: str,
         release_tag: str,

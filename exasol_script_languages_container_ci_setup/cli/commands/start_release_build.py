@@ -1,3 +1,5 @@
+from typing import Optional
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -18,7 +20,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
 @click.option('--branch', type=str, required=True,
               help="""The branch of the repository which will be used.""")
 def start_release_build(
-        aws_profile: str,
+        aws_profile: Optional[str],
         log_level: str,
         project: str,
         upload_url: str,

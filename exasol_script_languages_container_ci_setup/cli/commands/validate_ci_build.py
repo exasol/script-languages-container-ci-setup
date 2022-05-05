@@ -1,4 +1,5 @@
 import logging
+from typing import Optional
 
 import click
 
@@ -18,7 +19,7 @@ from exasol_script_languages_container_ci_setup.cli.options.aws_options import a
 @click.option('--project-url', type=str, required=True,
               help="""The URL of the project on Github.""")
 def validate_ci_build(
-        aws_profile: str,
+        aws_profile: Optional[str],
         log_level: str,
         project: str,
         project_url: str):

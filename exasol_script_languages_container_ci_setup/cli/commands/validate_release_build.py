@@ -1,3 +1,5 @@
+from typing import Optional
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -16,7 +18,7 @@ from exasol_script_languages_container_ci_setup.lib.release_build import run_val
 @click.option('--project-url', type=str, required=True,
               help="""The URL of the project on Github.""")
 def validate_release_build(
-        aws_profile: str,
+        aws_profile: Optional[str],
         log_level: str,
         project: str,
         project_url: str):
