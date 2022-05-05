@@ -1,6 +1,6 @@
 import logging
 import time
-from typing import Optional, List, Dict, Tuple
+from typing import Optional, List, Dict, Any
 
 import boto3
 from botocore.exceptions import ClientError
@@ -20,13 +20,8 @@ class AwsAccess(object):
         """
         Deploy the cloudformation stack.
         """
-        if self._aws_profile is not None:
-            logging.debug(f"Running upload_cloudformation_stack for aws profile {self._aws_profile}")
-            aws_session = boto3.session.Session(profile_name=self._aws_profile)
-            cloud_client = aws_session.client('cloudformation')
-        else:
-            logging.debug(f"Running  upload_cloudformation_stack for default aws profile.")
-            cloud_client = boto3.client('cloudformation')
+        logging.debug(f"Running upload_cloudformation_stack for aws profile {self._aws_profile}")
+        cloud_client = self._get_aws_client("cloudformation")
         try:
             cfn_deployer = Deployer(cloudformation_client=cloud_client)
             result = cfn_deployer.create_and_wait_for_changeset(stack_name=stack_name, cfn_template=yml,
@@ -70,38 +65,33 @@ class AwsAccess(object):
         Pitfall: Boto3 expects the YAML string as parameter, whereas the AWS CLI expects the file URL as parameter.
         It requires to have the AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY env variables set correctly.
         """
-        if self._aws_profile is not None:
-            logging.debug(f"Running validate_cloudformation_template for aws profile {self._aws_profile}")
-            aws_session = boto3.session.Session(profile_name=self._aws_profile)
-            cloud_client = aws_session.client('cloudformation')
-            cloud_client.validate_template(TemplateBody=cloudformation_yml)
-        else:
-            logging.debug(f"Running validate_cloudformation_template for default aws profile.")
-            cloud_client = boto3.client('cloudformation')
-            cloud_client.validate_template(TemplateBody=cloudformation_yml)
+        logging.debug(f"Running validate_cloudformation_template for aws profile {self._aws_profile}")
+        cloud_client = self._get_aws_client("cloudformation")
+        cloud_client.validate_template(TemplateBody=cloudformation_yml)
 
-    def _get_codebuild_client(self):
+    def _get_aws_client(self, service_name: str) -> Any:
         if self._aws_profile is not None:
             aws_session = boto3.session.Session(profile_name=self._aws_profile)
-            codebuild_client = aws_session.client('codebuild')
+            codebuild_client = aws_session.client(service_name)
         else:
-            codebuild_client = boto3.client('codebuild')
+            codebuild_client = boto3.client(service_name)
         return codebuild_client
 
-    def get_all_codebuild_projects(self) -> List[str]:
+    def get_all_stack_resources(self, stack_name: str) -> List[Dict[str, str]]:
         """
-        This functions uses Boto3 to get all CodeBuild projects. The AWS API truncates at a size of 100, and
-        in order to get all chunks the method must be called passing the previous retrieved token until no token
-        is returned.
+        This functions uses Boto3 to get all AWS Cloudformation resources for a specific Cloudformation stack,
+        identified by parameter `stack_name`.
+        The AWS API truncates at a size of 1MB, and in order to get all chunks the method must be called
+        passing the previous retrieved token until no token is returned.
         """
         logging.debug(f"Running get_all_codebuild_projects for aws profile {self._aws_profile}")
-        codebuild_client = self._get_codebuild_client()
-        current_result = codebuild_client.list_projects()
-        result = current_result["projects"]
+        cf_client = self._get_aws_client('cloudformation')
+        current_result = cf_client.list_stack_resources(StackName=stack_name)
+        result = current_result["StackResourceSummaries"]
 
         while "nextToken" in current_result:
-            current_result = codebuild_client.list_projects(nextToken=current_result["nextToken"])
-            result.extend(current_result["projects"])
+            current_result = cf_client.list_projects(StackName=stack_name, nextToken=current_result["nextToken"])
+            result.extend(current_result["StackResourceSummaries"])
         return result
 
     def start_codebuild(self, project: str, environment_variables_overrides: List[Dict[str, str]], branch: str) -> None:
@@ -113,7 +103,7 @@ class AwsAccess(object):
         :raises
             `RuntimeError` if build fails or AWS Batch build returns unknown status
         """
-        codebuild_client = self._get_codebuild_client()
+        codebuild_client = self._get_aws_client("codebuild")
         logging.info(f"Trigger codebuild for project {project} with branch {branch} "
                      f"and env_variables ({environment_variables_overrides})")
         ret_val = codebuild_client.start_build_batch(projectName=project,
@@ -138,4 +128,3 @@ class AwsAccess(object):
                 raise RuntimeError(f"Build ({build_id}) failed with status: {build_status}")
             elif build_status is not "IN_PROGRESS":
                 raise RuntimeError(f"Batch build {build_id} has unknown build status: {build_status}")
-
