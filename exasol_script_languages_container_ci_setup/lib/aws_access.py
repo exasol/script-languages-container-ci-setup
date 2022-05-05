@@ -126,5 +126,5 @@ class AwsAccess(object):
                 break
             elif build_status in ['FAILED', 'FAULT', 'STOPPED', 'TIMED_OUT']:
                 raise RuntimeError(f"Build ({build_id}) failed with status: {build_status}")
-            elif build_status is not "IN_PROGRESS":
+            elif build_status != "IN_PROGRESS":
                 raise RuntimeError(f"Batch build {build_id} has unknown build status: {build_status}")
