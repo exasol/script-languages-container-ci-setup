@@ -14,7 +14,7 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_release_buildsp
               type=click.Path(file_okay=False, dir_okay=True, exists=True),
               help="Path where script language container flavors are located.")
 @click.option('--output-path', type=click.Path(file_okay=False, dir_okay=True, exists=True, writable=True),
-              default="./aws-code-build/ci", show_default=True,
+              default="./aws-code-build/release", show_default=True,
               help="Path where buildspec files will be deployed.")
 @click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
               help="Configuration file for build (project specific).")
