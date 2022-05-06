@@ -40,11 +40,12 @@ In order to accelerate the CI builds of the script language container we want to
 We have put the source credentials cloudformation specification in another file because AWS allows to have only one instance of SourceCredential per `ServerType` (GITHUB in our case). See https://thomasstep.com/blog/cloudformation-example-for-codebuild-with-a-webhook for more information.
 This means the stack for source credentials needs to be deployed only once, and not per project.
 
-### Deployements
+### Deployments
 
-There are currently 2 types of stacks to be deployed:
+There are currently 3 types of stacks to be deployed:
 * The source credentials stack, named: `SLCSourceCredentials`. 
 * Arbitrary number of stacks for the CI builds, named `${PROJECT}` (${PROJECT} is the name of the project given as argument)
+* Arbitrary number of stacks for the release builds, named `${PROJECT}Release` (${PROJECT} is the name of the project given as argument)
 
 #### SLCSourceCredentials
 
@@ -59,3 +60,15 @@ There will be one code build stack for each repository. Each stack contains
 * A policy for the S3 Bucket.
 * The CodeBuild instance itself. It will be named `${PROJECT}CodeBuild`. (${PROJECT} is the name of the project given as argument)
 
+#### Release-Build
+
+For some repositores there will be one code build stack for to build the release artifacts. Each stack contains 
+* roles for the CodeBuild, S3 artifact-Bucket and Batchbuild.
+* A S3 Bucket for the artifacts of the build. The artifacts usually contain the logs of the `exaslct` runs.
+* A policy for the S3 Bucket.
+* The CodeBuild instance itself. It will be named `${PROJECT}ReleaseCodeBuild`. (${PROJECT} is the name of the project given as argument)
+
+### Flows
+
+The overall flow for a release build is shown in the following diagram:
+![image info](./release-flow.png)
