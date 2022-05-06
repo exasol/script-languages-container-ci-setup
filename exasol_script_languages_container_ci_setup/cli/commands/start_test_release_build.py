@@ -22,7 +22,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
               help="""The branch for which the test release should be created.""")
 @click.option('--release-title', type=str, required=True,
               help="""The title of the Github draft release which will be created.""")
-def start_release_build(
+def start_test_release_build(
         aws_profile: Optional[str],
         log_level: str,
         repo_id: str,
@@ -30,5 +30,9 @@ def start_release_build(
         branch: str,
         release_title: str
 ):
+    """
+    This command creates a release draft on Github and triggers the AWS release Codebuild to upload the
+    release artifacts onto the new Github release.
+    """
     set_log_level(log_level)
     run_start_test_release_build(AwsAccess(aws_profile), GithubReleaseCreator(), repo_id, project, branch, release_title)

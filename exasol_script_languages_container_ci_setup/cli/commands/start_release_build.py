@@ -25,5 +25,9 @@ def start_release_build(
         project: str,
         upload_url: str,
         branch: str):
+    """
+    This command  triggers the AWS release Codebuild to upload the
+    release artifacts onto the given Github release, indicated by parameter 'upload_url'.
+    """
     set_log_level(log_level)
     run_start_release_build(AwsAccess(aws_profile), project, upload_url, branch)
