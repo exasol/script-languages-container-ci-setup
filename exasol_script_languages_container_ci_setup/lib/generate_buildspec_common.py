@@ -2,7 +2,7 @@ import json
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Tuple, Set
+from typing import Optional, Tuple, List
 
 import jsonschema
 
@@ -48,7 +48,10 @@ def get_config_file_parameter(config_file: Optional[str]):
     return f"--config-file {config_file}"
 
 
-def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> Set[Flavor]:
+def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> List[Flavor]:
+    """"
+    Find flavors under the given path(s) and return them in ordered list.
+    """
     flavors = set()
     for flavor_root_path in [Path(f).resolve() for f in flavor_root_paths]:
         assert flavor_root_path.is_dir()
@@ -57,7 +60,9 @@ def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> Set[Flavor]:
         dirs = (d for d in flavor_root_path.iterdir() if d.is_dir())
         flavors.update(map(lambda directory: Flavor(directory.name), dirs))
     logging.info(f"Found flavors: {flavors}")
-    return flavors
+    return_value = list(flavors)
+    return_value.sort()
+    return return_value
 
 
 def write_batch_build_spec(flavor_root_paths: Tuple[str, ...], output_pathname: str) -> None:
