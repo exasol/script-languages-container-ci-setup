@@ -4,11 +4,12 @@ from unittest.mock import MagicMock
 
 from dateutil.tz import tzutc
 
-from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_release_build
+from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_test_release_build
 
-UPLOAD_URL = "https://uploads.github.com/repos/exasol/script-languages-repo/releases/123/assets{?name,label}"
+REPO_ID = "script-languages-repo"
 BRANCH = "main"
 GITHUB_TOKEN = "gh_secret"
+RELEASE_TITLE = "test-release"
 
 #Original resources extracted from a ScriptLanguage cloudformation stack
 DUMMY_RESOURCES = [
@@ -47,18 +48,20 @@ DUMMY_RESOURCES = [
 ]
 
 
-def test_run_release_build():
+def test_run_test_release_build():
     """
-    Test if invocation of run_start_release_build calls AwsAccess with expected arguments.
+    Test if invocation of run_start_test_release_build calls AwsAccess with expected arguments.
     """
     aws_access_mock = MagicMock()
+    github_release_creator_mock = MagicMock()
     os.environ["GITHUB_TOKEN"] = GITHUB_TOKEN
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
-    run_start_release_build(aws_access=aws_access_mock, project="slc",
-                            upload_url=UPLOAD_URL, branch=BRANCH)
+    github_release_creator_mock.create_release.return_value = 123
+    run_start_test_release_build(aws_access=aws_access_mock, gh_release_creator=github_release_creator_mock,
+                                 project="slc", repo_id=REPO_ID, branch=BRANCH, release_title=RELEASE_TITLE)
     expected_env_variable_overrides = [
         {"name": "RELEASE_ID", "value": "123", "type": "PLAINTEXT"},
-        {"name": "DRY_RUN", "value": "--no-dry-run", "type": "PLAINTEXT"},
+        {"name": "DRY_RUN", "value": "--dry-run", "type": "PLAINTEXT"},
         {"name": "GITHUB_TOKEN", "value": GITHUB_TOKEN, "type": "PLAINTEXT"}
     ]
 

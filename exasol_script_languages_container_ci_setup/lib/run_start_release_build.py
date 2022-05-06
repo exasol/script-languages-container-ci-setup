@@ -4,6 +4,7 @@ import re
 from typing import Tuple, Dict
 
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
+from exasol_script_languages_container_ci_setup.lib.github_release_creator import GithubReleaseCreator
 from exasol_script_languages_container_ci_setup.lib.release_build import release_stack_name
 
 
@@ -48,7 +49,7 @@ def run_start_release_build(aws_access: AwsAccess, project: str, upload_url: str
     gh_token = os.getenv("GITHUB_TOKEN")
     if gh_token is None:
         raise RuntimeError("Environment variable GITHUB_TOKEN needs to be declared.")
-    env_variables = [("RELEASE_KEY", f"Id:{_parse_upload_url(upload_url=upload_url)}"),
+    env_variables = [("RELEASE_ID", f"{_parse_upload_url(upload_url=upload_url)}"),
                      ("DRY_RUN", dry_run_value),
                      ("GITHUB_TOKEN", gh_token)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
@@ -57,20 +58,23 @@ def run_start_release_build(aws_access: AwsAccess, project: str, upload_url: str
                                branch=branch)
 
 
-def run_start_test_release_build(aws_access: AwsAccess, project: str, tag: str) -> None:
+def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubReleaseCreator, repo_id: str,
+                                 project: str, branch: str, release_title: str) -> None:
     """
     This command executes
-    1. Retrieve resources for the release codebuild stack for that given project
-    2. Find the resource with type CodeBuild
-    3. Creates the environment variables override
-    4. Start and wait for batch build
+    1. Create the Github draft release for the given branch and title.
+    2. Retrieve resources for the release codebuild stack for that given project
+    3. Find the resource with type CodeBuild
+    4. Creates the environment variables override
+    5. Start and wait for batch build
     :raises:
         `RuntimeError` if build goes wrong or if anything on AWS CodeBuild is not as expected
         `ValueError` if project is not found on AWS CodeBuild or if the upload is not in expected format.
     The tag is used to declare the branch and to declare the release key.
     """
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile} for project {project} "
-                 f"with tag: {tag}")
+                 f"for branch: {branch} with title: {release_title}")
+    release_id = gh_release_creator.create_release(repo_id, branch, release_title)
     resources = aws_access.get_all_stack_resources(release_stack_name(project))
     matching_project = [resource for resource in resources if resource["ResourceType"] == "AWS::CodeBuild::Project"]
     if len(matching_project) == 0:
@@ -82,10 +86,10 @@ def run_start_test_release_build(aws_access: AwsAccess, project: str, tag: str) 
     gh_token = os.getenv("GITHUB_TOKEN")
     if gh_token is None:
         raise RuntimeError("Environment variable GITHUB_TOKEN needs to be declared.")
-    env_variables = [("RELEASE_KEY", f"Tag:{tag}"),
+    env_variables = [("RELEASE_ID", f"{release_id}"),
                      ("DRY_RUN", dry_run_value),
                      ("GITHUB_TOKEN", gh_token)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project[0]["PhysicalResourceId"],
                                environment_variables_overrides=environment_variables_overrides,
-                               branch=tag)
+                               branch=branch)
