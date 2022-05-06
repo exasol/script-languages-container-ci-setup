@@ -9,7 +9,7 @@ import jsonschema
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 
 
-@dataclass(eq=True, frozen=True)
+@dataclass(eq=True, frozen=True, order=True)
 class Flavor(object):
     """"
     Holds the name and the formatted name used for generating the buildspec.
