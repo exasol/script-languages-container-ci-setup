@@ -8,5 +8,6 @@ from exasol_script_languages_container_ci_setup.cli.commands import (
     validate_ci_build,
     validate_release_build,
     validate_source_credentials,
-    start_release_build
+    start_release_build,
+    start_test_release_build
 )
