@@ -24,6 +24,7 @@ batch:
       buildspec: {location}/build_buildspec.yaml
       privileged-mode: true
       type: BUILD_GENERAL1_MEDIUM
+
 """
 
 
