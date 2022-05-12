@@ -16,7 +16,7 @@ install_requires = \
  'boto3>=1.22.0,<2.0.0',
  'click>=8.1.3,<9.0.0',
  'exasol-script-languages-container-ci @ '
- 'git+https://github.com/exasol/script-languages-container-ci.git@feature/9_implement_run-release_command',
+ 'git+https://github.com/exasol/script-languages-container-ci.git@main',
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@main',
  'exasol_script_languages_container_tool @ '
