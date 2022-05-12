@@ -73,10 +73,10 @@ def write_batch_build_spec(flavor_root_paths: Tuple[str, ...], output_pathname: 
         buildspec_body.append(render_template("buildspec_batch_entry.yaml",
                                               flavor_original=flavor.flavor_original,
                                               flavor_formatted=flavor.flavor_formatted,
-                                              out_path=output_pathname,
-                                              keep_trailing_newline=True))
+                                              out_path=output_pathname))
 
-    result_yaml = render_template("buildspec_hull.yaml", batch_entries="\n".join(buildspec_body))
+    result_yaml = render_template("buildspec_hull.yaml",
+                                  batch_entries="\n".join(buildspec_body))
 
     with open(Path(output_pathname) / "buildspec.yaml", "w") as output_file:
         output_file.write(result_yaml)

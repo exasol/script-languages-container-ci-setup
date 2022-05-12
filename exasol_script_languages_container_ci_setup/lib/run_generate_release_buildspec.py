@@ -16,8 +16,7 @@ def run_generate_release_buildspec(
     write_batch_build_spec(flavor_root_paths, output_pathname)
 
     result_build_yaml = render_template("release_build_buildspec.yaml",
-                                        config_file_parameter=get_config_file_parameter(config_file),
-                                        keep_trailing_newline=True)
+                                        config_file_parameter=get_config_file_parameter(config_file))
 
     with open(Path(output_pathname) / "build_buildspec.yaml", "w") as output_file:
         output_file.write(result_build_yaml)
