@@ -55,7 +55,7 @@ def test_run_release_build():
     os.environ["GITHUB_TOKEN"] = GITHUB_TOKEN
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
     run_start_release_build(aws_access=aws_access_mock, project="slc",
-                            upload_url=UPLOAD_URL, branch=BRANCH)
+                            upload_url=UPLOAD_URL, branch=BRANCH, gh_token=GITHUB_TOKEN)
     expected_env_variable_overrides = [
         {"name": "RELEASE_ID", "value": "123", "type": "PLAINTEXT"},
         {"name": "DRY_RUN", "value": "--no-dry-run", "type": "PLAINTEXT"},

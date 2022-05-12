@@ -62,7 +62,7 @@ There will be one code build stack for each repository. Each stack contains
 
 #### Release-Build
 
-For some repositores there will be one code build stack for to build the release artifacts. Each stack contains 
+For some repositories there will be one code build stack to build the release artifacts. Each stack contains 
 * roles for the CodeBuild, S3 artifact-Bucket and Batchbuild.
 * A S3 Bucket for the artifacts of the build. The artifacts usually contain the logs of the `exaslct` runs.
 * A policy for the S3 Bucket.

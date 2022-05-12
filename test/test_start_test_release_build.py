@@ -6,7 +6,7 @@ from dateutil.tz import tzutc
 
 from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_test_release_build
 
-REPO_ID = "script-languages-repo"
+REPO_NAME = "script-languages-repo"
 BRANCH = "main"
 GITHUB_TOKEN = "gh_secret"
 RELEASE_TITLE = "test-release"
@@ -54,11 +54,11 @@ def test_run_test_release_build():
     """
     aws_access_mock = MagicMock()
     github_release_creator_mock = MagicMock()
-    os.environ["GITHUB_TOKEN"] = GITHUB_TOKEN
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
     github_release_creator_mock.create_release.return_value = 123
     run_start_test_release_build(aws_access=aws_access_mock, gh_release_creator=github_release_creator_mock,
-                                 project="slc", repo_id=REPO_ID, branch=BRANCH, release_title=RELEASE_TITLE)
+                                 project="slc", repo_name=REPO_NAME, branch=BRANCH,
+                                 release_title=RELEASE_TITLE, gh_token=GITHUB_TOKEN)
     expected_env_variable_overrides = [
         {"name": "RELEASE_ID", "value": "123", "type": "PLAINTEXT"},
         {"name": "DRY_RUN", "value": "--dry-run", "type": "PLAINTEXT"},

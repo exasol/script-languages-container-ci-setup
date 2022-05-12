@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 
 import click
@@ -16,8 +17,9 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
 @add_options(logging_options)
 @click.option('--project', type=str, required=True,
               help="""The project name. Must be same name as used for the AWS CodeBuild release stack creation.""")
-@click.option('--repo-id', type=str, required=True,
-              help="""The repository for which the test release should be created.""", )
+@click.option('--repo-name', type=str, required=True,
+              help="""The repository for which the test release should be created. 
+              For example 'exasol/script-languages'.""", )
 @click.option('--branch', type=str, required=True,
               help="""The branch for which the test release should be created.""")
 @click.option('--release-title', type=str, required=True,
@@ -25,7 +27,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_release_build impo
 def start_test_release_build(
         aws_profile: Optional[str],
         log_level: str,
-        repo_id: str,
+        repo_name: str,
         project: str,
         branch: str,
         release_title: str
@@ -35,4 +37,5 @@ def start_test_release_build(
     release artifacts onto the new Github release.
     """
     set_log_level(log_level)
-    run_start_test_release_build(AwsAccess(aws_profile), GithubReleaseCreator(), repo_id, project, branch, release_title)
+    run_start_test_release_build(AwsAccess(aws_profile), GithubReleaseCreator(), repo_name,
+                                 project, branch, release_title, os.getenv("GITHUB_TOKEN"))

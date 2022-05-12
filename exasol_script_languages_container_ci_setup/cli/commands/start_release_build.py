@@ -1,3 +1,4 @@
+import os
 from typing import Optional
 
 import click
@@ -30,4 +31,4 @@ def start_release_build(
     release artifacts onto the given Github release, indicated by parameter 'upload_url'.
     """
     set_log_level(log_level)
-    run_start_release_build(AwsAccess(aws_profile), project, upload_url, branch)
+    run_start_release_build(AwsAccess(aws_profile), project, upload_url, branch, os.getenv("GITHUB_TOKEN"))
