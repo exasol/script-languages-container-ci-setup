@@ -1,5 +1,4 @@
 import datetime
-import os
 from unittest.mock import MagicMock
 
 from dateutil.tz import tzutc

@@ -70,5 +70,5 @@ def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: Gith
                                  project: str, branch: str, release_title: str, gh_token: str) -> None:
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile_for_logging} "
                  f"for project {project} for branch: {branch} with title: {release_title}")
-    release_id = gh_release_creator.create_release(repo_name, branch, release_title)
+    release_id = gh_release_creator.create_release(repo_name, branch, release_title, gh_token)
     _execute_release_build(aws_access, project, branch, release_id, True, gh_token)

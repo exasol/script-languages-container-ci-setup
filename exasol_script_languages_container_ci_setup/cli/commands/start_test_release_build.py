@@ -37,5 +37,5 @@ def start_test_release_build(
     release artifacts onto the new Github release.
     """
     set_log_level(log_level)
-    run_start_test_release_build(AwsAccess(aws_profile), GithubDraftReleaseCreator(), repo_name,
-                                 project, branch, release_title, os.getenv("GITHUB_TOKEN"))
+    run_start_test_release_build(AwsAccess(aws_profile), GithubDraftReleaseCreator(),
+                                 repo_name, project, branch, release_title, os.getenv("GITHUB_TOKEN"))

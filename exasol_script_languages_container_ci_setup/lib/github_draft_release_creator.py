@@ -1,5 +1,3 @@
-import os
-
 from github import Github
 
 
@@ -10,11 +8,9 @@ class GithubDraftReleaseCreator(object):
     The access token needs to be stored in the environment variable GITHUB_TOKEN.
     Returns the internal ID of the new release.
     """
-    def __init__(self):
-        self._token = os.getenv("GITHUB_TOKEN")
 
-    def create_release(self, repo_name: str, branch: str, title: str) -> int:
-        gh = Github(self._token)
+    def create_release(self, repo_name: str, branch: str, title: str, gh_token: str) -> int:
+        gh = Github(gh_token)
         gh_repo = gh.get_repo(repo_name)
         release = gh_repo.create_git_release(tag="", name=title, message="Test-Release",
                                              draft=True, prerelease=True, target_commitish=branch)
