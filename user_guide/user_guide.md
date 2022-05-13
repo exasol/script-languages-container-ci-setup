@@ -72,3 +72,6 @@ For some repositories there will be one code build stack to build the release ar
 
 The overall flow for a release build is shown in the following diagram:
 ![image info](./release-flow.png)
+
+The overall flow for a test-release build is shown in the following diagram:
+![image info](./test-release-flow.png)

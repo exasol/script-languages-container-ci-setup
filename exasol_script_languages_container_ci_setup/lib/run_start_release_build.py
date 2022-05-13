@@ -3,7 +3,7 @@ import re
 from typing import Tuple, Dict
 
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
-from exasol_script_languages_container_ci_setup.lib.github_release_creator import GithubReleaseCreator
+from exasol_script_languages_container_ci_setup.lib.github_draft_release_creator import GithubDraftReleaseCreator
 from exasol_script_languages_container_ci_setup.lib.release_build import release_stack_name
 
 
@@ -66,7 +66,7 @@ def run_start_release_build(aws_access: AwsAccess, project: str, upload_url: str
     _execute_release_build(aws_access, project, branch, _parse_upload_url(upload_url=upload_url), False, gh_token)
 
 
-def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubReleaseCreator, repo_name: str,
+def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubDraftReleaseCreator, repo_name: str,
                                  project: str, branch: str, release_title: str, gh_token: str) -> None:
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile_for_logging} "
                  f"for project {project} for branch: {branch} with title: {release_title}")

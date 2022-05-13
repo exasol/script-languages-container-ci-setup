@@ -3,7 +3,7 @@ import os
 from github import Github
 
 
-class GithubReleaseCreator(object):
+class GithubDraftReleaseCreator(object):
     """
     Implements creation of a Github Draft Release.
     See https://docs.github.com/en/rest/releases/releases for details.
