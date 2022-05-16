@@ -14,6 +14,7 @@ n/a
 ## Features / Enhancements
 
  - #1: Implement codebuild deployment and buildspec generation
+ - #3: Added release code build
 
 ## Documentation
 

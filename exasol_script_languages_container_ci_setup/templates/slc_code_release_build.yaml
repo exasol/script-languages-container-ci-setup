@@ -1,0 +1,121 @@
+Resources:
+  ReleaseArtifactsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: 'aws:kms'
+              KMSMasterKeyID: !Sub "arn:aws:kms:${AWS::Region}:${AWS::AccountId}:alias/aws/s3"
+            BucketKeyEnabled: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: ExpirationRule
+            Status: Enabled
+            ExpirationInDays: 180
+
+  ReleaseCodeBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+            - Effect: Allow
+              Principal:
+                  Service:
+                    - codebuild.amazonaws.com
+              Action:
+                - sts:AssumeRole
+      Description: !Sub "IAM Role for ${AWS::StackName}"
+      Path: '/'
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codebuild:*
+                  - logs:*
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource:
+                  #- arn:aws:secretsmanager:eu-central-1:620087982706:secret:Dockerhub-pFnwBg
+                  - {{ dockerhub_secret_arn }}
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                  - s3:GetObject
+                Resource:
+                  - !Sub "arn:aws:s3:::${ReleaseArtifactsBucket}/*"
+  ReleaseBatchBuildRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+            - Effect: Allow
+              Principal:
+                  Service:
+                    - codebuild.amazonaws.com
+              Action:
+                - sts:AssumeRole
+      Description: !Sub "IAM Role for controlling builds on ${AWS::StackName}"
+      Path: '/'
+      Policies:
+        - PolicyName: root
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - codebuild:StartBuild
+                  - codebuild:StopBuild
+                  - codebuild:RetryBuild
+                Resource: '*'
+  {{project}}ReleaseCodeBuild:
+    Type: AWS::CodeBuild::Project
+    Properties:
+      Description: {{ project }} Container ReleaseCodeBuild
+      ServiceRole: !GetAtt ReleaseCodeBuildRole.Arn
+      BuildBatchConfig:
+         BatchReportMode: REPORT_INDIVIDUAL_BUILDS
+         ServiceRole: !GetAtt ReleaseBatchBuildRole.Arn
+         TimeoutInMins: 240
+      Artifacts:
+        Location: !Ref ReleaseArtifactsBucket
+        OverrideArtifactName: true
+        Type: S3
+      Environment:
+        Type: LINUX_CONTAINER
+        PrivilegedMode: true
+        ComputeType: BUILD_GENERAL1_SMALL
+        Image: aws/codebuild/standard:5.0
+      Source:
+        Type: GITHUB
+        Location: {{github_url}}
+        BuildSpec: "aws-code-build/release/buildspec.yaml"
+      TimeoutInMinutes: 240
+      LogsConfig:
+        S3Logs:
+            Location: !Sub "${ReleaseArtifactsBucket}/logs"
+            Status: ENABLED
+
+#Trick to have log retention, see https://medium.com/allermedia-techblog/cloudformation-example-log-retention-for-lambda-and-codebuild-a11e74516bb6
+  ReleaseCodeBuildLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/codebuild/${ {{project}}ReleaseCodeBuild }"
+      RetentionInDays: 180
+
+Outputs:
+  ProjectName:
+    Value: !Ref {{project}}ReleaseCodeBuild
+    Description: {{ project }} Release Build project name

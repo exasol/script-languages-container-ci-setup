@@ -1,3 +1,5 @@
+from typing import Optional
+
 import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
@@ -18,7 +20,7 @@ from exasol_script_languages_container_ci_setup.cli.options.aws_options import a
 @click.option('--secret-token-key', required=True, type=str,
               help="Github user token key stored as secret in AWS Secret Manager under the respective secret name.")
 def validate_source_credentials(
-        aws_profile: str,
+        aws_profile: Optional[str],
         log_level: str,
         secret_name: str,
         secret_user_key: str,
