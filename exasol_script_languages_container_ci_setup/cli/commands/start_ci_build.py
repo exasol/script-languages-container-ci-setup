@@ -18,14 +18,11 @@ from exasol_script_languages_container_ci_setup.lib.run_start_ci_build import ru
               help="""The project name. Must be same name as used for the AWS CodeBuild release stack creation.""")
 @click.option('--branch', type=str, required=True,
               help="""The branch of the repository which will be used.""")
-@click.option('--commit-sha', type=str, required=True,
-              help="""The commit sha of the commit.""")
 def start_ci_build(
         aws_profile: Optional[str],
         log_level: str,
         project: str,
-        branch: str,
-        commit_sha: str):
+        branch: str):
     """
     This command can be used to trigger the AWS CI Codebuilds locally (not by Github Action).
     """

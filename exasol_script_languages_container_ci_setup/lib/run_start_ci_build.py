@@ -9,9 +9,9 @@ def get_environment_variable_override(env_variable: Tuple[str, str]) -> Dict[str
     return {"name": env_variable[0], "value": env_variable[1], "type": "PLAINTEXT"}
 
 
-def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, gh_token: str, commit_sha: str) -> None:
+def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, gh_token: str) -> None:
     logging.info(f"run_start_ci_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
-                 f"on branch {branch} and commit-sha {commit_sha}")
+                 f"on branch {branch}")
     """
     This function:
     1. Retrieve resources for the release codebuild stack for that given project
@@ -33,9 +33,7 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, gh_toke
     if gh_token is None:
         raise RuntimeError("Parameter gh_token must not be None.")
 
-    env_variables = [("CODEBUILD_WEBHOOK_HEAD_REF", f"{branch}"),
-                     ("CODEBUILD_SOURCE_VERSION", commit_sha),
-                     ("GITHUB_TOKEN", gh_token)]
+    env_variables = [("GITHUB_TOKEN", gh_token)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project[0]["PhysicalResourceId"],
                                environment_variables_overrides=environment_variables_overrides,
