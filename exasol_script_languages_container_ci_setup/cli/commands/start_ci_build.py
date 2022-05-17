@@ -24,7 +24,7 @@ def start_ci_build(
         project: str,
         branch: str):
     """
-    This command can be used to trigger the AWS CI Codebuilds locally (not by Github Action).
+    This command can be used to trigger the AWS CI CodeBuild locally (not by Github Webhook).
     """
     set_log_level(log_level)
     run_start_ci_build(AwsAccess(aws_profile), project, branch, os.getenv("GITHUB_TOKEN"))
