@@ -8,7 +8,7 @@ from exasol_script_languages_container_ci_setup.cli.common import add_options
 from exasol_script_languages_container_ci_setup.cli.options.logging import logging_options, set_log_level
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
-from exasol_script_languages_container_ci_setup.lib.run_start_ci_build import run_start_ci_build
+from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_ci_build
 
 
 @cli.command()
@@ -27,4 +27,4 @@ def start_ci_build(
     This command can be used to trigger the AWS CI CodeBuild locally (not by Github Webhook).
     """
     set_log_level(log_level)
-    run_start_ci_build(AwsAccess(aws_profile), project, branch, os.getenv("GITHUB_TOKEN"))
+    run_start_ci_build(AwsAccess(aws_profile), project, branch)

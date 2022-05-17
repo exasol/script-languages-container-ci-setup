@@ -9,7 +9,7 @@ from exasol_script_languages_container_ci_setup.cli.options.logging import loggi
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
 from exasol_script_languages_container_ci_setup.lib.github_draft_release_creator import GithubDraftReleaseCreator
-from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_test_release_build
+from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_test_release_build
 
 
 @cli.command()
