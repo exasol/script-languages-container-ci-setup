@@ -52,7 +52,7 @@ def test_run_ci_build():
     aws_access_mock = MagicMock()
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
     run_start_ci_build(aws_access=aws_access_mock, project="slc", branch=BRANCH)
-    expected_env_variable_overrides = list()
+    expected_env_variable_overrides = [{"name": "CUSTOM_BRANCH", "value": BRANCH, "type": "PLAINTEXT"}]
 
     aws_access_mock. \
         start_codebuild.assert_called_once_with("ScriptLanguagesCodeB-FTGeeZLjmjX7",
