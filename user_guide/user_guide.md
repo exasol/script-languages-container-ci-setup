@@ -75,3 +75,6 @@ The overall flow for a release build is shown in the following diagram:
 
 The overall flow for a test-release build is shown in the following diagram:
 ![image info](./test-release-flow.png)
+
+The overall flow for a ci build is shown in the following diagram:
+![image info](./ci-flow.png)

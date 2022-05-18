@@ -4,7 +4,7 @@ from unittest.mock import MagicMock
 
 from dateutil.tz import tzutc
 
-from exasol_script_languages_container_ci_setup.lib.run_start_release_build import run_start_release_build
+from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_release_build
 
 UPLOAD_URL = "https://uploads.github.com/repos/exasol/script-languages-repo/releases/123/assets{?name,label}"
 BRANCH = "main"
@@ -52,7 +52,6 @@ def test_run_release_build():
     Test if invocation of run_start_release_build calls AwsAccess with expected arguments.
     """
     aws_access_mock = MagicMock()
-    os.environ["GITHUB_TOKEN"] = GITHUB_TOKEN
     aws_access_mock.get_all_stack_resources.return_value = DUMMY_RESOURCES
     run_start_release_build(aws_access=aws_access_mock, project="slc",
                             upload_url=UPLOAD_URL, branch=BRANCH, gh_token=GITHUB_TOKEN)

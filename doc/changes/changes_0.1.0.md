@@ -15,6 +15,7 @@ t.b.d.
 
  - #1: Implement codebuild deployment and buildspec generation
  - #3: Added release code build
+ - #4: Added run-ci command
 
 ## Documentation
 
