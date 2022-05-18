@@ -17,7 +17,7 @@ from exasol_script_languages_container_ci_setup.lib.run_start_build import run_s
 @click.option('--project', type=str, required=True,
               help="""The project name. Must be same name as used for the AWS CodeBuild release stack creation.""")
 @click.option('--branch', type=str, required=True,
-              help="""The branch of the repository which will be used.""")
+              help="""The branch of the repository which will be used(e.g. refs/heads/master).""")
 def start_ci_build(
         aws_profile: Optional[str],
         log_level: str,
