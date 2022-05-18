@@ -97,6 +97,10 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str) -> None
     resources = aws_access.get_all_stack_resources(ci_stack_name(project))
     matching_project = get_aws_codebuild_project(resources, project)
 
+    # AwsAccess.start_codebuild() already indicates the branch (parameter `sourceVersion`)
+    # However, additionally we need to override env variable CUSTOM_BRANCH which will
+    # be used in the build_buildspec.yaml to forward the branch name to exasol_script_languages_container_ci.run_ci()
+    # (which itself uses the parameter to evaluate build strategies)
     env_variables = [("CUSTOM_BRANCH", branch)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project["PhysicalResourceId"],
