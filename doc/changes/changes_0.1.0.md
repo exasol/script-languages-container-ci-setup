@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 0.1.0, released 2020-05-18
+# script-languages-container-ci-setup 0.1.0, released 2022-05-18
 
 Code name: Initial release
 
