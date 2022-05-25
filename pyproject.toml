@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "exasol-script-languages-container-ci-setup"
-version = "0.1.0"
+version = "0.2.0"
 description = "Manages AWS cloud CI build infrastructure."
 
 license = "MIT"
