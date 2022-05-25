@@ -1,6 +1,6 @@
 # script-languages-container-ci-setup 0.2.0, released 2022-05-25
 
-Code name: Use script-languages-container-tool 0.14.0
+Code name: Use script-languages-container-tool 0.14.0 and bugfix for CI webhook filter
 
 ## Summary
 
