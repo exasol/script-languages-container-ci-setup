@@ -16,11 +16,11 @@ install_requires = \
  'boto3>=1.22.0,<2.0.0',
  'click>=8.1.3,<9.0.0',
  'exasol-script-languages-container-ci @ '
- 'https://github.com/exasol/script-languages-container-ci/releases/download/0.1.0/exasol_script_languages_container_ci-0.1.0-py3-none-any.whl',
+ 'https://github.com/exasol/script-languages-container-ci/releases/download/0.2.0/exasol_script_languages_container_ci-0.2.0-py3-none-any.whl',
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@0.2.0',
  'exasol_script_languages_container_tool @ '
- 'https://github.com/exasol/script-languages-container-tool/releases/download/0.13.0/exasol_script_languages_container_tool-0.13.0-py3-none-any.whl',
+ 'https://github.com/exasol/script-languages-container-tool/releases/download/0.14.0/exasol_script_languages_container_tool-0.14.0-py3-none-any.whl',
  'jinja2>=3.1.0',
  'jsonschema>=3.2.0,<4.0.0']
 

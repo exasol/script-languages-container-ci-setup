@@ -1,10 +1,10 @@
-# script-languages-container-ci-setup 0.2.0, released t.b.d.
+# script-languages-container-ci-setup 0.2.0, released 2022-05-25
 
-Code name: t.b.d.
+Code name: Use script-languages-container-tool 0.14.0 and bugfix for CI webhook filter
 
 ## Summary
 
-t.b.d.
+This release updates to script-languages-container-tool 0.14.0 and contains a minor bugfix for the ci build webhook filter.
 
 
 ## Bug Fixes
@@ -13,7 +13,7 @@ t.b.d.
 
 ## Features / Enhancements
 
-n/a
+ - #16: Updated script-languages-container-tool
 
 ## Documentation
 
