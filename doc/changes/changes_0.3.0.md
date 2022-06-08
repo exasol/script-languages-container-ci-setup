@@ -1,14 +1,14 @@
-# script-languages-container-ci-setup 0.3.0, released t.b.d.
+# script-languages-container-ci-setup 0.3.0, released 2022-06-08
 
-Code name: t.b.d.
+Code name: Change AWS machine for CI builds
 
 ## Summary
 
-t.b.d.
+This release uses larger AWS machines for the CI builds and fixes a bug which prevents the CI build to run on master or develop branch.
 
 ## Bug Fixes
 
-n/a
+ - #18: Fixed source trigger for master and develop for CI builds
 
 ## Features / Enhancements
 
