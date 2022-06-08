@@ -3,7 +3,8 @@ from unittest.mock import MagicMock
 import pytest
 
 from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
-from exasol_script_languages_container_ci_setup.lib.ci_build import run_deploy_ci_build, ci_stack_name
+from exasol_script_languages_container_ci_setup.lib.ci_build import run_deploy_ci_build, ci_stack_name, \
+    CI_BUILD_WEBHOOK_FILTER_PATTERN
 from exasol_script_languages_container_ci_setup.lib.release_build import run_deploy_release_build, release_stack_name
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from test.cloudformation_validation import validate_using_cfn_lint
@@ -16,7 +17,8 @@ DOCKERHUB_SECRET_ARN = "super_secret_arn"
 @pytest.fixture
 def ci_code_build_yml():
     return render_template("slc_code_build.yaml", project=PROJECT,
-                           dockerhub_secret_arn=DOCKERHUB_SECRET_ARN, github_url=GH_URL)
+                           dockerhub_secret_arn=DOCKERHUB_SECRET_ARN, github_url=GH_URL,
+                           webhook_filter_pattern=CI_BUILD_WEBHOOK_FILTER_PATTERN)
 
 
 def test_deploy_ci_upload_invoked(ci_code_build_yml):
