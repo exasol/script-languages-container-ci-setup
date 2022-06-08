@@ -22,7 +22,7 @@ batch:
           FLAVOR: test-flavor
       buildspec: {location}/build_buildspec.yaml
       privileged-mode: true
-      type: BUILD_GENERAL1_MEDIUM
+      type: BUILD_GENERAL1_LARGE
 """
 
 
