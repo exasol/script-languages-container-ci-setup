@@ -16,7 +16,7 @@ install_requires = \
  'boto3>=1.22.0,<2.0.0',
  'click>=8.1.3,<9.0.0',
  'exasol-script-languages-container-ci @ '
- 'git+https://github.com/exasol/script-languages-container-ci.git@bug/16_fix_docker_credentials_whenn_running_tests',
+ 'https://github.com/exasol/script-languages-container-ci/releases/download/0.3.0/exasol_script_languages_container_ci-0.3.0-py3-none-any.whl',
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@0.2.0',
  'exasol_script_languages_container_tool @ '

@@ -8,7 +8,7 @@ This releases fixes the batch buildspec entries for CI-builds.
 
 ## Bug Fixes
 
- - #22: Fixed batch buildpsec entry
+ - #22: Fixed batch buildpsec entry and use medium machine for CI builds again
 
 ## Features / Enhancements
 
