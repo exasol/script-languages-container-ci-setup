@@ -26,7 +26,7 @@ install_requires = \
 
 setup_kwargs = {
     'name': 'exasol-script-languages-container-ci-setup',
-    'version': '0.2.0',
+    'version': '0.3.0',
     'description': 'Manages AWS cloud CI build infrastructure.',
     'long_description': None,
     'author': 'Thomas Uebensee',

@@ -4,4 +4,4 @@
           FLAVOR: {{flavor_original}}
       buildspec: {{out_path}}/build_buildspec.yaml
       privileged-mode: true
-      type: BUILD_GENERAL1_MEDIUM
+      type: BUILD_GENERAL1_LARGE
