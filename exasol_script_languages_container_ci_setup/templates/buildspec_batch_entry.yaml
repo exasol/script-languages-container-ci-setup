@@ -2,6 +2,6 @@
       env:
         variables:
           FLAVOR: {{flavor_original}}
+        compute-type: BUILD_GENERAL1_LARGE
+        privileged-mode: true
       buildspec: {{out_path}}/build_buildspec.yaml
-      privileged-mode: true
-      type: BUILD_GENERAL1_LARGE
