@@ -20,9 +20,9 @@ batch:
       env:
         variables:
           FLAVOR: test-flavor
+        compute-type: BUILD_GENERAL1_MEDIUM
+        privileged-mode: true
       buildspec: {location}/build_buildspec.yaml
-      privileged-mode: true
-      type: BUILD_GENERAL1_LARGE
 """
 
 
