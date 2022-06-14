@@ -1,6 +1,6 @@
 {
   "type" : "object",
-  "required": [ "build_ignore" ],
+  "required": [ "build_ignore", "base_branch" ],
   "additionalProperties" : false,
   "properties" : {
     "build_ignore": {
@@ -10,6 +10,9 @@
       "properties" : {
         "ignored_paths" : { "type" : "array"}
       }
+    },
+    "base_branch": {
+      "type" : "string"
     }
   }
 }
