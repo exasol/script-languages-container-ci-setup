@@ -7,7 +7,8 @@ CODE_BUILD_STACK_NAME = "CIBuild"
 CI_CODE_BUILD_TEMPLATE = "slc_code_build.yaml"
 
 CI_BUILD_WEBHOOK_FILTER_PATTERN = \
-    r"^refs/heads/(((main|master|develop)$)|((rebuild|feature|bug|enhancement|refactoring|ci|security|doc)/.*))"
+    r"^refs/heads/(((main|master|develop)$)|" \
+    r"((rebuild|feature|bug|enhancement|refactoring|ci|security|doc|documentation)/.*))"
 
 
 def ci_stack_name(project: str):
