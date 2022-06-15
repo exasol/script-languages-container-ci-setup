@@ -5,6 +5,8 @@ from exasol_script_languages_container_ci_setup.lib.ci_build import CI_BUILD_WEB
 
 testdata = [
     ("refs/heads/feature/test_branch", True),
+    ("refs/heads/doc/test_branch", True),
+    ("refs/heads/documentation/test_branch", True),
     ("refs/heads/rebuild/feature/test_branch", True),
     ("refs/heads/master", True),
     ("refs/heads/main", True),
