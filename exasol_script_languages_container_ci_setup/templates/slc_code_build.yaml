@@ -89,7 +89,7 @@ Resources:
         Webhook: True
         FilterGroups:
           -  - Type: EVENT
-               Pattern: PUSH,PULL_REQUEST_MERGED
+               Pattern: PUSH
              - Type: HEAD_REF
                Pattern: {{ webhook_filter_pattern }}
                ExcludeMatchedPattern: false
