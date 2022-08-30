@@ -1,10 +1,10 @@
-# script-languages-container-ci-setup 0.6.0, released t.b.d.
+# script-languages-container-ci-setup 0.6.0, released 2022-08-30
 
-Code name: t.b.d.
+Code name: Update exaslct to 0.15.0
 
 ## Summary
 
-t.b.d.
+This release updated to script-languages-container-tools version 0.15.0
 
 ## Bug Fixes
 
@@ -20,4 +20,4 @@ n/a
 
 ## Refactoring
 
-n/a
+ - #31: Updated exaslct and script-languages-container-ci 
