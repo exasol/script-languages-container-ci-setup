@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 0.7.0, released 2022-8-31
+# script-languages-container-ci-setup 0.7.0, released 2022-08-31
 
 Code name: Updated poetry installation
 
