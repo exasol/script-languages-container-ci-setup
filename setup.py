@@ -20,11 +20,11 @@ install_requires = \
  'exasol_error_reporting_python @ '
  'git+https://github.com/exasol/error-reporting-python.git@0.2.0',
  'jinja2>=3.1.0',
- 'jsonschema>=3.2.0,<4.0.0']
+ 'jsonschema>=4.17.3,<5.0.0']
 
 setup_kwargs = {
     'name': 'exasol-script-languages-container-ci-setup',
-    'version': '0.7.0',
+    'version': '0.8.0',
     'description': 'Manages AWS cloud CI build infrastructure.',
     'long_description': 'None',
     'author': 'Thomas Uebensee',
