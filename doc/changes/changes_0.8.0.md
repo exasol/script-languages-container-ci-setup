@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 0.7.0, released 2023-03-22
+# script-languages-container-ci-setup 0.8.0, released 2023-03-22
 
 Code name: Update script-languages-container-ci to 0.6.0
 
