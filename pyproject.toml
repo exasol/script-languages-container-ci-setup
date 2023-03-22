@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "exasol-script-languages-container-ci-setup"
-version = "0.7.0"
+version = "0.8.0"
 description = "Manages AWS cloud CI build infrastructure."
 
 license = "MIT"
@@ -14,11 +14,10 @@ python = ">=3.8.0,<4.0"
 click = "^8.1.3"
 jinja2 = ">=3.1.0"
 exasol_error_reporting_python = { git = "https://github.com/exasol/error-reporting-python.git", branch = "0.2.0" }
-exasol_script_languages_container_tool = { url = "https://github.com/exasol/script-languages-container-tool/releases/download/0.15.0/exasol_script_languages_container_tool-0.15.0-py3-none-any.whl" }
-exasol-script-languages-container-ci = {url = "https://github.com/exasol/script-languages-container-ci/releases/download/0.5.0/exasol_script_languages_container_ci-0.5.0-py3-none-any.whl"}
+exasol-script-languages-container-ci = {url = "https://github.com/exasol/script-languages-container-ci/releases/download/0.6.0/exasol_script_languages_container_ci-0.6.0-py3-none-any.whl"}
 
 boto3 = "^1.22.0"
-jsonschema = "^3.2.0"
+jsonschema = "^4.17.3"
 PyGithub = "^1.55.0"
 
 [build-system]
@@ -30,7 +29,7 @@ build-backend = "poetry.core.masonry.api"
 toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
-cfn-lint = "^0.59.0"
+cfn-lint = "^0.75.1"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
