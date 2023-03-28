@@ -15,16 +15,14 @@ install_requires = \
 ['PyGithub>=1.55.0,<2.0.0',
  'boto3>=1.22.0,<2.0.0',
  'click>=8.1.3,<9.0.0',
- 'exasol-script-languages-container-ci @ '
- 'https://github.com/exasol/script-languages-container-ci/releases/download/0.6.0/exasol_script_languages_container_ci-0.6.0-py3-none-any.whl',
- 'exasol_error_reporting_python @ '
- 'git+https://github.com/exasol/error-reporting-python.git@0.2.0',
+ 'exasol-script-languages-container-ci>=1.0.0,<2.0.0',
+ 'exasol_error_reporting_python>=0.3.0,<0.4.0',
  'jinja2>=3.1.0',
  'jsonschema>=4.17.3,<5.0.0']
 
 setup_kwargs = {
     'name': 'exasol-script-languages-container-ci-setup',
-    'version': '0.8.0',
+    'version': '1.0.0',
     'description': 'Manages AWS cloud CI build infrastructure.',
     'long_description': 'None',
     'author': 'Thomas Uebensee',
