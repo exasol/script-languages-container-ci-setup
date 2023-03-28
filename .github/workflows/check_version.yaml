@@ -1,6 +1,9 @@
 name: Check if versions are consistent
 
-on: [push]
+on: 
+  push:
+    branches-ignore:
+      - main
 
 jobs:
   check-version-numbers:
