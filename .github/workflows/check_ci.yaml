@@ -3,7 +3,7 @@ name: Run Unit Tests
 on: [push]
 
 jobs:
-  check_setup_py:
+  run_unit_tests:
     environment: AWS
     runs-on: ubuntu-latest
 
