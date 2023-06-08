@@ -1,18 +1,50 @@
 {
-  "type" : "object",
-  "required": [ "build_ignore", "base_branch" ],
-  "additionalProperties" : false,
-  "properties" : {
-    "build_ignore": {
-      "type" : "object",
-      "additionalProperties" : false,
-      "required": [ "ignored_paths" ],
-      "properties" : {
-        "ignored_paths" : { "type" : "array"}
+  "type": "object",
+  "required": [
+    "build",
+    "release"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "build": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ignore",
+        "base_branch"
+      ],
+      "properties": {
+        "ignore": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "paths"
+          ],
+          "properties": {
+            "paths": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "base_branch": {
+          "type": "string"
+        }
       }
     },
-    "base_branch": {
-      "type" : "string"
+    "release": {
+      "type": "object",
+      "required": [
+        "timeout_in_minutes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "timeout_in_minutes": {
+          "type": "integer"
+        }
+      }
     }
   }
 }

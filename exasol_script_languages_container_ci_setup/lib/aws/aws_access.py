@@ -108,6 +108,7 @@ class AwsAccess:
                         project: PhysicalResourceId,
                         environment_variables_overrides: List[Dict[str, str]],
                         branch: str,
+                        timeout_time_in_seconds: int,
                         poll_interval_seconds: int = 30) -> None:
         """
         This functions uses Boto3 to start a batch build.
@@ -131,9 +132,7 @@ class AwsAccess:
 
         build_id = build_batch.id
         logging.debug(f"Codebuild for project {project} with branch {branch} triggered. Id is {build_id}.")
-        interval = 30
-        timeout_time_in_seconds = 60 * 60 * 2  # We wait for maximal 2h + (something)
-        for seconds_to_wait in wait_for(seconds=timeout_time_in_seconds, interval=interval):
+        for seconds_to_wait in wait_for(seconds=timeout_time_in_seconds, interval=poll_interval_seconds):
             time.sleep(seconds_to_wait)
             logging.debug(f"Checking status of codebuild id {build_id}.")
             build_batches = client.batch_get_build_batches(build_batch_ids=[build_id])
