@@ -2,7 +2,6 @@ import dataclasses
 from typing import Union
 from unittest.mock import MagicMock, Mock, call, create_autospec
 
-import pytest
 from boto3 import Session
 
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.aws_client import AwsClient
@@ -10,7 +9,7 @@ from test.mock_cast import mock_cast
 
 
 def test_init():
-    boto_session_factory: MagicMock = Mock()
+    boto_session_factory = Mock()
     aws_client = AwsClient(profile="profile", region="region",
                            boto_session_factory=boto_session_factory)
     assert boto_session_factory.mock_calls == []
@@ -38,6 +37,7 @@ def test_create_codebuild_service_boto_session_client():
         call.client('codebuild'),
     ]
 
+
 def test_create_codebuild_service_boto_client():
     setup = CodeBuildServiceTestSetup()
     assert setup.codebuild_service.boto_client == mock_cast(setup.boto_session.client).return_value
@@ -64,6 +64,7 @@ def test_create_cloudformation_service_boto_session_client():
     assert setup.boto_session.mock_calls == [
         call.client('cloudformation'),
     ]
+
 
 def test_create_cloudformation_service_boto_client():
     setup = CloudFormationServiceTestSetup()

@@ -105,7 +105,7 @@ class AwsAccess:
         return result
 
     def start_codebuild(self,
-                        project: str,
+                        project: PhysicalResourceId,
                         environment_variables_overrides: List[Dict[str, str]],
                         branch: str,
                         poll_interval_seconds: int = 30) -> None:
@@ -120,7 +120,7 @@ class AwsAccess:
         client = self._get_aws_client().create_codebuild_service()
         logging.info(f"Trigger codebuild for project {project} with branch {branch} "
                      f"and env_variables ({environment_variables_overrides})")
-        build_batch = client.start_build_batch(project_name=PhysicalResourceId(project),
+        build_batch = client.start_build_batch(project_name=project,
                                                source_version=branch,
                                                environment_variables_override=list(
                                                    environment_variables_overrides))

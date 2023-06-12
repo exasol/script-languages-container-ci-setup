@@ -1,15 +1,15 @@
 from unittest.mock import MagicMock
+from typing import Union
+from unittest.mock import MagicMock, create_autospec, call
 
 import pytest
+from test.unit_tests.cloudformation_validation import validate_using_cfn_lint
 
-from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from exasol_script_languages_container_ci_setup.lib.source_credentials import (
     run_deploy_source_credentials,
     SOURCE_CREDENTIALS_STACK_NAME
 )
-
-from test.cloudformation_validation import validate_using_cfn_lint
 
 SECRET_NAME = "test_secret"
 SECRET_USER_KEY = "test_secret_user_key"
@@ -29,15 +29,11 @@ def test_deploy_source_credentials_upload_invoked(source_credentials_yml):
     Test if function upload_cloudformation_stack() will be invoked with expected values
     when we run run_deploy_source_credentials()
     """
-    aws_access_mock = MagicMock()
+    aws_access_mock: Union[MagicMock, AwsAccess] = create_autospec(AwsAccess)
     run_deploy_source_credentials(aws_access=aws_access_mock, secret_name=SECRET_NAME,
                                   secret_user_key=SECRET_USER_KEY, secret_token_key=SECRET_TOKEN_KEY)
-    aws_access_mock.upload_cloudformation_stack.assert_called_once_with(source_credentials_yml, SOURCE_CREDENTIALS_STACK_NAME)
-
-
-def test_deploy_source_credentials_template(source_credentials_yml):
-    aws_access = AwsAccess(aws_profile=None)
-    aws_access.validate_cloudformation_template(source_credentials_yml)
+    assert call.upload_cloudformation_stack(source_credentials_yml, SOURCE_CREDENTIALS_STACK_NAME) \
+           in aws_access_mock.mock_calls
 
 
 def test_deploy_source_credentials_template_with_cnf_lint(tmp_path, source_credentials_yml):
