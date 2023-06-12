@@ -33,9 +33,11 @@ def test_run_release_build():
     ]
 
     run_start_release_build(aws_access=aws_access_mock, project="slc",
-                            upload_url=UPLOAD_URL, branch=BRANCH, gh_token=GITHUB_TOKEN)
+                            upload_url=UPLOAD_URL, branch=BRANCH, gh_token=GITHUB_TOKEN,
+                            timeout_time_in_seconds=timeout_time_in_seconds)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
-                                branch=BRANCH) \
+                                branch=BRANCH,
+                                timeout_time_in_seconds=timeout_time_in_seconds) \
            in aws_access_mock.mock_calls

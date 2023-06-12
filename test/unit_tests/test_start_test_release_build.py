@@ -43,9 +43,11 @@ def test_run_test_release_build():
 
     run_start_test_release_build(aws_access=aws_access_mock, gh_release_creator=github_release_creator_mock,
                                  project="slc", repo_name=REPO_NAME, branch=BRANCH,
-                                 release_title=RELEASE_TITLE, gh_token=GITHUB_TOKEN)
+                                 release_title=RELEASE_TITLE, gh_token=GITHUB_TOKEN,
+                                 timeout_time_in_seconds=timeout_time_in_seconds)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
-                                branch=BRANCH) \
+                                branch=BRANCH,
+                                timeout_time_in_seconds=timeout_time_in_seconds) \
            in aws_access_mock.mock_calls

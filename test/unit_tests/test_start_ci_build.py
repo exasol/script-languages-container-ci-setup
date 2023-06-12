@@ -26,9 +26,11 @@ def test_run_ci_build():
     ]
     timeout_time_in_seconds = 30
     expected_env_variable_overrides = [{"name": "CUSTOM_BRANCH", "value": BRANCH, "type": "PLAINTEXT"}]
-    run_start_ci_build(aws_access=aws_access_mock, project="slc", branch=BRANCH)
+    run_start_ci_build(aws_access=aws_access_mock, project="slc", branch=BRANCH,
+                       timeout_time_in_seconds=timeout_time_in_seconds)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
-                                branch=BRANCH) \
+                                branch=BRANCH,
+                                timeout_time_in_seconds=timeout_time_in_seconds) \
            in aws_access_mock.mock_calls

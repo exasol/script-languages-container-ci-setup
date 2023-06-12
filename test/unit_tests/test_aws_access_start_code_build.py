@@ -45,7 +45,7 @@ class TestSetup:
 
     def run_start_codebuild(self):
         self.aws_access.start_codebuild(
-            project=PROJECT,
+            project=PhysicalResourceId(PROJECT),
             branch=BRANCH,
             environment_variables_overrides=self.environment_variables_overrides,
             timeout_time_in_seconds=self.timeout_time_in_seconds,
