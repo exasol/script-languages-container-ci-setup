@@ -17,11 +17,28 @@ def test_valid():
 
 
 def test_without_physical_resource_id():
-    with pytest.raises(KeyError):
-        boto_stack_resource_summary = {
-            "ResourceType": "resource_type"
-        }
-        stack_resource_summary = StackResourceSummary.from_boto(boto_stack_resource_summary)
+    expected_stack_resource_summary = StackResourceSummary(
+        physical_resource_id=None,
+        resource_type="resource_type")
+
+    boto_stack_resource_summary = {
+        "ResourceType": "resource_type"
+    }
+    stack_resource_summary = StackResourceSummary.from_boto(boto_stack_resource_summary)
+    assert stack_resource_summary == expected_stack_resource_summary
+
+
+def test_physical_resource_id_none():
+    expected_stack_resource_summary = StackResourceSummary(
+        physical_resource_id=None,
+        resource_type="resource_type")
+
+    boto_stack_resource_summary = {
+        "physical_resource_id": None,
+        "ResourceType": "resource_type"
+    }
+    stack_resource_summary = StackResourceSummary.from_boto(boto_stack_resource_summary)
+    assert stack_resource_summary == expected_stack_resource_summary
 
 
 def test_without_resource_type():

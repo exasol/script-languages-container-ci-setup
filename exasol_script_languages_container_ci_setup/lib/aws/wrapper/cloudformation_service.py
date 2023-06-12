@@ -24,7 +24,7 @@ class CloudFormationService:
 
     def list_stack_resources(self,
                              stack_name: PhysicalResourceId,
-                             next_token: Optional[NextToken],
+                             next_token: Optional[NextToken] = None,
                              from_boto: Callable[[Dict[str, Any]], ListStackResourcesResult] =
                              ListStackResourcesResult.from_boto) \
             -> ListStackResourcesResult:

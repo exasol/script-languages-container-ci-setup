@@ -19,17 +19,29 @@ class NextToken:
 
 @dataclasses.dataclass(frozen=True)
 class StackResourceSummary:
-    physical_resource_id: PhysicalResourceId
+    physical_resource_id: Optional[PhysicalResourceId]
     resource_type: str
 
     @classmethod
     def from_boto(cls, boto_stack_resource_summary: Dict[str, Any]) -> "StackResourceSummary":
-        physical_resource_id = PhysicalResourceId(
-            aws_physical_resource_id=boto_stack_resource_summary[PHYSICAL_RESOURCE_ID])
+        physical_resource_id = cls._extract_physcial_resource_id(boto_stack_resource_summary)
         resource_type = boto_stack_resource_summary[RESOURCE_TYPE]
         stack_resource_summary = StackResourceSummary(physical_resource_id=physical_resource_id,
                                                       resource_type=resource_type)
         return stack_resource_summary
+
+    @classmethod
+    def _extract_physcial_resource_id(cls, boto_stack_resource_summary: Dict[str, Any]) -> PhysicalResourceId:
+        physical_resource_id = None
+        if cls._has_physical_resource_id(boto_stack_resource_summary):
+            physical_resource_id = PhysicalResourceId(
+                aws_physical_resource_id=boto_stack_resource_summary[PHYSICAL_RESOURCE_ID])
+        return physical_resource_id
+
+    @classmethod
+    def _has_physical_resource_id(cls, boto_stack_resource_summary: Dict[str, Any]):
+        return PHYSICAL_RESOURCE_ID in boto_stack_resource_summary \
+               and boto_stack_resource_summary[PHYSICAL_RESOURCE_ID] is not None
 
 
 @dataclasses.dataclass(frozen=True)
