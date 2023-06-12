@@ -8,7 +8,7 @@ from exasol_script_languages_container_ci_setup.lib.ci_build import run_deploy_c
     CI_BUILD_WEBHOOK_FILTER_PATTERN
 from exasol_script_languages_container_ci_setup.lib.release_build import run_deploy_release_build, release_stack_name
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
-from test.cloudformation_validation import validate_using_cfn_lint
+from test.unit_tests.cloudformation_validation import validate_using_cfn_lint
 
 PROJECT = "slc"
 GH_URL = "https://github.com/slc"

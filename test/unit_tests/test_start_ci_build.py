@@ -1,8 +1,5 @@
-import datetime
 from typing import Union
 from unittest.mock import MagicMock, create_autospec, call
-
-from dateutil.tz import tzutc
 
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
@@ -29,11 +26,9 @@ def test_run_ci_build():
     ]
     timeout_time_in_seconds = 30
     expected_env_variable_overrides = [{"name": "CUSTOM_BRANCH", "value": BRANCH, "type": "PLAINTEXT"}]
-    run_start_ci_build(aws_access=aws_access_mock, project="slc", branch=BRANCH,
-                       timeout_time_in_seconds=timeout_time_in_seconds)
+    run_start_ci_build(aws_access=aws_access_mock, project="slc", branch=BRANCH)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
-                                branch=BRANCH,
-                                timeout_time_in_seconds=timeout_time_in_seconds) \
+                                branch=BRANCH) \
            in aws_access_mock.mock_calls

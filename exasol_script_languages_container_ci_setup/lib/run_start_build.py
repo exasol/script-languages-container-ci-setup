@@ -38,8 +38,7 @@ def _parse_upload_url(upload_url: str) -> int:
 
 
 def _execute_release_build(aws_access: AwsAccess, project: str, branch: str,
-                           release_id: int, is_dry_run: bool, gh_token: str,
-                           timeout_time_in_seconds: int) -> None:
+                           release_id: int, is_dry_run: bool, gh_token: str) -> None:
     """
     This function:
     1. Retrieve resources for the release codebuild stack for that given project
@@ -68,12 +67,11 @@ def _execute_release_build(aws_access: AwsAccess, project: str, branch: str,
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
-                               branch=branch, timeout_time_in_seconds=timeout_time_in_seconds)
+                               branch=branch)
 
 
 def run_start_release_build(project: str, upload_url: str,
                             branch: str, gh_token: str,
-                            timeout_time_in_seconds: int,
                             aws_access: AwsAccess) -> None:
     logging.info(f"run_start_release_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
                  f"with upload url: {upload_url}")
@@ -82,13 +80,11 @@ def run_start_release_build(project: str, upload_url: str,
                            branch=branch,
                            release_id=_parse_upload_url(upload_url=upload_url),
                            is_dry_run=False,
-                           gh_token=gh_token,
-                           timeout_time_in_seconds=timeout_time_in_seconds)
+                           gh_token=gh_token)
 
 
 def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubDraftReleaseCreator, repo_name: str,
-                                 project: str, branch: str, release_title: str, gh_token: str,
-                                 timeout_time_in_seconds: int) -> None:
+                                 project: str, branch: str, release_title: str, gh_token: str) -> None:
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile_for_logging} "
                  f"for project {project} for branch: {branch} with title: {release_title}")
     release_id = gh_release_creator.create_release(repo_name, branch, release_title, gh_token)
@@ -96,11 +92,10 @@ def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: Gith
         aws_access=aws_access,
         project=project, branch=branch,
         release_id=release_id, is_dry_run=True, gh_token=gh_token,
-        timeout_time_in_seconds=timeout_time_in_seconds
     )
 
 
-def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout_time_in_seconds: int) -> None:
+def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str) -> None:
     logging.info(f"run_start_ci_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
                  f"on branch {branch}")
     """
@@ -125,4 +120,4 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
-                               branch=branch, timeout_time_in_seconds=timeout_time_in_seconds)
+                               branch=branch)

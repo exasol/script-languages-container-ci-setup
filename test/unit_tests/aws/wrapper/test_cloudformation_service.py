@@ -57,18 +57,26 @@ class ListStackResourcesTestSetup:
             self.boto_client.list_stack_resources).return_value
 
 
+def test_list_stack_resources_boto_client_next_token_is_none():
+    setup = ListStackResourcesTestSetup(None)
+    assert setup.boto_client.mock_calls == [
+        call.list_stack_resources(StackName=setup.physical_resource_id.aws_physical_resource_id)]
+
+
+def test_list_stack_resources_boto_client_next_token_is_not_none():
+    next_token = NextToken("next_token")
+    setup = ListStackResourcesTestSetup(next_token)
+    assert setup.boto_client.mock_calls == [
+        call.list_stack_resources(
+            StackName=setup.physical_resource_id.aws_physical_resource_id,
+            NextToken=next_token.aws_next_token)
+    ]
+
+
 list_stack_resources_parameters = pytest.mark.parametrize("next_token", [
     NextToken(aws_next_token="next_token"),
     None
 ])
-
-
-@list_stack_resources_parameters
-def test_list_stack_resources_boto_client(next_token):
-    setup = ListStackResourcesTestSetup(next_token)
-    assert setup.boto_client.mock_calls == [
-        call.list_stack_resources(StackName=setup.physical_resource_id.aws_physical_resource_id,
-                                  NextToken=setup.aws_next_token)]
 
 
 @list_stack_resources_parameters

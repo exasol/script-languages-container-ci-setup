@@ -16,7 +16,9 @@ def test_init():
 class BatchGetBuildBatchesTestSetup:
     boto_client = Mock()
     batch_get_build_batches_return_values = [Mock(), Mock()]
-    mock_cast(boto_client.batch_get_build_batches).return_value = batch_get_build_batches_return_values
+    mock_cast(boto_client.batch_get_build_batches).return_value = {
+        'buildBatches': batch_get_build_batches_return_values
+    }
     from_boto = Mock()
     from_boto_return_values = [Mock(), Mock()]
     from_boto.side_effect = from_boto_return_values

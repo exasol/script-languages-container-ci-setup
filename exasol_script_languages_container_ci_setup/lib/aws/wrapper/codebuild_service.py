@@ -32,5 +32,6 @@ class CodeBuildService:
             -> List[BuildBatch]:
         aws_ids = [build_batch_id.aws_physical_resource_id for build_batch_id in build_batch_ids]
         boto_build_batches = self._boto_client.batch_get_build_batches(ids=aws_ids)
-        build_batches = [from_boto(boto_build_batch) for boto_build_batch in boto_build_batches]
+        print(boto_build_batches)
+        build_batches = [from_boto(boto_build_batch) for boto_build_batch in boto_build_batches['buildBatches']]
         return build_batches

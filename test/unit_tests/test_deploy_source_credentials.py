@@ -1,15 +1,15 @@
-from unittest.mock import MagicMock
 from typing import Union
 from unittest.mock import MagicMock, create_autospec, call
 
 import pytest
-from test.unit_tests.cloudformation_validation import validate_using_cfn_lint
 
+from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from exasol_script_languages_container_ci_setup.lib.source_credentials import (
     run_deploy_source_credentials,
     SOURCE_CREDENTIALS_STACK_NAME
 )
+from test.unit_tests.cloudformation_validation import validate_using_cfn_lint
 
 SECRET_NAME = "test_secret"
 SECRET_USER_KEY = "test_secret_user_key"

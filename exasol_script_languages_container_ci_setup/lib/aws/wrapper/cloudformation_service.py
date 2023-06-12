@@ -28,8 +28,15 @@ class CloudFormationService:
                              from_boto: Callable[[Dict[str, Any]], ListStackResourcesResult] =
                              ListStackResourcesResult.from_boto) \
             -> ListStackResourcesResult:
-        aws_next_token = None if next_token is None else next_token.aws_next_token
-        boto_list_stack_resources_result = self._boto_client.list_stack_resources(
-            StackName=stack_name.aws_physical_resource_id, NextToken=aws_next_token)
+        if next_token is not None:
+            boto_list_stack_resources_result = \
+                self._boto_client.list_stack_resources(
+                    StackName=stack_name.aws_physical_resource_id,
+                    NextToken=next_token.aws_next_token)
+        else:
+            boto_list_stack_resources_result = \
+                self._boto_client.list_stack_resources(
+                    StackName=stack_name.aws_physical_resource_id)
+
         list_stack_resources_result = from_boto(boto_list_stack_resources_result)
         return list_stack_resources_result

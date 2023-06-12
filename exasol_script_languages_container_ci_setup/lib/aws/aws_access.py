@@ -16,7 +16,7 @@ BUILD_STATUS_FAILURES = [BuildBatchStatus.FAILED, BuildBatchStatus.FAULT,
 
 class AwsAccess:
     def __init__(self, aws_profile: Optional[str],
-                 aws_client_factory: AwsClientFactory):
+                 aws_client_factory: AwsClientFactory = AwsClientFactory()):
         self._aws_client_factory = aws_client_factory
         self._aws_profile = aws_profile
 
@@ -99,7 +99,7 @@ class AwsAccess:
         current_result = client.list_stack_resources(stack_name=stack_name_id)
         result = current_result.stack_resource_summaries
 
-        while "nextToken" in current_result:
+        while current_result.next_token is not None:
             current_result = client.list_stack_resources(stack_name=stack_name_id, next_token=current_result.next_token)
             result.extend(current_result.stack_resource_summaries)
         return result
