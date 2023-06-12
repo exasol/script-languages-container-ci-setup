@@ -39,7 +39,7 @@ def _parse_upload_url(upload_url: str) -> int:
 
 def _execute_release_build(aws_access: AwsAccess, project: str, branch: str,
                            release_id: int, is_dry_run: bool, gh_token: str,
-                           timeout_time_in_seconds: int) -> None:
+                           timeout_in_seconds: int) -> None:
     """
     This function:
     1. Retrieve resources for the release codebuild stack for that given project
@@ -68,12 +68,12 @@ def _execute_release_build(aws_access: AwsAccess, project: str, branch: str,
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
-                               branch=branch, timeout_time_in_seconds=timeout_time_in_seconds)
+                               branch=branch, timeout_in_seconds=timeout_in_seconds)
 
 
 def run_start_release_build(project: str, upload_url: str,
                             branch: str, gh_token: str,
-                            timeout_time_in_seconds: int,
+                            timeout_in_seconds: int,
                             aws_access: AwsAccess) -> None:
     logging.info(f"run_start_release_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
                  f"with upload url: {upload_url}")
@@ -83,12 +83,12 @@ def run_start_release_build(project: str, upload_url: str,
                            release_id=_parse_upload_url(upload_url=upload_url),
                            is_dry_run=False,
                            gh_token=gh_token,
-                           timeout_time_in_seconds=timeout_time_in_seconds)
+                           timeout_in_seconds=timeout_in_seconds)
 
 
 def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubDraftReleaseCreator, repo_name: str,
                                  project: str, branch: str, release_title: str, gh_token: str,
-                                 timeout_time_in_seconds: int) -> None:
+                                 timeout_in_seconds: int) -> None:
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile_for_logging} "
                  f"for project {project} for branch: {branch} with title: {release_title}")
     release_id = gh_release_creator.create_release(repo_name, branch, release_title, gh_token)
@@ -96,11 +96,11 @@ def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: Gith
         aws_access=aws_access,
         project=project, branch=branch,
         release_id=release_id, is_dry_run=True, gh_token=gh_token,
-        timeout_time_in_seconds=timeout_time_in_seconds
+        timeout_in_seconds=timeout_in_seconds
     )
 
 
-def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout_time_in_seconds: int) -> None:
+def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout_in_seconds: int) -> None:
     logging.info(f"run_start_ci_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
                  f"on branch {branch}")
     """
@@ -114,7 +114,8 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout
         `ValueError` if project is not found on AWS CodeBuild or if the upload is not in expected format.
     The upload url is only be used to get the release id.
     """
-    resources = aws_access.get_all_stack_resources(ci_stack_name(project))
+    stack_name = ci_stack_name(project)
+    resources = aws_access.get_all_stack_resources(stack_name)
     matching_project = get_aws_codebuild_project(resources, project)
 
     # AwsAccess.start_codebuild() already indicates the branch (parameter `sourceVersion`)
@@ -125,4 +126,5 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str, timeout
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
     aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
-                               branch=branch, timeout_time_in_seconds=timeout_time_in_seconds)
+                               branch=branch,
+                               timeout_in_seconds=timeout_in_seconds)

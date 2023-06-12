@@ -25,7 +25,7 @@ def test_run_release_build():
         StackResourceSummary(physical_resource_id=None,
                              resource_type="SomethingElse")
     ]
-    timeout_time_in_seconds = 30
+    timeout_in_seconds = 30
     expected_env_variable_overrides = [
         {"name": "RELEASE_ID", "value": "123", "type": "PLAINTEXT"},
         {"name": "DRY_RUN", "value": "--no-dry-run", "type": "PLAINTEXT"},
@@ -34,10 +34,10 @@ def test_run_release_build():
 
     run_start_release_build(aws_access=aws_access_mock, project="slc",
                             upload_url=UPLOAD_URL, branch=BRANCH, gh_token=GITHUB_TOKEN,
-                            timeout_time_in_seconds=timeout_time_in_seconds)
+                            timeout_in_seconds=timeout_in_seconds)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
                                 branch=BRANCH,
-                                timeout_time_in_seconds=timeout_time_in_seconds) \
+                                timeout_in_seconds=timeout_in_seconds) \
            in aws_access_mock.mock_calls

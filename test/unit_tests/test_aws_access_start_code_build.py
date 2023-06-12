@@ -1,5 +1,5 @@
 from contextlib import suppress
-from typing import Any, Dict, List, Union
+from typing import List, Union
 from unittest.mock import Mock, call, MagicMock, create_autospec
 
 import pytest
@@ -40,7 +40,7 @@ class TestSetup:
         self.aws_access = AwsAccess(aws_profile=self.profile, aws_client_factory=self.aws_client_factory_mock)
         self.environment_variables_overrides = self._create_environment_variables_overrides()
         self.sleep_function_mock = Mock()
-        self.timeout_time_in_seconds = 5
+        self.timeout_in_seconds = 5
         self.poll_interval_seconds = 1
 
     def run_start_codebuild(self):
@@ -48,7 +48,7 @@ class TestSetup:
             project=PhysicalResourceId(PROJECT),
             branch=BRANCH,
             environment_variables_overrides=self.environment_variables_overrides,
-            timeout_time_in_seconds=self.timeout_time_in_seconds,
+            timeout_in_seconds=self.timeout_in_seconds,
             poll_interval_seconds=self.poll_interval_seconds,
             sleep_function=self.sleep_function_mock
         )

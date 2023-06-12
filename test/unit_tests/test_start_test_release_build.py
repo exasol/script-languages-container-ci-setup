@@ -1,8 +1,5 @@
-import datetime
 from typing import Union
 from unittest.mock import MagicMock, create_autospec, call
-
-from dateutil.tz import tzutc
 
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
@@ -31,7 +28,7 @@ def test_run_test_release_build():
         StackResourceSummary(physical_resource_id=None,
                              resource_type="SomethingElse")
     ]
-    timeout_time_in_seconds = 30
+    timeout_in_seconds = 30
     github_release_creator_mock: Union[MagicMock, GithubDraftReleaseCreator] = \
         create_autospec(GithubDraftReleaseCreator)
     mock_cast(github_release_creator_mock.create_release).return_value = 123
@@ -44,10 +41,10 @@ def test_run_test_release_build():
     run_start_test_release_build(aws_access=aws_access_mock, gh_release_creator=github_release_creator_mock,
                                  project="slc", repo_name=REPO_NAME, branch=BRANCH,
                                  release_title=RELEASE_TITLE, gh_token=GITHUB_TOKEN,
-                                 timeout_time_in_seconds=timeout_time_in_seconds)
+                                 timeout_in_seconds=timeout_in_seconds)
 
     assert call.start_codebuild(physical_resource_id,
                                 environment_variables_overrides=expected_env_variable_overrides,
                                 branch=BRANCH,
-                                timeout_time_in_seconds=timeout_time_in_seconds) \
+                                timeout_in_seconds=timeout_in_seconds) \
            in aws_access_mock.mock_calls
