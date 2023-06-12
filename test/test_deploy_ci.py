@@ -2,7 +2,6 @@ from unittest.mock import MagicMock
 
 import pytest
 
-from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.ci_build import run_deploy_ci_build, ci_stack_name, \
     CI_BUILD_WEBHOOK_FILTER_PATTERN
 from exasol_script_languages_container_ci_setup.lib.release_build import run_deploy_release_build, release_stack_name

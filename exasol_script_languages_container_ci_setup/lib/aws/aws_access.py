@@ -2,14 +2,16 @@ import logging
 import time
 from typing import Optional, List, Dict, Any, Iterable
 
-import boto3
 from botocore.exceptions import ClientError
 
-from exasol_script_languages_container_ci_setup.lib.deployer import Deployer
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.aws_client import AwsClientFactory
+from exasol_script_languages_container_ci_setup.lib.aws.deployer import Deployer
 
 
-class AwsAccess(object):
-    def __init__(self, aws_profile: Optional[str]):
+class AwsAccess:
+    def __init__(self, aws_profile: Optional[str],
+                 aws_client_wrapper_factory: AwsClientFactory):
+        self._aws_client_wrapper_factory = aws_client_wrapper_factory
         self._aws_profile = aws_profile
 
     @property
@@ -22,6 +24,9 @@ class AwsAccess(object):
     @property
     def aws_profile(self) -> Optional[str]:
         return self._aws_profile
+
+    def _get_aws_client(self, service_name: str) -> Any:
+        return self._aws_client_wrapper_factory.create(profile=self._aws_profile)
 
     def upload_cloudformation_stack(self, yml: str, stack_name: str):
         """
@@ -55,7 +60,7 @@ class AwsAccess(object):
         client = self._get_aws_client(service_name='secretsmanager')
 
         try:
-            get_secret_value_response = client.get_secret_value(SecretId=secret_name)
+            get_secret_value_response = client.get_secret_value(secret_id=secret_name)
             return get_secret_value_response["ARN"]
         except ClientError as e:
             logging.error("Unable to read secret")
@@ -73,13 +78,7 @@ class AwsAccess(object):
         """
         logging.debug(f"Running validate_cloudformation_template for aws profile {self.aws_profile_for_logging}")
         cloud_client = self._get_aws_client("cloudformation")
-        cloud_client.validate_template(TemplateBody=cloudformation_yml)
-
-    def _get_aws_client(self, service_name: str) -> Any:
-        if self._aws_profile is None:
-            return boto3.client(service_name)
-        aws_session = boto3.session.Session(profile_name=self._aws_profile)
-        return aws_session.client(service_name)
+        cloud_client.validate_template(template_body=cloudformation_yml)
 
     def get_all_stack_resources(self, stack_name: str) -> List[Dict[str, str]]:
         """
@@ -90,7 +89,7 @@ class AwsAccess(object):
         """
         logging.debug(f"Running get_all_codebuild_projects for aws profile {self.aws_profile_for_logging}")
         cf_client = self._get_aws_client('cloudformation')
-        current_result = cf_client.list_stack_resources(StackName=stack_name)
+        current_result = cf_client.list_stack_resources(stack_name=stack_name)
         result = current_result["StackResourceSummaries"]
 
         while "nextToken" in current_result:
@@ -98,7 +97,11 @@ class AwsAccess(object):
             result.extend(current_result["StackResourceSummaries"])
         return result
 
-    def start_codebuild(self, project: str, environment_variables_overrides: List[Dict[str, str]], branch: str) -> None:
+    def start_codebuild(self,
+                        project: str,
+                        environment_variables_overrides: List[Dict[str, str]],
+                        branch: str,
+                        poll_interval_seconds: int = 30) -> None:
         """
         This functions uses Boto3 to start a batch build.
         It forwards all variables from parameter env_variables as environment variables to the CodeBuild project.
@@ -110,9 +113,9 @@ class AwsAccess(object):
         codebuild_client = self._get_aws_client("codebuild")
         logging.info(f"Trigger codebuild for project {project} with branch {branch} "
                      f"and env_variables ({environment_variables_overrides})")
-        ret_val = codebuild_client.start_build_batch(projectName=project,
-                                                     sourceVersion=branch,
-                                                     environmentVariablesOverride=list(
+        ret_val = codebuild_client.start_build_batch(project_name=project,
+                                                     source_version=branch,
+                                                     environment_variables_override=list(
                                                          environment_variables_overrides))
 
         def wait_for(seconds: int, interval: int) -> Iterable[int]:
