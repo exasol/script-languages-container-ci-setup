@@ -5,10 +5,11 @@ from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.secre
 
 
 def test_arn_exists():
-    expected_arn = ARN(aws_arn="EXPECTED_ARN")
-    boto_secret = {"ARN": expected_arn.aws_arn}
-    secret = Secret.from_boto(boto_secret)
-    assert secret.arn == expected_arn
+    expected = ARN(aws_arn="EXPECTED_ARN")
+    boto_secret = {"ARN": expected.aws_arn}
+    actual = Secret.from_boto(boto_secret)
+    assert actual.arn == expected.arn
+
 
 
 def test_arn_not_exists():
