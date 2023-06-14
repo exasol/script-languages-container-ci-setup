@@ -20,15 +20,27 @@ from exasol_script_languages_container_ci_setup.lib.run_start_build import run_s
               help="""The URL of the Github release where artifacts will be stored.""")
 @click.option('--branch', type=str, required=True,
               help="""The branch of the repository which will be used.""")
+@click.option('--timeout-in-seconds', type=int, required=False,
+              help="""Time after we don't wait for the release to finish, anymore.""")
+@click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
+              help="Configuration file for build (project specific).")
 def start_release_build(
         aws_profile: Optional[str],
         log_level: str,
         project: str,
         upload_url: str,
-        branch: str):
+        branch: str,
+        timeout_in_seconds: str,
+        config_file: Optional[str]
+):
     """
     This command  triggers the AWS release Codebuild to upload the
     release artifacts onto the given Github release, indicated by parameter 'upload_url'.
     """
     set_log_level(log_level)
-    run_start_release_build(AwsAccess(aws_profile), project, upload_url, branch, os.getenv("GITHUB_TOKEN"))
+    run_start_release_build(aws_access=AwsAccess(aws_profile),
+                            project=project,
+                            upload_url=upload_url,
+                            branch=branch,
+                            gh_token=os.getenv("GITHUB_TOKEN"),
+                            timeout_in_seconds=timeout_in_seconds)

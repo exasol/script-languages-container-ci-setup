@@ -24,13 +24,19 @@ from exasol_script_languages_container_ci_setup.lib.run_start_build import run_s
               help="""The branch for which the test release should be created.""")
 @click.option('--release-title', type=str, required=True,
               help="""The title of the Github draft release which will be created.""")
+@click.option('--timeout-in-seconds', type=int, required=False,
+              help="""Time after we don't wait for the release to finish, anymore.""")
+@click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
+              help="Configuration file for build (project specific).")
 def start_test_release_build(
         aws_profile: Optional[str],
         log_level: str,
         repo_name: str,
         project: str,
         branch: str,
-        release_title: str
+        release_title: str,
+        timeout_in_seconds: str,
+        config_file: Optional[str]
 ):
     """
     This command creates a release draft on Github and triggers the AWS release Codebuild to upload the
@@ -38,4 +44,5 @@ def start_test_release_build(
     """
     set_log_level(log_level)
     run_start_test_release_build(AwsAccess(aws_profile), GithubDraftReleaseCreator(),
-                                 repo_name, project, branch, release_title, os.getenv("GITHUB_TOKEN"))
+                                 repo_name, project, branch, release_title, os.getenv("GITHUB_TOKEN"),
+                                 timeout_in_seconds)
