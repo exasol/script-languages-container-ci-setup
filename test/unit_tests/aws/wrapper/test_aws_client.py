@@ -38,9 +38,9 @@ def test_create_codebuild_service_boto_session_client():
     ]
 
 
-def test_create_codebuild_service_boto_client():
+def test_create_codebuild_service_internal_aws_client():
     setup = CodeBuildServiceTestSetup()
-    assert setup.codebuild_service.boto_client == mock_cast(setup.boto_session.client).return_value
+    assert setup.codebuild_service.internal_aws_client == mock_cast(setup.boto_session.client).return_value
 
 
 @dataclasses.dataclass
@@ -66,9 +66,9 @@ def test_create_cloudformation_service_boto_session_client():
     ]
 
 
-def test_create_cloudformation_service_boto_client():
+def test_create_cloudformation_service_internal_aws_client():
     setup = CloudFormationServiceTestSetup()
-    assert setup.cloudformation_service.boto_client == mock_cast(setup.boto_session.client).return_value
+    assert setup.cloudformation_service.internal_aws_client == mock_cast(setup.boto_session.client).return_value
 
 
 @dataclasses.dataclass
@@ -94,6 +94,6 @@ def test_create_secretsmanager_service_boto_session_client():
     ]
 
 
-def test_create_secretsmanager_service_boto_client():
+def test_create_secretsmanager_service_internal_aws_client():
     setup = SecreteManagerServiceTestSetup()
-    assert setup.secretsmanager_service.boto_client == mock_cast(setup.boto_session.client).return_value
+    assert setup.secretsmanager_service.internal_aws_client == mock_cast(setup.boto_session.client).return_value

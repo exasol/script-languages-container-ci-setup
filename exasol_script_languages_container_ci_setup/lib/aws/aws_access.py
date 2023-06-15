@@ -41,7 +41,7 @@ class AwsAccess:
         logging.debug(f"Running upload_cloudformation_stack for aws profile {self.aws_profile_for_logging}")
         client = self._get_aws_client().create_cloudformation_service()
         try:
-            cfn_deployer = Deployer(cloudformation_client=client.boto_client)
+            cfn_deployer = Deployer(cloudformation_client=client.internal_aws_client)
             result = cfn_deployer.create_and_wait_for_changeset(stack_name=stack_name, cfn_template=yml,
                                                                 parameter_values=[],
                                                                 capabilities=("CAPABILITY_IAM",), role_arn=None,

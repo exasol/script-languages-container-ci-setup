@@ -31,18 +31,18 @@ class AwsClient:
 
     def create_codebuild_service(self) -> CodeBuildService:
         session = self._create_aws_session()
-        boto_client = session.client("codebuild")
-        return CodeBuildService(boto_client=boto_client)
+        internal_aws_client = session.client("codebuild")
+        return CodeBuildService(internal_aws_client=internal_aws_client)
 
     def create_secretsmanager_service(self) -> SecretsManagerService:
         session = self._create_aws_session()
         client = session.client("secretsmanager")
-        return SecretsManagerService(boto_client=client)
+        return SecretsManagerService(internal_aws_client=client)
 
     def create_cloudformation_service(self) -> CloudFormationService:
         session = self._create_aws_session()
         client = session.client("cloudformation")
-        return CloudFormationService(boto_client=client)
+        return CloudFormationService(internal_aws_client=client)
 
 
 class AwsClientFactory:

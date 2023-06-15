@@ -7,31 +7,31 @@ from test.mock_cast import mock_cast
 
 
 def test_init():
-    boto_client = Mock()
-    service = CodeBuildService(boto_client=boto_client)
-    assert service.boto_client == boto_client
+    internal_aws_client = Mock()
+    service = CodeBuildService(internal_aws_client=internal_aws_client)
+    assert service.internal_aws_client == internal_aws_client
 
 
 @dataclasses.dataclass(frozen=True)
 class BatchGetBuildBatchesTestSetup:
-    boto_client = Mock()
+    internal_aws_client = Mock()
     batch_get_build_batches_return_values = [Mock(), Mock()]
-    mock_cast(boto_client.batch_get_build_batches).return_value = {
+    mock_cast(internal_aws_client.batch_get_build_batches).return_value = {
         'buildBatches': batch_get_build_batches_return_values
     }
     from_boto = Mock()
     from_boto_return_values = [Mock(), Mock()]
     from_boto.side_effect = from_boto_return_values
-    service = CodeBuildService(boto_client=boto_client)
+    service = CodeBuildService(internal_aws_client=internal_aws_client)
     build_batch_ids = [PhysicalResourceId(aws_physical_resource_id="1"),
                        PhysicalResourceId(aws_physical_resource_id="2")]
     build_batches = service.batch_get_build_batches(build_batch_ids=build_batch_ids, from_boto=from_boto)
     ids = [id.aws_physical_resource_id for id in build_batch_ids]
 
 
-def test_batch_get_build_batches_boto_client():
+def test_batch_get_build_batches_internal_aws_client():
     setup = BatchGetBuildBatchesTestSetup()
-    assert setup.boto_client.mock_calls == [call.batch_get_build_batches(ids=setup.ids)]
+    assert setup.internal_aws_client.mock_calls == [call.batch_get_build_batches(ids=setup.ids)]
 
 
 def test_batch_get_build_batches_from_boto():
@@ -47,13 +47,13 @@ def test_batch_get_build_batches_result():
 
 @dataclasses.dataclass(frozen=True)
 class StartBuildBatchTestSetup:
-    boto_client = Mock()
+    internal_aws_client = Mock()
     from_boto_input = Mock()
     start_build_batch_return_values = {"buildBatch": from_boto_input}
-    mock_cast(boto_client.start_build_batch).return_value = start_build_batch_return_values
+    mock_cast(internal_aws_client.start_build_batch).return_value = start_build_batch_return_values
     from_boto = Mock()
     from_boto.return_value = Mock()
-    service = CodeBuildService(boto_client=boto_client)
+    service = CodeBuildService(internal_aws_client=internal_aws_client)
     projectName = PhysicalResourceId(aws_physical_resource_id="id")
     sourceVersion = Mock()
     environmentVariablesOverride = Mock()
@@ -63,9 +63,9 @@ class StartBuildBatchTestSetup:
                                             from_boto=from_boto)
 
 
-def test_start_build_batch_boto_client():
+def test_start_build_batch_internal_aws_client():
     setup = StartBuildBatchTestSetup()
-    assert setup.boto_client.mock_calls == [
+    assert setup.internal_aws_client.mock_calls == [
         call.start_build_batch(projectName=setup.projectName.aws_physical_resource_id,
                                sourceVersion=setup.sourceVersion,
                                environmentVariablesOverride=setup.environmentVariablesOverride)]

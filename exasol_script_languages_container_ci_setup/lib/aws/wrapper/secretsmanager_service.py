@@ -6,17 +6,17 @@ from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.secre
 
 
 class SecretsManagerService:
-    def __init__(self, boto_client):
-        self._boto_client = boto_client
+    def __init__(self, internal_aws_client):
+        self._internal_aws_client = internal_aws_client
 
     @property
-    def boto_client(self) -> Any:
-        return self._boto_client
+    def internal_aws_client(self) -> Any:
+        return self._internal_aws_client
 
     def get_secret_value(self,
                          secret_id: PhysicalResourceId,
                          from_boto: Callable[[Dict[str, Any]], Secret] = Secret.from_boto) \
             -> Secret:
-        boto_secret = self._boto_client.get_secret_value(SecretId=secret_id.aws_physical_resource_id)
+        boto_secret = self._internal_aws_client.get_secret_value(SecretId=secret_id.aws_physical_resource_id)
         secret = from_boto(boto_secret)
         return secret

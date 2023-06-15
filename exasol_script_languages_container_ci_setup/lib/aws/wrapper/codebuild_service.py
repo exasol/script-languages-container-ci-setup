@@ -5,12 +5,12 @@ from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.commo
 
 
 class CodeBuildService:
-    def __init__(self, boto_client):
-        self._boto_client = boto_client
+    def __init__(self, internal_aws_client):
+        self._internal_aws_client = internal_aws_client
 
     @property
-    def boto_client(self) -> Any:
-        return self._boto_client
+    def internal_aws_client(self) -> Any:
+        return self._internal_aws_client
 
     def start_build_batch(
             self,
@@ -19,7 +19,7 @@ class CodeBuildService:
             environment_variables_override: List[Dict[str, str]],
             from_boto: Callable[[Dict[str, Any]], BuildBatch] = BuildBatch.from_boto) \
             -> BuildBatch:
-        boto_build_batch = self._boto_client.start_build_batch(
+        boto_build_batch = self._internal_aws_client.start_build_batch(
             projectName=project_name.aws_physical_resource_id,
             sourceVersion=source_version,
             environmentVariablesOverride=environment_variables_override)
@@ -31,7 +31,7 @@ class CodeBuildService:
                                 from_boto: Callable[[Dict[str, Any]], BuildBatch] = BuildBatch.from_boto) \
             -> List[BuildBatch]:
         aws_ids = [build_batch_id.aws_physical_resource_id for build_batch_id in build_batch_ids]
-        boto_build_batches = self._boto_client.batch_get_build_batches(ids=aws_ids)
+        boto_build_batches = self._internal_aws_client.batch_get_build_batches(ids=aws_ids)
         print(boto_build_batches)
         build_batches = [from_boto(boto_build_batch) for boto_build_batch in boto_build_batches['buildBatches']]
         return build_batches
