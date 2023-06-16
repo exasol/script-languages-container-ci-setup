@@ -1,6 +1,6 @@
 import logging
 
-from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
+from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 
 SOURCE_CREDENTIALS_STACK_NAME = "SLCSourceCredentials"

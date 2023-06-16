@@ -2,18 +2,22 @@ import logging
 import re
 from typing import Tuple, Dict, List
 
-from exasol_script_languages_container_ci_setup.lib.aws_access import AwsAccess
+from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
 from exasol_script_languages_container_ci_setup.lib.ci_build import ci_stack_name
 from exasol_script_languages_container_ci_setup.lib.github_draft_release_creator import GithubDraftReleaseCreator
 from exasol_script_languages_container_ci_setup.lib.release_build import release_stack_name
+
+AWS_CODE_BUILD_PROJECT_RESOURCE_TYPE = "AWS::CodeBuild::Project"
 
 
 def get_environment_variable_override(env_variable: Tuple[str, str]) -> Dict[str, str]:
     return {"name": env_variable[0], "value": env_variable[1], "type": "PLAINTEXT"}
 
 
-def get_aws_codebuild_project(resources: List[Dict[str, str]], project: str) -> Dict[str, str]:
-    matching_project = [resource for resource in resources if resource["ResourceType"] == "AWS::CodeBuild::Project"]
+def get_aws_codebuild_project(resources: List[StackResourceSummary], project: str) -> StackResourceSummary:
+    matching_project = [resource for resource in resources
+                        if resource.resource_type == AWS_CODE_BUILD_PROJECT_RESOURCE_TYPE]
     if len(matching_project) == 0:
         raise ValueError(f"No project deployed for {project}. Found following resources: {resources}")
     if len(matching_project) > 1:
@@ -61,15 +65,22 @@ def _execute_release_build(aws_access: AwsAccess, project: str, branch: str,
                      ("DRY_RUN", dry_run_value),
                      ("GITHUB_TOKEN", gh_token)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
-    aws_access.start_codebuild(matching_project["PhysicalResourceId"],
+    aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
                                branch=branch)
 
 
-def run_start_release_build(aws_access: AwsAccess, project: str, upload_url: str, branch: str, gh_token: str) -> None:
+def run_start_release_build(project: str, upload_url: str,
+                            branch: str, gh_token: str,
+                            aws_access: AwsAccess) -> None:
     logging.info(f"run_start_release_build for aws profile {aws_access.aws_profile_for_logging} for project {project} "
                  f"with upload url: {upload_url}")
-    _execute_release_build(aws_access, project, branch, _parse_upload_url(upload_url=upload_url), False, gh_token)
+    _execute_release_build(aws_access=aws_access,
+                           project=project,
+                           branch=branch,
+                           release_id=_parse_upload_url(upload_url=upload_url),
+                           is_dry_run=False,
+                           gh_token=gh_token)
 
 
 def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: GithubDraftReleaseCreator, repo_name: str,
@@ -77,7 +88,11 @@ def run_start_test_release_build(aws_access: AwsAccess, gh_release_creator: Gith
     logging.info(f"run_start_test_release_build for aws profile {aws_access.aws_profile_for_logging} "
                  f"for project {project} for branch: {branch} with title: {release_title}")
     release_id = gh_release_creator.create_release(repo_name, branch, release_title, gh_token)
-    _execute_release_build(aws_access, project, branch, release_id, True, gh_token)
+    _execute_release_build(
+        aws_access=aws_access,
+        project=project, branch=branch,
+        release_id=release_id, is_dry_run=True, gh_token=gh_token,
+    )
 
 
 def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str) -> None:
@@ -103,6 +118,6 @@ def run_start_ci_build(aws_access: AwsAccess, project: str, branch: str) -> None
     # (which itself uses the parameter to evaluate build strategies)
     env_variables = [("CUSTOM_BRANCH", branch)]
     environment_variables_overrides = list(map(get_environment_variable_override, env_variables))
-    aws_access.start_codebuild(matching_project["PhysicalResourceId"],
+    aws_access.start_codebuild(matching_project.physical_resource_id,
                                environment_variables_overrides=environment_variables_overrides,
                                branch=branch)
