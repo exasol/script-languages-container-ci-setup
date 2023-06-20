@@ -5,9 +5,9 @@ import click
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
 from exasol_script_languages_container_ci_setup.cli.common import add_options
+from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
 from exasol_script_languages_container_ci_setup.cli.options.logging import logging_options, set_log_level
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
-from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
 from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_release_build
 
 
@@ -21,8 +21,8 @@ from exasol_script_languages_container_ci_setup.lib.run_start_build import run_s
 @click.option('--branch', type=str, required=True,
               help="""The branch of the repository which will be used.""")
 @click.option('--timeout-in-seconds', type=int, required=False,
-              help="""Time after we don't wait for the release to finish, anymore.""")
-@click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True),
+              help="""Time to wait for the release, anymore.""")
+@click.option('--config-file', type=click.Path(file_okay=True, dir_okay=False, exists=True), required=False,
               help="Configuration file for build (project specific).")
 def start_release_build(
         aws_profile: Optional[str],
@@ -30,7 +30,7 @@ def start_release_build(
         project: str,
         upload_url: str,
         branch: str,
-        timeout_in_seconds: str,
+        timeout_in_seconds: Optional[int],
         config_file: Optional[str]
 ):
     """
@@ -43,4 +43,5 @@ def start_release_build(
                             upload_url=upload_url,
                             branch=branch,
                             gh_token=os.getenv("GITHUB_TOKEN"),
-                            timeout_in_seconds=timeout_in_seconds)
+                            timeout_in_seconds=timeout_in_seconds,
+                            config_file_path=config_file)
