@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 CONFIG_DATA_MODEL_FILE_NAME = "config_data_model.py"
 
 
-def get_config_data_model_pydantic_model_default_output_file() -> Path:
+def config_data_model_default_output_file() -> Path:
     return Path(__file__).parent / CONFIG_DATA_MODEL_FILE_NAME
 
 

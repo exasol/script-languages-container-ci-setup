@@ -1,7 +1,7 @@
 import logging
 
-from exasol_script_languages_container_ci_setup.lib.config.pydantic_model_generator import \
-    get_config_data_model_pydantic_model_default_output_file, regenerate_config_data_model
+from exasol_script_languages_container_ci_setup.lib.config.data_model_generator import \
+    config_data_model_default_output_file, regenerate_config_data_model
 
 DISABLE_PYDANTIC_MODEL_GENERATION = "--disable-pydantic-model-generation"
 
@@ -23,7 +23,7 @@ def pytest_configure(config):
     """
 
     if not config.getoption(DISABLE_PYDANTIC_MODEL_GENERATION):
-        output_file = get_config_data_model_pydantic_model_default_output_file()
+        output_file = config_data_model_default_output_file()
         regenerate_config_data_model(output_file)
     else:
         logger.warning("Generation of pydantic models from json schema disabled")
