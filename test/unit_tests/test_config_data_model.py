@@ -24,32 +24,12 @@ def expected_config() -> Config:
     return config
 
 
-@pytest.fixture
-def expected_json() -> str:
-    json = cleandoc("""
-    {
-        "build": {
-            "ignore": {
-                "paths": [
-                    "a/b/c",
-                    "e/f/g"
-                ]
-            },
-            "base_branch": ""
-        },
-        "release": {
-            "timeout_in_minutes": 1
-        }
-    }""")
-    return json
-
-
-def test_serialization(expected_config, expected_json):
+def test_serialization(expected_config, expected_config_json):
     actual_json = expected_config.json(indent=4)
     print(actual_json)
-    assert actual_json == expected_json
+    assert actual_json == expected_config_json
 
 
-def test_json_deserialization(expected_config, expected_json):
-    actual_config = Config.parse_raw(expected_json)
+def test_json_deserialization(expected_config, expected_config_json):
+    actual_config = Config.parse_raw(expected_config_json)
     assert actual_config == expected_config
