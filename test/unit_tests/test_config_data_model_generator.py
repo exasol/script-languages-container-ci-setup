@@ -11,13 +11,13 @@ def test_loading_generated_module(tmp_path):
     assert True
 
 
-def test_using_generated_module(tmp_path, expected_config_json):
+def test_using_generated_module(tmp_path, expected_json_config):
     config_data_model_file = tmp_path / CONFIG_DATA_MODEL_FILE_NAME
     generate_config_data_model(config_data_model_file)
     module = load_module(config_data_model_file)
     config = create_config(module)
     actual_json = config.json(indent=4)
-    assert actual_json == expected_config_json
+    assert actual_json == expected_json_config
 
 
 def create_config(module):

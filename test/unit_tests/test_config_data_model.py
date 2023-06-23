@@ -24,11 +24,11 @@ def expected_config() -> Config:
     return config
 
 
-def test_serialization(expected_config, expected_config_json):
+def test_serialization(expected_config, expected_json_config):
     actual_json = expected_config.json(indent=4)
-    assert actual_json == expected_config_json
+    assert actual_json == expected_json_config
 
 
-def test_json_deserialization(expected_config, expected_config_json):
-    actual_config = Config.parse_raw(expected_config_json)
+def test_json_deserialization(expected_config, expected_json_config):
+    actual_config = Config.parse_raw(expected_json_config)
     assert actual_config == expected_config
