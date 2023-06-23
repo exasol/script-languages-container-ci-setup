@@ -26,7 +26,6 @@ def expected_config() -> Config:
 
 def test_serialization(expected_config, expected_config_json):
     actual_json = expected_config.json(indent=4)
-    print(actual_json)
     assert actual_json == expected_config_json
 
 

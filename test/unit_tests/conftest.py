@@ -4,7 +4,7 @@ import pytest
 
 
 @pytest.fixture
-def expected_config_json() -> str:
+def expected_json_config() -> str:
     json = cleandoc("""
     {
         "build": {
