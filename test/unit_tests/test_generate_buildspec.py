@@ -1,8 +1,10 @@
 import json
 
 import jsonschema
+import pydantic
 import pytest
 
+from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config, Build, Ignore, Release
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec import run_generate_buildspec, \
     get_config_file_parameter
@@ -90,9 +92,20 @@ def test_buildspec_with_valid_config_file(tmp_path):
     a_folder.mkdir(parents=False, exist_ok=False)
 
     config_file_path = tmp_path / "build_config.json"
-    config = {"build_ignore": {"ignored_paths": [str(a_folder)]}, "base_branch": "master"}
+    config = Config(
+        build=Build(
+            ignore=Ignore(
+                paths=[str(a_folder)]
+            ),
+            base_branch="master"
+        ),
+        release=Release(
+            timeout_in_minutes=10
+        )
+    )
+
     with open(config_file_path, "w") as f:
-        json.dump(config, f)
+        f.write(config.json())
 
     run_generate_buildspec((str(root_path),), str(out_path.absolute()),
                            config_file=str(config_file_path.absolute()))
@@ -108,7 +121,7 @@ def test_buildspec_with_valid_config_file(tmp_path):
         # For build_buildspec.yaml we re-use the template for testing
         expected_result_build_buildspec = render_template("build_buildspec.yaml",
                                                           config_file_parameter=
-                                                          get_config_file_parameter(config_file_path))
+                                                          get_config_file_parameter(str(config_file_path)))
         assert res == expected_result_build_buildspec
 
 
@@ -123,12 +136,21 @@ def test_buildspec_with_invalid_config_file(tmp_path):
     out_path.mkdir(parents=False, exist_ok=False)
 
     config_file_path = tmp_path / "build_config.json"
-    # Incorrect config ('ignored_path' instead of 'ignored_paths')
-    config = {"build_ignore": {"ignored_path": ["a_folder"]}, "base_branch": "master"}
+    # Incorrect config ('path' instead of 'paths')
+    config = {
+        "build": {
+            "ignore": {
+                "path": ["/tmp/pytest-of-tk/pytest-11/test_buildspec_with_valid_conf0/a_folder"]
+            },
+            "base_branch": "master"},
+        "release": {
+            "timeout_in_minutes": 10
+        }
+    }
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
-    with pytest.raises(jsonschema.exceptions.ValidationError):
+    with pytest.raises(pydantic.ValidationError):
         run_generate_buildspec((str(root_path),), str(out_path.absolute()),
                                config_file=str(config_file_path.absolute()))
 
@@ -148,9 +170,19 @@ def test_buildspec_with_invalid_folder(tmp_path):
 
     a_folder = tmp_path / "a_folder"
     # Incorrect config (tmp_path/a_folder does not exists)
-    config = {"build_ignore": {"ignored_paths": [str(a_folder)]}, "base_branch": "master"}
+    config = Config(
+        build=Build(
+            ignore=Ignore(
+                paths=[str(a_folder)]
+            ),
+            base_branch="master"
+        ),
+        release=Release(
+            timeout_in_minutes=10
+        )
+    )
     with open(config_file_path, "w") as f:
-        json.dump(config, f)
+        f.write(config.json())
 
     with pytest.raises(ValueError):
         run_generate_buildspec((str(root_path),), str(out_path.absolute()),
