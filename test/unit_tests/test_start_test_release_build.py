@@ -7,7 +7,7 @@ import pytest
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import PhysicalResourceId
-from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config, Build, Release, Ignore
+from exasol_script_languages_container_ci.lib.config.config_data_model import Config, Build, Release, Ignore
 from exasol_script_languages_container_ci_setup.lib.github_draft_release_creator import GithubDraftReleaseCreator
 from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_test_release_build, DEFAULT_TIMEOUT
 from test.mock_cast import mock_cast
