@@ -2,10 +2,11 @@ import logging
 import re
 from typing import Tuple, Dict, List, Optional
 
+from exasol_script_languages_container_ci.lib.config.config_data_model import Config
+
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
 from exasol_script_languages_container_ci_setup.lib.ci_build import ci_stack_name
-from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config
 from exasol_script_languages_container_ci_setup.lib.github_draft_release_creator import GithubDraftReleaseCreator
 from exasol_script_languages_container_ci_setup.lib.release_build import release_stack_name
 

@@ -1,10 +1,9 @@
 import json
 
-import jsonschema
 import pydantic
 import pytest
 
-from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config, Build, Ignore, Release
+from exasol_script_languages_container_ci.lib.config.config_data_model import Config, Build, Ignore, Release
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec import run_generate_buildspec, \
     get_config_file_parameter

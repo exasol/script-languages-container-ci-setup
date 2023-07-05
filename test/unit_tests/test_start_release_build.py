@@ -3,11 +3,11 @@ from typing import Union
 from unittest.mock import MagicMock, create_autospec, call
 
 import pytest
+from exasol_script_languages_container_ci.lib.config.config_data_model import Build, Ignore, Release, Config
 
 from exasol_script_languages_container_ci_setup.lib.aws.aws_access import AwsAccess
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.cloudformation import StackResourceSummary
 from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import PhysicalResourceId
-from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config, Build, Ignore, Release
 from exasol_script_languages_container_ci_setup.lib.run_start_build import run_start_release_build, DEFAULT_TIMEOUT
 
 UPLOAD_URL = "https://uploads.github.com/repos/exasol/script-languages-repo/releases/123/assets{?name,label}"

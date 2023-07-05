@@ -1,12 +1,11 @@
-import json
+
 import logging
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Tuple, List
 
-import jsonschema
+from exasol_script_languages_container_ci.lib.config.config_data_model import Config
 
-from exasol_script_languages_container_ci_setup.lib.config.config_data_model import Config
 from exasol_script_languages_container_ci_setup.lib.render_template import render_template
 
 
@@ -46,7 +45,7 @@ def get_config_file_parameter(config_file: Optional[str]):
 
 
 def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> List[Flavor]:
-    """"
+    """
     Find flavors under the given path(s) and return them in ordered list.
     """
     flavors = set()
