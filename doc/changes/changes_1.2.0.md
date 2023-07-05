@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 1.2.0, released 2023-07-04
+# script-languages-container-ci-setup 1.2.0, released 2023-07-05
 
 Code name: Updated SLC-CI to 1.3.0
 
