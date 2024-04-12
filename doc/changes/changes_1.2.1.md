@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 1.2.1, released T.B.D.
+# script-languages-container-ci-setup 1.2.1, released 2024-04-12.
 
 Code name: Poetry relock
 
