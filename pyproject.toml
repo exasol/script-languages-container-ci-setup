@@ -30,7 +30,6 @@ toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
-exasol-toolbox = "^0.12.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
