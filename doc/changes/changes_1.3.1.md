@@ -1,4 +1,4 @@
-# script-languages-container-ci-setup 1.3.0, released 2024-06-04.
+# script-languages-container-ci-setup 1.3.1, released 2024-06-04.
 
 Code name: Fix Python version for AWS Codebuild
 
