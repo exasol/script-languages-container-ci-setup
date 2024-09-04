@@ -18,4 +18,4 @@ jobs:
           python-version: "3.10"
           poetry-version: '1.8.2'
       - name: Check Release
-        run: ./scripts/build/check_release.sh "python3.10"
+        run: poetry run python3 -u "scripts/build/check_release.py"
