@@ -1,6 +1,6 @@
 # script-languages-container-ci-setup 1.5.0, released 2024-09-04.
 
-Code name: Updated dependencies.
+Code name: Updated dependencies on top of 1.4.0.
 
 ## Summary
 
