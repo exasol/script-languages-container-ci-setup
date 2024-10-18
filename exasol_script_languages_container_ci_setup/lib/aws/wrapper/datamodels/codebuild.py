@@ -1,8 +1,17 @@
 import dataclasses
-from enum import Enum, auto
-from typing import Dict, Any, Optional
+from enum import (
+    Enum,
+    auto,
+)
+from typing import (
+    Any,
+    Dict,
+    Optional,
+)
 
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import PhysicalResourceId
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import (
+    PhysicalResourceId,
+)
 
 BUILD_BATCH_STATUS = "buildBatchStatus"
 
@@ -31,7 +40,9 @@ class BuildBatch:
         return build_batch
 
     @classmethod
-    def _extract_build_id(cls, boto_buildbatch: Dict[str, Any]) -> Optional[PhysicalResourceId]:
+    def _extract_build_id(
+        cls, boto_buildbatch: Dict[str, Any]
+    ) -> Optional[PhysicalResourceId]:
         batch_id = None
         if BuildBatch._has_id(boto_buildbatch):
             batch_id = PhysicalResourceId(aws_physical_resource_id=boto_buildbatch[ID])
@@ -42,7 +53,9 @@ class BuildBatch:
         return ID in boto_buildbatch and boto_buildbatch[ID] is not None
 
     @classmethod
-    def _extract_build_batch_status(cls, boto_buildbatch: Dict[str, Any]) -> Optional[BuildBatchStatus]:
+    def _extract_build_batch_status(
+        cls, boto_buildbatch: Dict[str, Any]
+    ) -> Optional[BuildBatchStatus]:
         build_batch_status = None
         if BuildBatch._has_build_status(boto_buildbatch):
             build_batch_status = BuildBatchStatus[boto_buildbatch[BUILD_BATCH_STATUS]]
@@ -50,4 +63,7 @@ class BuildBatch:
 
     @classmethod
     def _has_build_status(cls, boto_buildbatch: Dict[str, Any]) -> bool:
-        return BUILD_BATCH_STATUS in boto_buildbatch and boto_buildbatch[BUILD_BATCH_STATUS] is not None
+        return (
+            BUILD_BATCH_STATUS in boto_buildbatch
+            and boto_buildbatch[BUILD_BATCH_STATUS] is not None
+        )

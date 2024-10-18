@@ -9,6 +9,7 @@ class ARN:
     We use a dataclass to encapsulate the original value of the ARN, to decouple our abstraction from AWS.
     This way we don't care when AWS should change its datatype.
     """
+
     aws_arn: Any
 
 
@@ -19,4 +20,5 @@ class PhysicalResourceId:
     We use a dataclass to encapsulate the original value of the PhysicalResourceId,
     to decouple our abstraction from AWS. This way we don't care when AWS should change its datatype.
     """
+
     aws_physical_resource_id: Any
