@@ -10,10 +10,11 @@ def validate_using_cfn_lint(tmp_path, cloudformation_yml):
     with open(out_file, "w") as f:
         f.write(cloudformation_yml)
 
-    completed_process = subprocess.run(["cfn-lint", str(out_file.absolute())], capture_output=True)
+    completed_process = subprocess.run(
+        ["cfn-lint", str(out_file.absolute())], capture_output=True
+    )
     try:
         completed_process.check_returncode()
     except subprocess.CalledProcessError as e:
         print(e.stdout)
         raise e
-

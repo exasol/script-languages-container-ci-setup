@@ -2,12 +2,23 @@ import json
 
 import pydantic
 import pytest
+from exasol_script_languages_container_ci.lib.config.config_data_model import (
+    Build,
+    Config,
+    Ignore,
+    Release,
+)
 
-from exasol_script_languages_container_ci.lib.config.config_data_model import Config, Build, Ignore, Release
-from exasol_script_languages_container_ci_setup.lib.render_template import render_template
-from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec import run_generate_buildspec, \
-    get_config_file_parameter
-from exasol_script_languages_container_ci_setup.lib.run_generate_release_buildspec import run_generate_release_buildspec
+from exasol_script_languages_container_ci_setup.lib.render_template import (
+    render_template,
+)
+from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec import (
+    get_config_file_parameter,
+    run_generate_buildspec,
+)
+from exasol_script_languages_container_ci_setup.lib.run_generate_release_buildspec import (
+    run_generate_release_buildspec,
+)
 
 expected_result_root_buildspec = """version: 0.2
 
@@ -37,18 +48,22 @@ def test_buildspec(tmp_path):
     out_path = tmp_path / "out"
     out_path.mkdir(parents=False, exist_ok=False)
 
-    run_generate_buildspec((str(root_path),), str(out_path.absolute()), config_file=None)
+    run_generate_buildspec(
+        (str(root_path),), str(out_path.absolute()), config_file=None
+    )
 
-    with open(out_path / "buildspec.yaml", "r") as res_file:
+    with open(out_path / "buildspec.yaml") as res_file:
         res = res_file.read()
 
         assert res == expected_result_root_buildspec.format(location=str(out_path))
 
-    with open(out_path / "build_buildspec.yaml", "r") as res_file:
+    with open(out_path / "build_buildspec.yaml") as res_file:
         res = res_file.read()
 
         # For build_buildspec.yaml we re-use the template for testing
-        expected_result_build_buildspec = render_template("build_buildspec.yaml", config_file_parameter="")
+        expected_result_build_buildspec = render_template(
+            "build_buildspec.yaml", config_file_parameter=""
+        )
         assert res == expected_result_build_buildspec
 
 
@@ -62,18 +77,22 @@ def test_release_buildspec(tmp_path):
     out_path = tmp_path / "out"
     out_path.mkdir(parents=False, exist_ok=False)
 
-    run_generate_release_buildspec((str(root_path),), str(out_path.absolute()), config_file=None)
+    run_generate_release_buildspec(
+        (str(root_path),), str(out_path.absolute()), config_file=None
+    )
 
-    with open(out_path / "buildspec.yaml", "r") as res_file:
+    with open(out_path / "buildspec.yaml") as res_file:
         res = res_file.read()
 
         assert res == expected_result_root_buildspec.format(location=str(out_path))
 
-    with open(out_path / "build_buildspec.yaml", "r") as res_file:
+    with open(out_path / "build_buildspec.yaml") as res_file:
         res = res_file.read()
 
         # For build_buildspec.yaml we re-use the template for testing
-        expected_result_build_buildspec = render_template("release_build_buildspec.yaml", config_file_parameter="")
+        expected_result_build_buildspec = render_template(
+            "release_build_buildspec.yaml", config_file_parameter=""
+        )
         assert res == expected_result_build_buildspec
 
 
@@ -92,35 +111,32 @@ def test_buildspec_with_valid_config_file(tmp_path):
 
     config_file_path = tmp_path / "build_config.json"
     config = Config(
-        build=Build(
-            ignore=Ignore(
-                paths=[str(a_folder)]
-            ),
-            base_branch="master"
-        ),
-        release=Release(
-            timeout_in_minutes=10
-        )
+        build=Build(ignore=Ignore(paths=[str(a_folder)]), base_branch="master"),
+        release=Release(timeout_in_minutes=10),
     )
 
     with open(config_file_path, "w") as f:
         f.write(config.json())
 
-    run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                           config_file=str(config_file_path.absolute()))
+    run_generate_buildspec(
+        (str(root_path),),
+        str(out_path.absolute()),
+        config_file=str(config_file_path.absolute()),
+    )
 
-    with open(out_path / "buildspec.yaml", "r") as res_file:
+    with open(out_path / "buildspec.yaml") as res_file:
         res = res_file.read()
 
         assert res == expected_result_root_buildspec.format(location=str(out_path))
 
-    with open(out_path / "build_buildspec.yaml", "r") as res_file:
+    with open(out_path / "build_buildspec.yaml") as res_file:
         res = res_file.read()
 
         # For build_buildspec.yaml we re-use the template for testing
-        expected_result_build_buildspec = render_template("build_buildspec.yaml",
-                                                          config_file_parameter=
-                                                          get_config_file_parameter(str(config_file_path)))
+        expected_result_build_buildspec = render_template(
+            "build_buildspec.yaml",
+            config_file_parameter=get_config_file_parameter(str(config_file_path)),
+        )
         assert res == expected_result_build_buildspec
 
 
@@ -139,19 +155,23 @@ def test_buildspec_with_invalid_config_file(tmp_path):
     config = {
         "build": {
             "ignore": {
-                "path": ["/tmp/pytest-of-tk/pytest-11/test_buildspec_with_valid_conf0/a_folder"]
+                "path": [
+                    "/tmp/pytest-of-tk/pytest-11/test_buildspec_with_valid_conf0/a_folder"
+                ]
             },
-            "base_branch": "master"},
-        "release": {
-            "timeout_in_minutes": 10
-        }
+            "base_branch": "master",
+        },
+        "release": {"timeout_in_minutes": 10},
     }
     with open(config_file_path, "w") as f:
         json.dump(config, f)
 
     with pytest.raises(pydantic.ValidationError):
-        run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                               config_file=str(config_file_path.absolute()))
+        run_generate_buildspec(
+            (str(root_path),),
+            str(out_path.absolute()),
+            config_file=str(config_file_path.absolute()),
+        )
 
 
 def test_buildspec_with_invalid_folder(tmp_path):
@@ -170,19 +190,15 @@ def test_buildspec_with_invalid_folder(tmp_path):
     a_folder = tmp_path / "a_folder"
     # Incorrect config (tmp_path/a_folder does not exists)
     config = Config(
-        build=Build(
-            ignore=Ignore(
-                paths=[str(a_folder)]
-            ),
-            base_branch="master"
-        ),
-        release=Release(
-            timeout_in_minutes=10
-        )
+        build=Build(ignore=Ignore(paths=[str(a_folder)]), base_branch="master"),
+        release=Release(timeout_in_minutes=10),
     )
     with open(config_file_path, "w") as f:
         f.write(config.json())
 
     with pytest.raises(ValueError):
-        run_generate_buildspec((str(root_path),), str(out_path.absolute()),
-                               config_file=str(config_file_path.absolute()))
+        run_generate_buildspec(
+            (str(root_path),),
+            str(out_path.absolute()),
+            config_file=str(config_file_path.absolute()),
+        )

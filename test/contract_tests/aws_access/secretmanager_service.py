@@ -1,8 +1,15 @@
 import pytest
 
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import PhysicalResourceId, ARN
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.secretsmanager import Secret
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.secretsmanager_service import SecretsManagerService
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import (
+    ARN,
+    PhysicalResourceId,
+)
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.secretsmanager import (
+    Secret,
+)
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.secretsmanager_service import (
+    SecretsManagerService,
+)
 
 
 class GetSecretValueArnEqualContract:

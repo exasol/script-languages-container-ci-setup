@@ -1,7 +1,10 @@
-import pytest
 import re
 
-from exasol_script_languages_container_ci_setup.lib.ci_build import CI_BUILD_WEBHOOK_FILTER_PATTERN
+import pytest
+
+from exasol_script_languages_container_ci_setup.lib.ci_build import (
+    CI_BUILD_WEBHOOK_FILTER_PATTERN,
+)
 
 testdata = [
     ("refs/heads/feature/test_branch", True),

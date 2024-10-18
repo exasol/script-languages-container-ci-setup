@@ -1,9 +1,16 @@
 import dataclasses
-from unittest.mock import Mock, call
-
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import PhysicalResourceId
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.secretsmanager_service import SecretsManagerService
 from test.mock_cast import mock_cast
+from unittest.mock import (
+    Mock,
+    call,
+)
+
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import (
+    PhysicalResourceId,
+)
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.secretsmanager_service import (
+    SecretsManagerService,
+)
 
 
 def test_init():
@@ -16,7 +23,9 @@ def test_init():
 class GetSecretValueTestSetup:
     internal_aws_client = Mock()
     get_secret_value_return_values = Mock()
-    mock_cast(internal_aws_client.get_secret_value).return_value = get_secret_value_return_values
+    mock_cast(internal_aws_client.get_secret_value).return_value = (
+        get_secret_value_return_values
+    )
     from_boto = Mock()
     from_boto_return_values = Mock()
     from_boto.return_value = from_boto_return_values
@@ -27,7 +36,9 @@ class GetSecretValueTestSetup:
 
 def test_get_secret_value_internal_aws_client():
     setup = GetSecretValueTestSetup()
-    assert setup.internal_aws_client.mock_calls == [call.get_secret_value(SecretId=setup.secret_id.aws_physical_resource_id)]
+    assert setup.internal_aws_client.mock_calls == [
+        call.get_secret_value(SecretId=setup.secret_id.aws_physical_resource_id)
+    ]
 
 
 def test_get_secret_value_from_boto():

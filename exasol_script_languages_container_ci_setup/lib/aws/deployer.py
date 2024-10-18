@@ -11,27 +11,26 @@
 # ANY KIND, either express or implied. See the License for the specific
 # language governing permissions and limitations under the License.
 
-#Source: https://github.com/aws/aws-cli/blob/e1f7196ad7859a8144f0313fa4b407da5ae8b101/awscli/customizations/cloudformation/deployer.py
+# Source: https://github.com/aws/aws-cli/blob/e1f7196ad7859a8144f0313fa4b407da5ae8b101/awscli/customizations/cloudformation/deployer.py
 
-import time
-import logging
-import botocore
 import collections
-
+import logging
+import time
 from datetime import datetime
 
+import botocore
 from botocore.exceptions import ValidationError
 
 LOG = logging.getLogger(__name__)
 
 ChangeSetResult = collections.namedtuple(
-    "ChangeSetResult", ["changeset_id", "changeset_type"])
+    "ChangeSetResult", ["changeset_id", "changeset_type"]
+)
 
 
-class Deployer(object):
+class Deployer:
 
-    def __init__(self, cloudformation_client,
-                 changeset_prefix="slc-ci-setup-deploy-"):
+    def __init__(self, cloudformation_client, changeset_prefix="slc-ci-setup-deploy-"):
         self._client = cloudformation_client
         self.changeset_prefix = changeset_prefix
 
@@ -62,18 +61,24 @@ class Deployer(object):
             # the exception msg to understand the nature of this exception.
             msg = str(e)
 
-            if "Stack with id {0} does not exist".format(stack_name) in msg:
-                LOG.debug("Stack with id {0} does not exist".format(
-                    stack_name))
+            if f"Stack with id {stack_name} does not exist" in msg:
+                LOG.debug(f"Stack with id {stack_name} does not exist")
                 return False
             else:
                 # We don't know anything about this exception. Don't handle
                 LOG.debug("Unable to get stack details.", exc_info=e)
                 raise e
 
-    def create_changeset(self, stack_name, cfn_template,
-                         parameter_values, capabilities, role_arn,
-                         notification_arns, tags):
+    def create_changeset(
+        self,
+        stack_name,
+        cfn_template,
+        parameter_values,
+        capabilities,
+        role_arn,
+        notification_arns,
+        tags,
+    ):
         """
         Call Cloudformation to create a changeset and wait for it to complete
 
@@ -86,7 +91,7 @@ class Deployer(object):
         """
 
         now = datetime.utcnow().isoformat()
-        description = "Created by AWS CLI at {0} UTC".format(now)
+        description = f"Created by AWS CLI at {now} UTC"
 
         # Each changeset will get a unique name based on time
         changeset_name = self.changeset_prefix + str(int(time.time()))
@@ -96,34 +101,41 @@ class Deployer(object):
             # When creating a new stack, UsePreviousValue=True is invalid.
             # For such parameters, users should either override with new value,
             # or set a Default value in template to successfully create a stack.
-            parameter_values = [x for x in parameter_values
-                                if not x.get("UsePreviousValue", False)]
+            parameter_values = [
+                x for x in parameter_values if not x.get("UsePreviousValue", False)
+            ]
         else:
             changeset_type = "UPDATE"
             # UsePreviousValue not valid if parameter is new
             summary = self._client.get_template_summary(StackName=stack_name)
-            existing_parameters = [parameter['ParameterKey'] for parameter in
-                                   summary['Parameters']]
-            parameter_values = [x for x in parameter_values
-                                if not (x.get("UsePreviousValue", False) and
-                                        x["ParameterKey"] not in existing_parameters)]
+            existing_parameters = [
+                parameter["ParameterKey"] for parameter in summary["Parameters"]
+            ]
+            parameter_values = [
+                x
+                for x in parameter_values
+                if not (
+                    x.get("UsePreviousValue", False)
+                    and x["ParameterKey"] not in existing_parameters
+                )
+            ]
 
         kwargs = {
-            'ChangeSetName': changeset_name,
-            'StackName': stack_name,
-            'TemplateBody': cfn_template,
-            'ChangeSetType': changeset_type,
-            'Parameters': parameter_values,
-            'Capabilities': capabilities,
-            'Description': description,
-            'Tags': tags,
+            "ChangeSetName": changeset_name,
+            "StackName": stack_name,
+            "TemplateBody": cfn_template,
+            "ChangeSetType": changeset_type,
+            "Parameters": parameter_values,
+            "Capabilities": capabilities,
+            "Description": description,
+            "Tags": tags,
         }
 
         # don't set these arguments if not specified to use existing values
         if role_arn is not None:
-            kwargs['RoleARN'] = role_arn
+            kwargs["RoleARN"] = role_arn
         if notification_arns is not None:
-            kwargs['NotificationARNs'] = notification_arns
+            kwargs["NotificationARNs"] = notification_arns
         try:
             resp = self._client.create_change_set(**kwargs)
             return ChangeSetResult(resp["Id"], changeset_type)
@@ -144,10 +156,13 @@ class Deployer(object):
         # Wait for changeset to be created
         waiter = self._client.get_waiter("change_set_create_complete")
         # Poll every 5 seconds. Changeset creation should be fast
-        waiter_config = {'Delay': 5}
+        waiter_config = {"Delay": 5}
         try:
-            waiter.wait(ChangeSetName=changeset_id, StackName=stack_name,
-                        WaiterConfig=waiter_config)
+            waiter.wait(
+                ChangeSetName=changeset_id,
+                StackName=stack_name,
+                WaiterConfig=waiter_config,
+            )
         except botocore.exceptions.WaiterError as ex:
             LOG.debug("Create changeset waiter exception", exc_info=ex)
 
@@ -155,12 +170,12 @@ class Deployer(object):
             status = resp["Status"]
             reason = resp["StatusReason"]
 
-            raise RuntimeError("Failed to create the changeset: {0} "
-                               "Status: {1}. Reason: {2}"
-                               .format(ex, status, reason)) from ex
+            raise RuntimeError(
+                "Failed to create the changeset: {} "
+                "Status: {}. Reason: {}".format(ex, status, reason)
+            ) from ex
 
-    def execute_changeset(self, changeset_id, stack_name,
-                          disable_rollback=False):
+    def execute_changeset(self, changeset_id, stack_name, disable_rollback=False):
         """
         Calls CloudFormation to execute changeset
 
@@ -172,7 +187,8 @@ class Deployer(object):
         return self._client.execute_change_set(
             ChangeSetName=changeset_id,
             StackName=stack_name,
-            DisableRollback=disable_rollback)
+            DisableRollback=disable_rollback,
+        )
 
     def wait_for_execute(self, stack_name, changeset_type):
 
@@ -184,14 +200,13 @@ class Deployer(object):
         elif changeset_type == "UPDATE":
             waiter = self._client.get_waiter("stack_update_complete")
         else:
-            raise RuntimeError("Invalid changeset type {0}"
-                               .format(changeset_type))
+            raise RuntimeError(f"Invalid changeset type {changeset_type}")
 
         # Poll every 30 seconds. Polling too frequently risks hitting rate limits
         # on CloudFormation's DescribeStacks API
         waiter_config = {
-            'Delay': 30,
-            'MaxAttempts': 120,
+            "Delay": 30,
+            "MaxAttempts": 120,
         }
 
         try:
@@ -200,13 +215,26 @@ class Deployer(object):
             LOG.debug("Execute changeset waiter exception", exc_info=ex)
             raise RuntimeError("Execute changeset waiter exception", ex)
 
-    def create_and_wait_for_changeset(self, stack_name, cfn_template,
-                                      parameter_values, capabilities, role_arn,
-                                      notification_arns, tags):
+    def create_and_wait_for_changeset(
+        self,
+        stack_name,
+        cfn_template,
+        parameter_values,
+        capabilities,
+        role_arn,
+        notification_arns,
+        tags,
+    ):
 
         result = self.create_changeset(
-            stack_name, cfn_template, parameter_values, capabilities,
-            role_arn, notification_arns, tags)
+            stack_name,
+            cfn_template,
+            parameter_values,
+            capabilities,
+            role_arn,
+            notification_arns,
+            tags,
+        )
         self.wait_for_changeset(result.changeset_id, stack_name)
 
         return result
