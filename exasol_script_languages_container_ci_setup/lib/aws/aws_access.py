@@ -95,7 +95,7 @@ class AwsAccess:
             raise e
 
     def read_secret_arn(self, secret_name: str):
-        """ "
+        """
         Uses Boto3 to retrieve the ARN of a secret.
         """
         logging.debug(

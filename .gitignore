@@ -3,3 +3,7 @@
 .gitignore
 dist
 __pycache__.html-documentation
+.lint.txt
+.lint.json
+.security.json
+.coverage

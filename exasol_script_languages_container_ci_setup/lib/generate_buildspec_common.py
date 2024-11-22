@@ -16,7 +16,7 @@ from exasol_script_languages_container_ci_setup.lib.render_template import (
 
 @dataclass(eq=True, frozen=True, order=True)
 class Flavor:
-    """ "
+    """
     Holds the name and the formatted name used for generating the buildspec.
     """
 
