@@ -30,7 +30,7 @@ toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
-exasol-toolbox = "^0.15.0"
+exasol-toolbox = ">=0.15.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -61,7 +61,7 @@ force_grid_wrap = 2
 
 
 [tool.pylint.master]
-fail-under = 5.0
+fail-under = 6.66
 output-format = "colorized,json:.lint.json,text:.lint.txt"
 
 [tool.pylint.format]

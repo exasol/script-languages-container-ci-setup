@@ -26,10 +26,10 @@ jobs:
         run: poetry run nox -s unit-tests
 
       - name: Run Lint
-        run: poetry run nox -s lint
+        run: poetry run nox -s lint:code
 
       - name: Run type-check
-        run: poetry run nox -s type-check
+        run: poetry run nox -s lint:type
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
