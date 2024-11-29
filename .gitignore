@@ -2,4 +2,8 @@
 .pytest_cache
 .gitignore
 dist
-__pycache__
+__pycache__.html-documentation
+.lint.txt
+.lint.json
+.security.json
+.coverage

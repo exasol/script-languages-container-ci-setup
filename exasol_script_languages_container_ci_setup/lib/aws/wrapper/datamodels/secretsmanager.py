@@ -1,7 +1,12 @@
 import dataclasses
-from typing import Dict, Any
+from typing import (
+    Any,
+    Dict,
+)
 
-from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import ARN
+from exasol_script_languages_container_ci_setup.lib.aws.wrapper.datamodels.common import (
+    ARN,
+)
 
 ARN_KEY = "ARN"
 

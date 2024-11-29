@@ -1,19 +1,25 @@
-
 import logging
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional, Tuple, List
+from typing import (
+    List,
+    Optional,
+    Tuple,
+)
 
 from exasol_script_languages_container_ci.lib.config.config_data_model import Config
 
-from exasol_script_languages_container_ci_setup.lib.render_template import render_template
+from exasol_script_languages_container_ci_setup.lib.render_template import (
+    render_template,
+)
 
 
 @dataclass(eq=True, frozen=True, order=True)
-class Flavor(object):
-    """"
+class Flavor:
+    """
     Holds the name and the formatted name used for generating the buildspec.
     """
+
     flavor_original: str
 
     @property
@@ -61,17 +67,24 @@ def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> List[Flavor]:
     return return_value
 
 
-def write_batch_build_spec(flavor_root_paths: Tuple[str, ...], output_pathname: str) -> None:
+def write_batch_build_spec(
+    flavor_root_paths: Tuple[str, ...], output_pathname: str
+) -> None:
     buildspec_body = []
     flavors = _find_flavors(flavor_root_paths)
     for flavor in flavors:
-        buildspec_body.append(render_template("buildspec_batch_entry.yaml",
-                                              flavor_original=flavor.flavor_original,
-                                              flavor_formatted=flavor.flavor_formatted,
-                                              out_path=output_pathname))
+        buildspec_body.append(
+            render_template(
+                "buildspec_batch_entry.yaml",
+                flavor_original=flavor.flavor_original,
+                flavor_formatted=flavor.flavor_formatted,
+                out_path=output_pathname,
+            )
+        )
 
-    result_yaml = render_template("buildspec_hull.yaml",
-                                  batch_entries="\n".join(buildspec_body))
+    result_yaml = render_template(
+        "buildspec_hull.yaml", batch_entries="\n".join(buildspec_body)
+    )
 
     with open(Path(output_pathname) / "buildspec.yaml", "w") as output_file:
         output_file.write(result_yaml)

@@ -3,10 +3,10 @@ from inspect import cleandoc
 
 from exasol_script_languages_container_ci_setup.cli.cli import cli
 from exasol_script_languages_container_ci_setup.cli.common import add_options
-from exasol_script_languages_container_ci_setup.cli.options.aws_options import aws_options
-from exasol_script_languages_container_ci_setup.health_check import (
-    health_checkup,
+from exasol_script_languages_container_ci_setup.cli.options.aws_options import (
+    aws_options,
 )
+from exasol_script_languages_container_ci_setup.health_check import health_checkup
 
 
 @cli.command()
@@ -34,11 +34,7 @@ def health(aws_profile: str):
         """
     ).format(
         count=len(problems),
-        problems="\n".join(
-            (
-                str(p) for p in problems
-            )
-        ),
+        problems="\n".join(str(p) for p in problems),
     )
     print(message)
     sys.exit(failure)

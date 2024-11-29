@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "exasol-script-languages-container-ci-setup"
-version = "1.5.0"
+version = "1.6.0"
 description = "Manages AWS cloud CI build infrastructure."
 
 license = "MIT"
@@ -25,11 +25,12 @@ requires = ["poetry_core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
+exasol-toolbox = ">=0.16.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -37,3 +38,42 @@ minversion = "6.0"
 testpaths = [
     "test"
 ]
+
+
+[tool.coverage.run]
+source = [
+    "exasol",
+]
+
+[tool.coverage.report]
+fail_under = 15
+
+
+[tool.black]
+line-length = 88
+verbose = false
+include = "\\.pyi?$"
+
+
+[tool.isort]
+profile = "black"
+force_grid_wrap = 2
+
+
+[tool.pylint.master]
+fail-under = 6.66
+output-format = "colorized,json:.lint.json,text:.lint.txt"
+
+[tool.pylint.format]
+max-line-length = 88
+max-module-lines = 800
+
+[tool.mypy]
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+    "test.*",
+]
+ignore_errors = true
