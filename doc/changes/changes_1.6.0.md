@@ -1,10 +1,10 @@
-# script-languages-container-ci-setup 1.6.0, tbd.
+# script-languages-container-ci-setup 1.5.0, released 2025-01-15.
 
-Code name: tbd 
+Code name: Updated dependencies on top of 1.5.0.
 
 ## Summary
 
-tbd
+This release updates exasol-error-reporting to 0.5.0.
 
 ## Bug Fixes
 
@@ -24,4 +24,4 @@ n/a
 
 ## Dependencies
 
-n/a
+- #82: Updated exasol-error-reporting
