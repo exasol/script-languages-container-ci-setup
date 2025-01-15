@@ -12,11 +12,11 @@ authors = [
 [tool.poetry.dependencies]
 python = ">=3.10.0,<4.0"
 click = "^8.1.3"
-jinja2 = ">=3.1.0"
-exasol_error_reporting_python = "^0.3.0"
+jinja2 = ">=3.1.5"
+exasol-error-reporting = ">=0.5.0"
 exasol-script-languages-container-ci = "^1.6.0"
-boto3 = "1.34.118"
-botocore = "1.34.118"
+boto3 = "1.35.99"
+botocore = "1.35.99"
 jsonschema = "^4.22.0"
 PyGithub = "^2.3.0"
 
@@ -30,7 +30,7 @@ toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
-exasol-toolbox = ">=0.16.0"
+exasol-toolbox = ">=0.20.0"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
