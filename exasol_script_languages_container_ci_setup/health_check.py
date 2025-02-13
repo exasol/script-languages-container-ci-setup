@@ -11,8 +11,7 @@ from typing import (
     Optional,
 )
 
-from exasol_error_reporting_python.error_message_builder import ErrorMessageBuilder
-from exasol_error_reporting_python.exa_error import ExaError
+from exasol import error
 
 SUPPORTED_PLATFORMS = ["linux", "darwin"]
 
@@ -27,64 +26,67 @@ def check_shell_cmd(cmd: str) -> bool:
     return result.returncode == 0
 
 
-def is_supported_platform(**kwargs) -> Optional[ErrorMessageBuilder]:
+def is_supported_platform(**kwargs) -> Optional[error._error.Error]:
     """
     Checks weather or not the current platform is supported.
     """
     if sys.platform not in SUPPORTED_PLATFORMS:
-        return (
-            ExaError.message_builder("E-SLCCS-02")
-            .message("The platform you are running on is not supported.")
-            .mitigation(
-                "Make sure you are using one of the following platforms: {SUPPORTED_PLATFORMS}."
-            )
+        return error.ExaError(
+            code="E-SLCCS-02",
+            message="The platform you are running on is not supported.",
+            mitigations=[
+                "Make sure you are using one of the following platforms: {{supported_platforms}}."
+            ],
+            parameters={"supported_platforms": str(SUPPORTED_PLATFORMS)},
         )
 
 
-def aws_cli_available(**kwargs) -> Optional[ErrorMessageBuilder]:
+def aws_cli_available(**kwargs) -> Optional[error._error.Error]:
     """Checks weather AWS cli is installed"""
     command = "aws --help"
     if not check_shell_cmd(command):
-        return (
-            ExaError.message_builder("E-SLCCS-03")
-            .message("AWS CLI not installed.")
-            .mitigation(
-                "Install AWS CLI. "
-                "Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
-            )
+        return error.ExaError(
+            code="E-SLCCS-03",
+            message="AWS CLI not installed.",
+            mitigations=[
+                "Install AWS CLI. Goto https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+            ],
+            parameters={},
         )
 
 
-def aws_profile_valid(aws_profile: str) -> Optional[ErrorMessageBuilder]:
+def aws_profile_valid(aws_profile: str) -> Optional[error._error.Error]:
     """Checks weather the given AWS profile is configured properly."""
     command = f"aws --profile {aws_profile} configure list"
     if not check_shell_cmd(command):
-        return (
-            ExaError.message_builder("E-SLCCS-04")
-            .message("AWS Profile invalid.")
-            .mitigation(
+        return error.ExaError(
+            code="E-SLCCS-04",
+            message="AWS Profile invalid.",
+            mitigations=[
                 "Run 'aws configure --profile $your_profile' or "
                 "'aws configure' to configure the default profile."
-            )
+            ],
+            parameters={},
         )
 
 
-def aws_access_key_valid(aws_profile: str) -> Optional[ErrorMessageBuilder]:
+def aws_access_key_valid(aws_profile: str) -> Optional[error._error.Error]:
     """Checks weather AWS access key is configured for the given AWS profile."""
     command = f"aws --profile {aws_profile} iam list-access-keys"
     if not check_shell_cmd(command):
-        return (
-            ExaError.message_builder("E-SLCCS-05")
-            .message("AWS Access Key invalid.")
-            .mitigation(
+        return error.ExaError(
+            code="E-SLCCS-05",
+            message="AWS Access Key invalid.",
+            mitigations=[
                 "Go to the AWS console and create an access key for your user. "
                 "Then register the access key with 'aws configure --profile $your_profile' or "
                 "'aws configure' for the default profile."
-            )
+            ],
+            parameters={},
         )
 
 
-def health_checkup(**kwargs) -> Iterator[ErrorMessageBuilder]:
+def health_checkup(**kwargs) -> Iterator[error._error.Error]:
     """
     Runs all known examinations
 
