@@ -4,7 +4,24 @@ on:
   pull_request:
 
 jobs:
+  Version-Check:
+    name: Version
+    runs-on: ubuntu-latest
 
+    steps:
+      - name: SCM Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@0.20.0
+
+      - name: Check Version(s)
+        run: |
+          poetry run version-check exasol/error/version.py
+
+  Documentation:
   lint-job:
     name: Linting and Type checks (Python-${{ matrix.python-version }})
     runs-on: ubuntu-latest
