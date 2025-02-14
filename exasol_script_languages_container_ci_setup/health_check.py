@@ -26,7 +26,7 @@ def check_shell_cmd(cmd: str) -> bool:
     return result.returncode == 0
 
 
-def is_supported_platform(**kwargs) -> Optional[error._error.Error]:
+def is_supported_platform(**kwargs) -> Optional[error.ExaError]:
     """
     Checks weather or not the current platform is supported.
     """
@@ -41,7 +41,7 @@ def is_supported_platform(**kwargs) -> Optional[error._error.Error]:
         )
 
 
-def aws_cli_available(**kwargs) -> Optional[error._error.Error]:
+def aws_cli_available(**kwargs) -> Optional[error.ExaError]:
     """Checks weather AWS cli is installed"""
     command = "aws --help"
     if not check_shell_cmd(command):
@@ -55,7 +55,7 @@ def aws_cli_available(**kwargs) -> Optional[error._error.Error]:
         )
 
 
-def aws_profile_valid(aws_profile: str) -> Optional[error._error.Error]:
+def aws_profile_valid(aws_profile: str) -> Optional[error.ExaError]:
     """Checks weather the given AWS profile is configured properly."""
     command = f"aws --profile {aws_profile} configure list"
     if not check_shell_cmd(command):
@@ -70,7 +70,7 @@ def aws_profile_valid(aws_profile: str) -> Optional[error._error.Error]:
         )
 
 
-def aws_access_key_valid(aws_profile: str) -> Optional[error._error.Error]:
+def aws_access_key_valid(aws_profile: str) -> Optional[error.ExaError]:
     """Checks weather AWS access key is configured for the given AWS profile."""
     command = f"aws --profile {aws_profile} iam list-access-keys"
     if not check_shell_cmd(command):
@@ -86,7 +86,7 @@ def aws_access_key_valid(aws_profile: str) -> Optional[error._error.Error]:
         )
 
 
-def health_checkup(**kwargs) -> Iterator[error._error.Error]:
+def health_checkup(**kwargs) -> Iterator[error.ExaError]:
     """
     Runs all known examinations
 
