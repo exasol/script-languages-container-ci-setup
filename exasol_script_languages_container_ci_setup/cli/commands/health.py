@@ -1,3 +1,4 @@
+"""Implements the health checks for this project"""
 import sys
 from inspect import cleandoc
 
@@ -15,7 +16,8 @@ def health(aws_profile: str):
     """
     Check the health of the execution environment.
 
-    If no issues have been found, using the library or executing the test should work just fine.
+    If no issues have been found, using the library or executing
+    the test should work just fine.
     For all found issues there will be a proposed fix/solution.
 
     If the environment was found to be healthy the exit code will be 0.
