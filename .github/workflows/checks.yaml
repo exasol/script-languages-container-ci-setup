@@ -21,7 +21,6 @@ jobs:
         run: |
           poetry run version-check exasol/error/version.py
 
-  Documentation:
   lint-job:
     name: Linting and Type checks (Python-${{ matrix.python-version }})
     runs-on: ubuntu-latest
