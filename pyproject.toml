@@ -37,7 +37,7 @@ repository = "https://github.com/exasol/script-languages-container-ci-setup"
 homepage = "https://github.com/exasol/script-languages-container-ci-setup"
 
 [build-system]
-requires = ["poetry_core>=2.0.0"]
+requires = ["poetry_core>=2.1.0"]
 build-backend = "poetry.core.masonry.api"
 
 
