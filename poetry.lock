@@ -1134,7 +1134,7 @@ description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev"]
-markers = "python_version < \"3.11\""
+markers = "python_version == \"3.10\""
 files = [
     {file = "exceptiongroup-1.2.2-py3-none-any.whl", hash = "sha256:3111b9d131c238bec2f8f516e123e14ba243563fb135d3fe885990585aa7795b"},
     {file = "exceptiongroup-1.2.2.tar.gz", hash = "sha256:47c2edf7c6738fafb49fd34290706d1a1a2f4d1c6df275526b62cbb4aa5393cc"},
@@ -3808,7 +3808,7 @@ files = [
     {file = "tomli-2.2.1-py3-none-any.whl", hash = "sha256:cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc"},
     {file = "tomli-2.2.1.tar.gz", hash = "sha256:cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff"},
 ]
-markers = {main = "python_version <= \"3.11\""}
+markers = {main = "python_version < \"3.12\""}
 
 [[package]]
 name = "tomlkit"
@@ -4084,5 +4084,5 @@ type = ["pytest-mypy"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.10.0,<4.0"
-content-hash = "c22ba08141f5427f9697e2c35b0a649595fa7418291aff85881089c03b9ebc3b"
+python-versions = ">=3.10, <4.0"
+content-hash = "50ca3ede7ecfcb771747c2ebfbe1ffdb03a72986e8793bae525fc09cf22c7f50"
