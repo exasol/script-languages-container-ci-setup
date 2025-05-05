@@ -1,13 +1,26 @@
-[tool.poetry]
+[project]
 name = "exasol-script-languages-container-ci-setup"
 version = "1.8.0"
 description = "Manages AWS cloud CI build infrastructure."
 
+authors = [
+    { name="Thomas Uebensee", email="Thomas Uebensee <ext.thomas.uebensee@exasol.com>" }
+]
+
+keywords = ['exasol', 'udf', 'script-languages']
+
 license = "MIT"
 
-authors = [
-    "Thomas Uebensee <ext.thomas.uebensee@exasol.com>"
-]
+readme = 'README.md'
+
+[tool.poetry]
+
+packages = [ {include = "exasol_script_languages_container_ci_setup"}, ]
+
+[project.urls]
+
+repository = "https://github.com/exasol/script-languages-container-ci-setup"
+homepage = "https://github.com/exasol/script-languages-container-ci-setup"
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<4.0"
@@ -22,7 +35,7 @@ jsonschema = "^4.22.0"
 PyGithub = "^2.3.0"
 
 [build-system]
-requires = ["poetry_core>=1.0.0"]
+requires = ["poetry_core>=2.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 
