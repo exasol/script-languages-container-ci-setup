@@ -18,4 +18,6 @@ jobs:
 
   # removed publish-docs as this is not needed in this project
 
-  # removed metrix as this is not working
+  metrics:
+    needs: [ ci-job ]
+    uses: ./.github/workflows/report.yml
