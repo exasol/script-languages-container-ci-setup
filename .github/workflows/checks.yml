@@ -22,6 +22,8 @@ jobs:
         run: |
           poetry run -- version-check exasol_script_languages_container_ci_setup/version.py
 
+  # removed Documentation as this is not needed in this project
+
   build-matrix:
     name: Generate Build Matrix
     uses: ./.github/workflows/matrix-python.yml
@@ -133,6 +135,7 @@ jobs:
 
   Tests:
     name: Unit-Tests (Python-${{ matrix.python-version }})
+    # removed dependency to `Documentation` here
     needs: [ Lint, Type-Check, Security, Format, build-matrix ]
     runs-on: ubuntu-24.04
     env:

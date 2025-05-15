@@ -17,3 +17,5 @@ jobs:
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
 
+  # removed publish-docs here as not need in this project
+
