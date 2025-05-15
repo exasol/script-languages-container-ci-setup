@@ -10,4 +10,3 @@ def deploy_ci_build():
         github_workflow = render_template(template)
         with open(target_path / template, "w") as f:
             f.write(github_workflow)
-

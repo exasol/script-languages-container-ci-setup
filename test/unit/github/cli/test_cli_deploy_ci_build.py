@@ -1,5 +1,8 @@
 from test.unit.github.cli.cli_runner import CliRunner
-from unittest.mock import MagicMock, call
+from unittest.mock import (
+    MagicMock,
+    call,
+)
 
 import pytest
 from _pytest.monkeypatch import MonkeyPatch
@@ -25,11 +28,11 @@ def mock_deploy_ci_build(monkeypatch: MonkeyPatch) -> MagicMock:
     )
     return mock_function_to_mock
 
+
 def test_mock_deploy_ci_build(cli, mock_deploy_ci_build):
     cli.run()
     assert cli.succeeded
 
     # Validate the exact call using mock_calls and IsInstance matcher
-    expected_call = call(
-    )
+    expected_call = call()
     assert mock_deploy_ci_build.mock_calls == [expected_call]

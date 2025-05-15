@@ -1,6 +1,8 @@
 from typing import Dict
 
-from exasol.slc.internal.tasks.build.docker_flavor_image_task import DockerFlavorAnalyzeImageTask
+from exasol.slc.internal.tasks.build.docker_flavor_image_task import (
+    DockerFlavorAnalyzeImageTask,
+)
 
 
 class AnalyzeBaseTestBuildRun(DockerFlavorAnalyzeImageTask):
