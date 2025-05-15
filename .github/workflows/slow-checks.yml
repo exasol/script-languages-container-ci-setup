@@ -2,7 +2,13 @@ name: Slow-Checks
 
 on:
   workflow_call:
-
+    secrets:
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION:
+        required: true
 jobs:
 
   build-matrix:
@@ -14,7 +20,6 @@ jobs:
     needs: [ build-matrix ]
     runs-on: ubuntu-24.04
 
-    environment: AWS
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     strategy:
@@ -33,9 +38,9 @@ jobs:
       - name: Run Tests and Collect Coverage
         run: poetry run -- nox -s test:integration -- --coverage
         env: # Set the secret as an env variable
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
-          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION }}
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4.6.2

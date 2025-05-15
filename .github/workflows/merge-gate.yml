@@ -2,7 +2,13 @@ name: Merge-Gate
 
 on:
   workflow_call:
-
+    secrets:
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION:
+        required: true
 jobs:
 
   fast-checks:
@@ -12,6 +18,7 @@ jobs:
   slow-checks:
     name: Slow
     uses: ./.github/workflows/slow-checks.yml
+    secrets: inherit
 
   # This job ensures inputs have been executed successfully.
   approve-merge:
