@@ -2,14 +2,6 @@ name: Merge-Gate
 
 on:
   workflow_call:
-    # Manually added AWS Secrets here
-    secrets:
-      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID:
-        required: true
-      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET:
-        required: true
-      AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION:
-        required: true
 jobs:
 
   fast-checks:
