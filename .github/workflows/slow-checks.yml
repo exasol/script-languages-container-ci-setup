@@ -1,0 +1,54 @@
+name: Slow-Checks
+
+on:
+  workflow_call:
+    #Manually added AWS Secrets here
+    secrets:
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET:
+        required: true
+      AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION:
+        required: true
+jobs:
+
+  build-matrix:
+    name: Generate Build Matrix
+    #Manually changed to matrix-python.yml
+    uses: ./.github/workflows/matrix-python.yml
+
+  Tests:
+    #Manually edited
+    name: Integration-Tests (Python-${{ matrix.python-version }})
+    needs: [ build-matrix ]
+    runs-on: ubuntu-24.04
+    #Removed environment 'Manual approve'
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJson(needs.build-matrix.outputs.matrix) }}
+
+    steps:
+      - name: SCM Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@1.1.0
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run Tests and Collect Coverage
+        #Manually removed --db-version and added AWS secrets
+        run: poetry run -- nox -s test:integration -- --coverage
+        env: # Set the secret as an env variable
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_ACCESS_KEY_SECRET }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_CLOUDFORMATION_VALIDATOR_DEFAULT_REGION }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: coverage-python${{ matrix.python-version }}-slow
+          path: .coverage
+          include-hidden-files: true

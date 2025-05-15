@@ -1,4 +1,5 @@
 """Implements the health checks for this project"""
+
 import sys
 from inspect import cleandoc
 
