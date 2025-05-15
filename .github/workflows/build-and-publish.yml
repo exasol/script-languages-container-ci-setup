@@ -1,26 +1,23 @@
 name: Build & Publish
 
 on:
-  push:
-    tags: '**'
-
-  workflow_dispatch:
+  workflow_call:
+    secrets:
+      PYPI_TOKEN:
+          required: true
 
 jobs:
 
   cd-job:
-    name: Continues Delivery
-    runs-on: ubuntu-latest
+    name: Continuous Delivery
+    runs-on: ubuntu-24.04
     steps:
 
       - name: SCM Checkout
         uses: actions/checkout@v4
 
       - name: Setup Python & Poetry Environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@1.0.1
-        with:
-          python-version: "3.10"
-          poetry-version: '2.1.2'
+        uses: exasol/python-toolbox/.github/actions/python-environment@1.1.0
 
       - name: Build Artifacts
         run: poetry build
@@ -36,6 +33,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >
           gh release create ${GITHUB_REF_NAME}
-          --title ${GITHUB_REF_NAME} -F "./doc/changes/changes_${GITHUB_REF_NAME}.md"
+          --title ${GITHUB_REF_NAME}
+          --notes-file ./doc/changes/changes_${GITHUB_REF_NAME}.md
           dist/*
-

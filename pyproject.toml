@@ -2,39 +2,33 @@
 name = "exasol-script-languages-container-ci-setup"
 version = "1.8.0"
 description = "Manages AWS cloud CI build infrastructure."
-
 requires-python = ">=3.10, <4.0"
 
 authors = [
     { name="Thomas Uebensee", email="Thomas Uebensee <ext.thomas.uebensee@exasol.com>" }
 ]
 
-keywords = ['exasol', 'udf', 'script-languages']
-
-license = "MIT"
-
-readme = 'README.md'
-
 dependencies = [
-"click (>=8.1.3, <9.0.0)",
-"jinja2 (>=3.1.6, <4.0.0)",
-"exasol-error-reporting (>=1.0.0, <2.0.0)",
-"exasol-script-languages-container-ci (>=1.8.0, <2.0.0)",
-"exasol-integration-test-docker-environment (>=4.0.1, <4.1.0)",
-"boto3 (>=1.37.1, <2.0.0)",
-"botocore (>=1.37.11, <2.0.0)",
-"jsonschema (>=4.22.0, <5.0.0)",
-"PyGithub (>=2.3.0, <3.0.0)",
+    "click (>=8.1.7, <9.0.0)",
+    "jinja2 (>=3.1.6, <4.0.0)",
+    "exasol-error-reporting (>=1.0.0, <2.0.0)",
+    "exasol-script-languages-container-ci (>=1.8.0, <2.0.0)",
+    "exasol-integration-test-docker-environment (>=4.0.1, <4.1.0)",
+    "boto3 (>=1.37.1, <2.0.0)",
+    "botocore (>=1.37.11, <2.0.0)",
+    "jsonschema (>=4.22.0, <5.0.0)",
+    "PyGithub (>=2.3.0, <3.0.0)",
 ]
 
 [tool.poetry]
+requires-poetry = ">=2.1.0"
 
-packages = [ {include = "exasol_script_languages_container_ci_setup"}, ]
+packages = [
+    {include = "README.md"},
+    {include = "LICENSE"},
+    {include = "exasol_script_languages_container_ci_setup"},
+]
 
-[project.urls]
-
-repository = "https://github.com/exasol/script-languages-container-ci-setup"
-homepage = "https://github.com/exasol/script-languages-container-ci-setup"
 
 [build-system]
 requires = ["poetry_core>=2.1.0"]
