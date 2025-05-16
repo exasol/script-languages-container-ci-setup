@@ -39,7 +39,7 @@ def total_coverage(file: Union[str, Path]) -> float:
                 f"The following command"
                 f" returned non-zero exit status {p.returncode}:\n"
                 f'  {" ".join(p.args)}\n'
-                f"{stdout}",
+                f"{stdout}"
             )
             if (p.returncode == 1) and (stdout == "No data to report."):
                 print(f"{message}\nReturning total coverage 100 %.", file=sys.stderr)
