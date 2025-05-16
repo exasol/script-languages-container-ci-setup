@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# pylint: skip-file
 
 from exasol_python_test_framework import udf
 
