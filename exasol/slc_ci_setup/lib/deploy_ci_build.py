@@ -8,5 +8,5 @@ def deploy_ci_build():
     templates = ["slc_ci.yml"]
     for template in templates:
         github_workflow = render_template(template)
-        with open(target_path / template, "w") as f:
+        with open(target_path / template, "w", encoding="utf-8") as f:
             f.write(github_workflow)

@@ -29,7 +29,10 @@ dependencies = [
 
 [tool.poetry]
 
-packages = [ {include = "exasol_script_languages_container_ci_setup"}, ]
+packages = [
+    {include = "exasol_script_languages_container_ci_setup"},
+    {include = "exasol"}
+]
 
 [project.urls]
 
@@ -79,9 +82,12 @@ profile = "black"
 force_grid_wrap = 2
 
 
-[tool.pylint.master]
-fail-under = 6.66
-output-format = "colorized,json:.lint.json,text:.lint.txt"
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 120
+disable = """
+    C
+"""
+
 
 [tool.pylint.format]
 max-line-length = 88
