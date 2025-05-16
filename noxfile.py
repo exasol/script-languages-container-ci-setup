@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import nox
 
 # imports all nox task provided by the toolbox
@@ -13,4 +15,8 @@ def update_integration_test_github_workflows(session: nox.Session):
     Updates the Github workflows under ".github/workflows" for the dummy SLC in this repository.
     """
     session.run("exaslc-ci-setup", "deploy-ci-build")
+    slc_ci_yml_files = Path(".github/workflows").glob("slc_ci*.yml")
+    for slc_ci_yml_file in slc_ci_yml_files:
+        session.log(f"Checking {slc_ci_yml_file}")
+        session.run("actionlint", str(slc_ci_yml_file))
     session.run("git", "add", ".github/workflows/slc_ci*.yml")
