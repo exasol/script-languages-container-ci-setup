@@ -1,6 +1,13 @@
 
 # Overview
 
+This project is used to deploy the CI scripts for Exasol's Script-Languages-Container.
+
+## Github
+
+Provides an CLI to install the Github workflow files to a Script-Languages-Container repository.
+
+## AWS (deprecated)
 This project contains the AWS Cloudformation YAML files to deploy the AWS infrastructure for the ScriptLanguages-Container CI jobs.
 Those YAML files are not static, but generated, based on the provided Script-Languages container flavors.
 

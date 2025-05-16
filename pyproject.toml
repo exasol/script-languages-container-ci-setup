@@ -29,7 +29,10 @@ dependencies = [
 
 [tool.poetry]
 
-packages = [ {include = "exasol_script_languages_container_ci_setup"}, ]
+packages = [
+    {include = "exasol_script_languages_container_ci_setup"},
+    {include = "exasol"}
+]
 
 [project.urls]
 
@@ -40,6 +43,8 @@ homepage = "https://github.com/exasol/script-languages-container-ci-setup"
 requires = ["poetry_core>=2.1.0"]
 build-backend = "poetry.core.masonry.api"
 
+[project.scripts]
+exaslc-ci-setup = 'exasol.slc_ci_setup.cli.main:main'
 
 [tool.poetry.group.dev.dependencies]
 toml = ">=0.10.2"
@@ -47,6 +52,7 @@ pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
 exasol-toolbox = ">=0.20.0"
+actionlint-py = "^1.7.7.23"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
@@ -77,8 +83,24 @@ force_grid_wrap = 2
 
 
 [tool.pylint.master]
-fail-under = 6.66
 output-format = "colorized,json:.lint.json,text:.lint.txt"
+ignore-paths = [
+    ".*/exasol_script_languages_container_ci_setup/.*", #legacy implementation for AWS, will be removed soon
+    ".*/test/.*",
+    ".*/flavors/.*",
+    ".*/test_containers/.*",
+]
+
+ignore = [
+    "noxfile.py"
+]
+
+[tool.pylint.'MESSAGES CONTROL']
+max-line-length = 120
+disable = """
+    C
+"""
+
 
 [tool.pylint.format]
 max-line-length = 88

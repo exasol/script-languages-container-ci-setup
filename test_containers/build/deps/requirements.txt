@@ -1,0 +1,6 @@
+pyodbc
+pytz
+lxml
+docker
+scipy
+exasol-python-test-framework==0.6.0

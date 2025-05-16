@@ -1,0 +1,12 @@
+{
+  "build_runner": "ubuntu-22.04",
+  "test_config": {
+    "test_runner": "ubuntu-22.04",
+    "test_sets": [
+      {
+        "name": "integration-test",
+        "folders": ["some_tests"]
+      }
+    ]
+  }
+}
