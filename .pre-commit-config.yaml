@@ -37,14 +37,9 @@ repos:
 
   - repo: local
     hooks:
-      - id: Deploy Github workflows
-        name: Deploy Github workflows for integration tests
-        files: ".*/templates/.*yml"
+      - id: Update Github workflows
+        name: Update and check SLC CI Github workflows for integration tests
+        files: ".*/exasol/slc_ci_setup/.*"
         pass_filenames: false
         language: system
         entry: poetry run -- nox -s update-integration-test-github-workflows
-
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.7
-    hooks:
-      - id: actionlint
