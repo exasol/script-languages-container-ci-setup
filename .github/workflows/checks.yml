@@ -62,7 +62,7 @@ jobs:
 
       - name: Run lint
         # disabeld to enable overriding nox tasks of PTB
-        run: true # poetry run -- nox -s lint:code
+        run: poetry run -- nox -s lint:code || true
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4.6.2
