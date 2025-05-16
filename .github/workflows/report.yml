@@ -27,8 +27,12 @@ jobs:
       - name: Copy Artifacts into Root Folder
         working-directory: ./artifacts
         run: |
+          echo "Before running poetry coverage combine"
+          pwd; ls -la; tree
           poetry run -- coverage combine --keep coverage-python3.9*/.coverage
           # Errors during copying are ignored because they are checked in the next step
+          echo "After running poetry coverage combine"
+          pwd; ls -la; tree
           cp .coverage ../ || true
           cp lint-python3.9/.lint.txt ../ || true
           cp lint-python3.9/.lint.json ../ || true
