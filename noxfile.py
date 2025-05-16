@@ -13,4 +13,4 @@ def update_integration_test_github_workflows(session: nox.Session):
     Updates the Github workflows under ".github/workflows" for the dummy SLC in this repository.
     """
     session.run("exaslc-ci-setup", "deploy-ci-build")
-    session.run("git", "add", ".github/workflows/*.yml")
+    session.run("git", "add", ".github/workflows/slc_ci*.yml")
