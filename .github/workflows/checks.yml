@@ -177,11 +177,10 @@ jobs:
           python-version: "3.10"
 
       - name: Update Github workflow files
-        run: poetry run -- exaslc-ci-setup deploy-ci-build
+        run: poetry run -- nox -s update-integration-test-github-workflows
 
       - name: Check Git status
         run: |
           git status --porcelain=v1 -uno
           git diff --cached; git diff --cached --summary;
           [ -z "$(git status --porcelain=v1 -uno 2>/dev/null)" ]
-
