@@ -33,14 +33,14 @@ jobs:
           # including all test subsets, e.g. fast and slow, ...
           # Option "--keep" prevents the original input files from deletion.
           # Result of the combine operation is a file .coverage in the current directory.
-          poetry run -- coverage combine --keep coverage-python3.9*/.coverage
+          poetry run -- coverage combine --keep coverage-python3.10*/.coverage
           # Errors during copying are ignored because they are checked in the next step
           echo "After running poetry coverage combine"
           pwd; ls -la; tree -a
           cp .coverage ../ || true
-          cp lint-python3.9/.lint.txt ../ || true
-          cp lint-python3.9/.lint.json ../ || true
-          cp security-python3.9/.security.json ../ || true
+          cp lint-python3.10/.lint.txt ../ || true
+          cp lint-python3.10/.lint.json ../ || true
+          cp security-python3.10/.security.json ../ || true
 
       - name: Validate Artifacts
         run: poetry run -- nox -s artifacts:validate
