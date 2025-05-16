@@ -15,4 +15,6 @@ jobs:
     uses: ./.github/workflows/merge-gate.yml
     secrets: inherit
 
-  # removed #Metrics as this does not work for this project
+  Metrics:
+    needs: [ CI ]
+    uses: ./.github/workflows/report.yml

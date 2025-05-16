@@ -21,6 +21,8 @@ class Config:
     )
 
     plugins = []
+    python_versions = ["3.10", "3.11", "3.12", "3.13"]
+    exasol_versions = []
 
 
 PROJECT_CONFIG = Config()
