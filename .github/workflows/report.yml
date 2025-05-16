@@ -28,11 +28,15 @@ jobs:
         working-directory: ./artifacts
         run: |
           echo "Before running poetry coverage combine"
-          pwd; ls -la; tree
+          pwd; ls -la; tree -a
+          # Combine coverage results from python version 3.9
+          # including all test subsets, e.g. fast and slow, ...
+          # Option "--keep" prevents the original input files from deletion.
+          # Result of the combine operation is a file .coverage in the current directory.
           poetry run -- coverage combine --keep coverage-python3.9*/.coverage
           # Errors during copying are ignored because they are checked in the next step
           echo "After running poetry coverage combine"
-          pwd; ls -la; tree
+          pwd; ls -la; tree -a
           cp .coverage ../ || true
           cp lint-python3.9/.lint.txt ../ || true
           cp lint-python3.9/.lint.json ../ || true
