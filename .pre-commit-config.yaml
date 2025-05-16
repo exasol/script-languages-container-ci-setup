@@ -5,7 +5,7 @@ repos:
     hooks:
       - id: deploy Github workflows
         name: deploy Github workflows for integration tests
-        types: [ python ]
+        files: ".*/templates/.*yml"
         pass_filenames: false
         language: system
         entry: poetry run -- exaslc-ci-setup deploy-ci-build
