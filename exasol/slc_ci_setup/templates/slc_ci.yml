@@ -18,5 +18,6 @@ jobs:
         with:
           python-version: '3.10'
           poetry-version: '2.1.2'
+
       - name: Try out exaslc-ci
         run: poetry run -- exaslc-ci --help
