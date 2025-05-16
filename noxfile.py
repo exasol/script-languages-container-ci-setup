@@ -6,7 +6,7 @@ from exasol.toolbox.nox.tasks import *
 # default actions to be run if nothing is explicitly specified with the -s option
 nox.options.sessions = ["project:fix"]
 
-#
+# isort: off
 
 from dataclasses import dataclass
 from noxconfig import PROJECT_CONFIG
@@ -18,6 +18,8 @@ from pathlib import Path
 import argparse
 from exasol.toolbox.metrics import Format
 from tempfile import TemporaryDirectory
+
+# isort: on
 
 def total_coverage(file: Union[str, Path]) -> float:
     with TemporaryDirectory() as tmpdir:
