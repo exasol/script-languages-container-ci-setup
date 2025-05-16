@@ -91,11 +91,12 @@ def report(session: Session) -> None:
         RequiredFile(".lint.txt", "lint:code"),
         RequiredFile(".security.json", "lint:security"),
     ]
-    if missing := [f for f in required_files if not f.file.exists()]:
+    if missing_files := [f for f in required_files if not f.file.exists()]:
+        missing = '\n- file '.join(str(f) for f in missing_files)
         session.error(
             "Some required files are missing.\n"
             "Please make sure you run the related nox tasks first:\n"
-            f" - file {'\n- '.join(str(f) for f in missing)}"
+            f"{missing}"
         )
     total_coverage(".coverage")
     # sha1 = str(
