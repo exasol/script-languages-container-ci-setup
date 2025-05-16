@@ -43,8 +43,3 @@ repos:
         pass_filenames: false
         language: system
         entry: poetry run -- nox -s update-integration-test-github-workflows
-
-  - repo: https://github.com/rhysd/actionlint
-    rev: v1.7.7
-    hooks:
-      - id: actionlint
