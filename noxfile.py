@@ -21,6 +21,7 @@ from tempfile import TemporaryDirectory
 
 # isort: on
 
+
 def total_coverage(file: Union[str, Path]) -> float:
     with TemporaryDirectory() as tmpdir:
         tmp_dir = Path(tmpdir)
@@ -46,10 +47,10 @@ def total_coverage(file: Union[str, Path]) -> float:
                 raise RuntimeError(message)
 
         with open(report, encoding="utf-8") as r:
-            print(f'Writing coverage to {report}')
+            print(f"Writing coverage to {report}")
             data = json.load(r)
             total: float = data["totals"]["percent_covered"]
-        print(f'returning {total}')
+        print(f"returning {total}")
         return total
 
 
@@ -94,7 +95,7 @@ def report(session: Session) -> None:
         RequiredFile(".security.json", "lint:security"),
     ]
     if missing_files := [f for f in required_files if not f.file.exists()]:
-        missing = '\n- file '.join(str(f) for f in missing_files)
+        missing = "\n- file ".join(str(f) for f in missing_files)
         session.error(
             "Some required files are missing.\n"
             "Please make sure you run the related nox tasks first:\n"
