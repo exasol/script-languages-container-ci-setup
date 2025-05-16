@@ -37,8 +37,8 @@ repos:
 
   - repo: local
     hooks:
-      - id: deploy Github workflows
-        name: deploy Github workflows for integration tests
+      - id: Deploy Github workflows
+        name: Deploy Github workflows for integration tests
         files: ".*/templates/.*yml"
         pass_filenames: false
         language: system
