@@ -3,6 +3,15 @@ repos:
 
   - repo: local
     hooks:
+      - id: deploy Github workflows
+        name: deploy Github workflows for integration tests
+        types: [ python ]
+        pass_filenames: false
+        language: system
+        entry: poetry run -- exaslc-ci-setup deploy-ci-build
+
+  - repo: local
+    hooks:
       - id: code-format
         name: code-format
         types: [ python ]
