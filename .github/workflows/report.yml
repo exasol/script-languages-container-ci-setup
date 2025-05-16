@@ -27,10 +27,6 @@ jobs:
       - name: Copy Artifacts into Root Folder
         working-directory: ./artifacts
         run: |
-          # Combine coverage results from python version 3.9
-          # including all test subsets, e.g. fast and slow, ...
-          # Option "--keep" prevents the original input files from deletion.
-          # Result of the combine operation is a file .coverage in the current directory.
           poetry run -- coverage combine --keep coverage-python3.10*/.coverage
           # Errors during copying are ignored because they are checked in the next step
           cp .coverage ../ || true
