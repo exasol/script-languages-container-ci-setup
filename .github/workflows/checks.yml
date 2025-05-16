@@ -61,8 +61,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Run lint
-        # disabeld to enable overriding nox tasks of PTB
-        run: poetry run -- nox -s lint:code || true
+        run: poetry run -- nox -s lint:code
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4.6.2
