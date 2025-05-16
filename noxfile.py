@@ -8,6 +8,7 @@ nox.options.sessions = ["project:fix"]
 
 # isort: off
 
+import sys
 from dataclasses import dataclass
 from noxconfig import PROJECT_CONFIG
 from nox import Session
