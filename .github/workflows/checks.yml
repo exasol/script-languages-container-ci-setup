@@ -43,7 +43,8 @@ jobs:
 
       - name: Extract Python version of first entry in build matrix
         # ${{ fromJson(needs.build-matrix.outputs.matrix) }}
-        run: echo "First python version in Build Matrix: $PYTHON_VERSION"
+        run:
+          echo "First python version in Build Matrix: $PYTHON_VERSION"
 
 #   Changelog:
 #     name: Changelog Update Check
