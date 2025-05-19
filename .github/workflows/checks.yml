@@ -35,7 +35,7 @@ jobs:
     env:
       # PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix }}
       # PYTHON_VERSION: ${{ fromJson(needs.build-matrix.outputs.matrix)[0].python_version }}
-      PYTHON_VERSION: ${{ fromJson(needs.build-matrix.outputs.matrix.python_version[0] }}
+      PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix.python_version[0] }}
     steps:
 
       - name: SCM Checkout
