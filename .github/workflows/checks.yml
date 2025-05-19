@@ -32,6 +32,8 @@ jobs:
     name: Get first python version from build matrix
     needs: [ build-matrix ]
     runs-on: ubuntu-24.04
+    env:
+       PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix[0].python_version }}
     steps:
 
       - name: SCM Checkout
@@ -42,8 +44,6 @@ jobs:
       - name: Extract Python version of first entry in build matrix
         # ${{ fromJson(needs.build-matrix.outputs.matrix) }}
         run: echo "First python version in Build Matrix: $PYTHON_VERSION"
-        env:
-          PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix[0].python_version }}
 
 #   Changelog:
 #     name: Changelog Update Check
