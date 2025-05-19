@@ -33,7 +33,7 @@ jobs:
     needs: [ build-matrix ]
     runs-on: ubuntu-24.04
     env:
-      PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix }}
+      BUILD_MATRIX: ${{ needs.build-matrix.outputs.matrix }}
       # {"python-version": ["3.10", "3.11", "3.12", "3.13"]}
       # PYTHON_VERSION: ${{ fromJson(needs.build-matrix.outputs.matrix)[0].python_version }}
       # PYTHON_VERSION: ${{ fromJson(needs.build-matrix.outputs.matrix).python-version[0] }}
@@ -45,7 +45,10 @@ jobs:
       - name: Extract Python version of first entry in build matrix
         # ${{ fromJson(needs.build-matrix.outputs.matrix) }}
         run: |
-          PYTHON_VERSION=$(echo ${{ needs.build-matrix.outputs.matrix }} | jq '."python-version"[0]' )
+          echo Build Matrix: "$BUILD_MATRIX"
+          A1=$(echo "$BUILD_MATRIX" | jq '."python-version"[0]')
+          echo $A1
+          PYTHON_VERSION=$(echo '${{ needs.build-matrix.outputs.matrix }}' | jq '."python-version"[0]')
           echo "First python version in Build Matrix: $PYTHON_VERSION"
 
 #   Changelog:
