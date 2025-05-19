@@ -1,0 +1,38 @@
+from test.unit.github.cli.cli_runner import CliRunner
+from unittest.mock import (
+    MagicMock,
+    call,
+)
+
+import pytest
+from _pytest.monkeypatch import MonkeyPatch
+
+import exasol.slc_ci_setup.lib.deploy_ci_build as lib_deploy_ci_build
+from exasol.slc_ci_setup.cli.commands.deploy_ci_build import (
+    deploy_ci_build,
+)
+
+
+@pytest.fixture
+def cli():
+    return CliRunner(deploy_ci_build)
+
+
+@pytest.fixture
+def mock_deploy_ci_build(monkeypatch: MonkeyPatch) -> MagicMock:
+    mock_function_to_mock = MagicMock()
+    monkeypatch.setattr(
+        lib_deploy_ci_build,
+        "deploy_ci_build",
+        mock_function_to_mock,
+    )
+    return mock_function_to_mock
+
+
+def test_mock_deploy_ci_build(cli, mock_deploy_ci_build):
+    cli.run()
+    assert cli.succeeded
+
+    # Validate the exact call using mock_calls and IsInstance matcher
+    expected_call = call()
+    assert mock_deploy_ci_build.mock_calls == [expected_call]

@@ -1,4 +1,4 @@
-from test.unit.cloudformation_validation import validate_using_cfn_lint
+from test.unit.aws.cloudformation_validation import validate_using_cfn_lint
 from typing import Union
 from unittest.mock import (
     MagicMock,

@@ -162,3 +162,25 @@ jobs:
           name: coverage-python${{ matrix.python-version }}-fast
           path: .coverage
           include-hidden-files: true
+
+
+  Validate-SLC-Github-Workflows:
+    name: Validate-Github-workflows
+    runs-on: ubuntu-24.04
+    steps:
+      - name: SCM Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@1.1.0
+        with:
+          python-version: "3.10"
+
+      - name: Update Github workflow files
+        run: poetry run -- nox -s update-integration-test-github-workflows
+
+      - name: Check Git status
+        run: |
+          git status --porcelain=v1 -uno
+          git diff --cached; git diff --cached --summary;
+          [ -z "$(git status --porcelain=v1 -uno 2>/dev/null)" ]

@@ -1,0 +1,23 @@
+name: SLC-CI
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - main
+  pull_request:
+
+jobs:
+  dummy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@1.0.1
+        with:
+          python-version: '3.10'
+          poetry-version: '2.1.2'
+
+      - name: Dummy
+        run: echo Test
