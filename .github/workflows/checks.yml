@@ -33,7 +33,7 @@ jobs:
     needs: [ build-matrix ]
     runs-on: ubuntu-24.04
     env:
-      PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix[0].python_version }}
+      PYTHON_VERSION: ${{ fromJson(needs.build-matrix.outputs.matrix)[0].python_version }}
       # PYTHON_VERSION: ${{ needs.build-matrix.outputs.matrix }}
     steps:
 
