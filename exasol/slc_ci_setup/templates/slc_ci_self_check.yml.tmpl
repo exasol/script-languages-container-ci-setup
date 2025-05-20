@@ -1,4 +1,4 @@
-name: SLC-CI-Self-Check
+{% raw %}name: SLC-CI-Self-Check
 
 on:
   push:
@@ -29,4 +29,4 @@ jobs:
         run: |
           git status --porcelain=v1 -uno
           git diff --cached; git diff --cached --summary;
-          [ -z "$(git status --porcelain=v1 -uno 2>/dev/null)" ]
+          [ -z "$(git status --porcelain=v1 -uno 2>/dev/null)" ]{% endraw %}
