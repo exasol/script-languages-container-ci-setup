@@ -18,7 +18,9 @@ jobs:
           python-version: '3.10'
           poetry-version: '2.1.2'
       - name: prepare test container
-        run: poetry run -- exaslc-ci prepare-test-container --commit-sha "$COMMIT_SHA" --docker-user "DOCKER_USERNAME" --docker-password "DOCKER_PASSWORD"
+        run: |
+            echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
+            poetry run -- exaslc-ci prepare-test-container --commit-sha "$COMMIT_SHA" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD"
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

@@ -47,6 +47,10 @@ jobs:
       - name: Build SLC ${{ inputs.flavor }}
         id: build-slc
         run: |
+          mkdir -p ".build_output/jobs" ".build_output/security_scan" ".build_output/metadata"
+          date > .build_output/metadata/start_date
+          echo "$COMMIT_SHA" > .build_output/metadata/commit_sha
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           poetry run -- exaslc-ci export-and-scan-vulnerabilities --flavor "$FLAVOR" --branch-name "$BRANCH_NAME" --commit-sha "$COMMIT_SHA" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD" --github-output-var slc_paths
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
