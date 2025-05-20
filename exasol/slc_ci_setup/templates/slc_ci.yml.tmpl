@@ -1,4 +1,4 @@
-name: SLC-CI
+{% raw %}name: SLC-CI
 
 on:
   push:
@@ -37,4 +37,4 @@ jobs:
     uses: ./.github/workflows/slc_ci_flavor.yml
     secrets: inherit
     with:
-      flavor: ${{ matrix.flavor }}
+      flavor: ${{ matrix.flavor }}{% endraw %}
