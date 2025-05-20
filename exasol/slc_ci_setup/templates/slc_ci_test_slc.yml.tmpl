@@ -72,6 +72,7 @@ jobs:
           path: "slc"
       - name: Run Test-Set ${{ matrix.test-set }}
         run: |
+          echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
           poetry run -- exaslc-ci run-tests --flavor "$FLAVOR" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD"  --test-set-name "$TEST_SET_NAME" --slc-directory "$SLC_DIRECTORY"
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
