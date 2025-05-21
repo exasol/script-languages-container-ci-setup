@@ -25,7 +25,7 @@ jobs:
      - name: Detect Test Matrix
        id: detect-test-matrix
        run: |
-         poetry run -- exaslc-ci get-test-matrix --flavor "$FLAVOR" --github-var test_matrix
+         poetry run -- exaslc-ci get-test-matrix --flavor "$FLAVOR" --github-output-var test_matrix
        env:
          FLAVOR: ${{ inputs.flavor }}
     outputs:
