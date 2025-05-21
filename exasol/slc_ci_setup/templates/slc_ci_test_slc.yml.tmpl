@@ -1,0 +1,34 @@
+{% raw %}name: SLC-CI-Test
+
+on:
+  workflow_call:
+    inputs:
+      flavor:
+          description: 'A flavor'
+          required: true
+          type: string
+    secrets:
+      DOCKER_USERNAME:
+        required: true
+      DOCKER_PASSWORD:
+        required: true
+jobs:
+
+  dummy:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download SLC Release
+        id: download-slc-release
+        uses: actions/download-artifact@v4
+        with:
+          name: slc-${{inputs.flavor}}-release
+          path: "slc"
+      - name: Download SLC Test
+        id: download-slc-test
+        uses: actions/download-artifact@v4
+        with:
+          name: slc-${{inputs.flavor}}-test
+          path: "slc"
+      - name: Print SLC's
+        run: ls -la slc{% endraw %}

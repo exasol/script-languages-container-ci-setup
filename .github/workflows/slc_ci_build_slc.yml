@@ -60,7 +60,7 @@ jobs:
           FLAVOR: ${{inputs.flavor}}
 
       - uses: actions/upload-artifact@v4
-        id: artifact-upload-logs-step
+        name: Upload log artifacts
         with:
           name: logs_${{inputs.flavor}}
           path: |
@@ -70,17 +70,17 @@ jobs:
           retention-days: 30
 
       - uses: actions/upload-artifact@v4
-        id: artifact-upload-release-slc
+        name: Upload release SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc_${{inputs.flavor}}-release
+          name: slc-${{inputs.flavor}}-release
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release }}"
           compression-level: 0
           retention-days: 7
 
       - uses: actions/upload-artifact@v4
-        id: artifact-upload-test-slc
+        name: Upload test SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc_${{inputs.flavor}}-test
+          name: slc-${{inputs.flavor}}-test
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test }}"
           compression-level: 0
           retention-days: 1
