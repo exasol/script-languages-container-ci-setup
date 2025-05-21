@@ -34,3 +34,10 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
     secrets: inherit
+  test:
+    needs: [check_for_build, build]
+    if: ${{ needs.check_for_build.outputs.continue == 'True' }}
+    uses: ./.github/workflows/slc_ci_test_slc.yml
+    with:
+      flavor: ${{ inputs.flavor }}
+    secrets: inherit
