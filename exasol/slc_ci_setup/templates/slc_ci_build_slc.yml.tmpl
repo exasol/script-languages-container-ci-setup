@@ -72,7 +72,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: Upload release SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{inputs.flavor}}-"${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}"
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.path }}"
           compression-level: 0
           retention-days: 7
@@ -80,7 +80,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         name: Upload test SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{inputs.flavor}}-"${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}"
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.path }}"
           compression-level: 0
           retention-days: 1{% endraw %}
