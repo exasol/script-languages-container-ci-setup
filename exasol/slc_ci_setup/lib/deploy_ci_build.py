@@ -12,7 +12,6 @@ def deploy_ci_build():
         "slc_ci_check_for_build.yml.tmpl",
         "slc_ci_flavor.yml.tmpl",
         "slc_ci_prepare_test_container.yml.tmpl",
-        "slc_ci_test_slc.yml.tmpl",
     ]
     for template in templates:
         github_workflow = render_template(template)
