@@ -13,22 +13,42 @@ on:
       DOCKER_PASSWORD:
         required: true
 jobs:
-
-  dummy:
+  detect-test-matrix:
     runs-on: ubuntu-22.04
     steps:
+     - uses: actions/checkout@v4
+     - name: Setup Python & Poetry Environment
+       uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0
+       with:
+         python-version: '3.10'
+         poetry-version: '2.1.2'
+     - name: Detect Test Matrix
+       id: detect-test-matrix
+       run: |
+         poetry run -- exaslc-ci get-test-matrix --flavor "$FLAVOR" --github-var test_matrix
+       env:
+         FLAVOR: ${{ inputs.flavor }}
+    outputs:
+     test-matrix: ${{ steps.detect-test-matrix.outputs.test_matrix }}
+
+  run-tests:
+    needs: [detect-test-matrix]
+    runs-on:
+      labels: ${{matrix.test-matrix.test_runner}}
+    strategy:
+      fail-fast: true
+      matrix:
+        test-matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
+
+    steps:
       - uses: actions/checkout@v4
-      - name: Download SLC Release
+      - name: Download SLC ${{matrix.test-matrix.goal}}
         id: download-slc-release
         uses: actions/download-artifact@v4
         with:
-          name: slc-${{inputs.flavor}}-release
-          path: "slc"
-      - name: Download SLC Test
-        id: download-slc-test
-        uses: actions/download-artifact@v4
-        with:
-          name: slc-${{inputs.flavor}}-test
+          name: slc-${{inputs.flavor}}-${{matrix.test-matrix.goal}}
           path: "slc"
       - name: Print SLC's
-        run: ls -la slc{% endraw %}
+        run: ls -la slc
+      - name: Run Tests ${{matrix.test-matrix.test_set_name}}
+        run: echo running tests...{% endraw %}

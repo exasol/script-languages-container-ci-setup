@@ -1083,8 +1083,8 @@ setuptools = "^78.0.0"
 [package.source]
 type = "git"
 url = "https://github.com/exasol/script-languages-container-ci.git"
-reference = "HEAD"
-resolved_reference = "dcb7934e9752ca5505dbcdb215c576ac80248ca7"
+reference = "feature/89_github_workflows_get_test_runner"
+resolved_reference = "83680fdeca11a88d99acc8accf81232e2f74c4dc"
 
 [[package]]
 name = "exasol-script-languages-container-tool"
@@ -4112,4 +4112,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <4.0"
-content-hash = "6cb7eebe0010264f02da92a52740d03c3115a7f08e8defc0026f637f20ef4396"
+content-hash = "9e4c90cc97c0e55f5b408070f7e4c74721f2b4ac78e72ce23cbe00ad02c76f79"

@@ -1,14 +1,28 @@
 {
   "build_runner": "ubuntu-22.04",
   "test_config": {
-    "test_runner": "ubuntu-22.04",
+    "default_test_runner": "ubuntu-22.04",
     "test_sets": [
       {
         "name": "integration-test",
         "folders": ["some_tests"],
         "goal": "release",
         "generic_language_tests": []
+      },
+      {
+        "name": "integration-test-for-base_test_build_run",
+        "folders": ["some_tests"],
+        "goal": "base_test_build_run",
+        "generic_language_tests": []
+      },
+      {
+        "name": "integration-test-gpu",
+        "folders": ["some_tests"],
+        "goal": "gpu",
+        "generic_language_tests": [],
+        "test_runner": "ubuntu-24.04"
       }
+
     ]
   }
 }
