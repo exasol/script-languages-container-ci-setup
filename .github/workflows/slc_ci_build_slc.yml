@@ -19,6 +19,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
      - uses: actions/checkout@v4
+       with:
+          submodules: 'recursive'
+
      - name: Setup Python & Poetry Environment
        uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0
        with:
@@ -37,6 +40,8 @@ jobs:
       labels: ${{needs.detect-runner.outputs.runner}}
     steps:
       - uses: actions/checkout@v4
+        with:
+            submodules: 'recursive'
 
       - name: Setup Python & Poetry Environment
         uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0

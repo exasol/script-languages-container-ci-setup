@@ -17,6 +17,9 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
      - uses: actions/checkout@v4
+       with:
+          submodules: 'recursive'
+
      - name: Setup Python & Poetry Environment
        uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0
        with:
@@ -41,6 +44,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+            submodules: 'recursive'
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0
+        with:
+          python-version: '3.10'
+          poetry-version: '2.1.2'
       - name: Download SLC ${{matrix.goal}}
         id: download-slc
         uses: actions/download-artifact@v4
