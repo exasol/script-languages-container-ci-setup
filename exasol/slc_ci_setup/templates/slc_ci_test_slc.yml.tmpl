@@ -34,21 +34,20 @@ jobs:
   run-tests:
     needs: [detect-test-matrix]
     runs-on:
-      labels: ${{matrix.test-matrix.test_runner}}
+      labels: ${{matrix.test_runner}}
     strategy:
       fail-fast: true
-      matrix:
-        test-matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
+      matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
 
     steps:
       - uses: actions/checkout@v4
-      - name: Download SLC ${{matrix.test-matrix.goal}}
+      - name: Download SLC ${{matrix.goal}}
         id: download-slc-release
         uses: actions/download-artifact@v4
         with:
-          name: slc-${{inputs.flavor}}-${{matrix.test-matrix.goal}}
+          name: slc-${{inputs.flavor}}-${{matrix.goal}}
           path: "slc"
       - name: Print SLC's
         run: ls -la slc
-      - name: Run Tests ${{matrix.test-matrix.test_set_name}}
+      - name: Run Tests ${{matrix.test_set_name}}
         run: echo running tests...{% endraw %}
