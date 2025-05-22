@@ -18,7 +18,7 @@
       {
         "name": "integration-test-gpu",
         "folders": ["some_tests"],
-        "goal": "gpu",
+        "goal": "release",
         "generic_language_tests": [],
         "test_runner": "ubuntu-24.04"
       }
