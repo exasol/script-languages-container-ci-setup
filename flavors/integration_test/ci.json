@@ -17,10 +17,11 @@
       },
       {
         "name": "integration-test-gpu",
-        "folders": ["some_tests"],
+        "folders": ["gpu_tests"],
         "goal": "release",
         "generic_language_tests": [],
-        "test_runner": "ubuntu-24.04"
+        "test_runner": "int-linux-x64-4core-gpu-t4-ubuntu24.04-1",
+        "accelerator": "nvidia"
       }
 
     ]
