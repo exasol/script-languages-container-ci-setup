@@ -37,7 +37,7 @@ jobs:
     uses: ./.github/workflows/slc_ci_flavor.yml
     secrets: inherit
     with:
-      flavor: ${{ matrix.flavor }}{% endraw %}
+      flavor: ${{ matrix.flavor }}
 
   slc-ready:
     needs: ci
@@ -45,4 +45,4 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Print message
-        run: echo SLCs CI finished
+        run: echo SLCs CI finished{% endraw %}

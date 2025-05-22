@@ -34,7 +34,7 @@ jobs:
   run-tests:
     needs: [detect-test-matrix]
     runs-on:
-      labels: ${{matrix.test_runner}}
+      labels: ${{matrix.test-runner}}
     strategy:
       fail-fast: true
       matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
@@ -49,5 +49,5 @@ jobs:
           path: "slc"
       - name: Print SLC's
         run: ls -la slc
-      - name: Run Tests ${{matrix.test_set_name}}
+      - name: Run Tests ${{matrix.test-set-name}}
         run: echo running tests...{% endraw %}
