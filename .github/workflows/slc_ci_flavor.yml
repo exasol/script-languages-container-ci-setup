@@ -24,8 +24,8 @@ jobs:
     needs: [check_for_build]
     runs-on: ubuntu-24.04
     steps:
-      - name: Print status
-        run: Skipping build and test for flavor ${{ inputs.flavor }}
+      - name: Print message
+        run: echo skipping build and test for flavor ${{ inputs.flavor }}
 
   build:
     needs: check_for_build

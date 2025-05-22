@@ -38,3 +38,10 @@ jobs:
     secrets: inherit
     with:
       flavor: ${{ matrix.flavor }}{% endraw %}
+
+  slc-ready:
+    needs: ci
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Print message
+        run: echo SLCs CI finished
