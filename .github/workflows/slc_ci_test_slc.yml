@@ -39,7 +39,7 @@ jobs:
     runs-on:
       labels: ${{matrix.test-runner}}
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
 
     steps:
