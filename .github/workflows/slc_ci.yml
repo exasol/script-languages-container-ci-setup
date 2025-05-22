@@ -41,6 +41,7 @@ jobs:
 
   slc-ready:
     needs: ci
+    name: SLC Allow Merge
     runs-on: ubuntu-24.04
     steps:
       - name: Print message
