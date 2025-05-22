@@ -69,4 +69,4 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           FLAVOR: ${{ inputs.flavor }}
           TEST_SET_NAME: ${{ matrix.test-set-name }}
-          SLC_DIRECTORY: $"${{ steps.download-slc.outputs.download-path }}"
+          SLC_DIRECTORY: ${{ steps.download-slc.outputs.download-path }}
