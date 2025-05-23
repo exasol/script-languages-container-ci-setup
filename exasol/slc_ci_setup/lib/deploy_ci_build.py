@@ -14,8 +14,9 @@ def deploy_ci_build():
         "slc_ci_prepare_test_container.yml.tmpl",
         "slc_ci_test_slc.yml.tmpl",
     ]
+    heading = render_template("heading.tmpl")
     for template in templates:
-        github_workflow = render_template(template)
+        github_workflow = render_template(template, heading=heading)
         with open(
             target_path / template.replace(".yml.tmpl", ".yml"), "w", encoding="utf-8"
         ) as f:
