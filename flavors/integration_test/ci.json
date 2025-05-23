@@ -1,7 +1,7 @@
 {
   "build_runner": "ubuntu-22.04",
   "test_config": {
-    "test_runner": "ubuntu-22.04",
+    "default_test_runner": "ubuntu-22.04",
     "test_sets": [
       {
         "name": "integration-test",

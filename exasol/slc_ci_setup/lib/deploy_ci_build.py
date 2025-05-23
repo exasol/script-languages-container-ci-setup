@@ -1,12 +1,19 @@
+import logging
 from pathlib import Path
 
-from exasol.slc_ci_setup.lib.render_template import render_template
+from exasol.slc_ci_setup.lib.template_access import (
+    list_templates,
+    render_template,
+)
 
 
 def deploy_ci_build():
     target_path = Path() / ".github" / "workflows"
-    templates = ["slc_ci.yml", "slc_ci_self_check.yml"]
+    templates = list_templates("slc_ci")
+
     for template in templates:
+        target_file = template.replace(".yml.tmpl", ".yml")
+        logging.info("Generating workflow %s", target_file)
         github_workflow = render_template(template)
-        with open(target_path / template, "w", encoding="utf-8") as f:
+        with open(target_path / target_file, "w", encoding="utf-8") as f:
             f.write(github_workflow)
