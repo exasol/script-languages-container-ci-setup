@@ -10,9 +10,7 @@ class Config:
     root: Path = Path(__file__).parent
     doc: Path = Path(__file__).parent / "doc"
     version_file: Path = (
-        Path(__file__).parent
-        / "exasol_script_languages_container_ci_setup"
-        / "version.py"
+        Path(__file__).parent / "exasol" / "slc_ci_setup" / "version.py"
     )
     path_filters: Iterable[str] = (
         "dist",
