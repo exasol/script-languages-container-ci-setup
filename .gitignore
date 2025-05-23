@@ -8,3 +8,4 @@ __pycache__
 .lint.json
 .security.json
 .coverage
+.build_output

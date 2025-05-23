@@ -1,8 +1,5 @@
-# ---- AUTOMATICALLY GENERATED FILE ----
-# ---- DO NOT EDIT MANUALLY, BUT USE PYTHON MODULE "exasol.slc_ci_setup" ----
-# ---- from https://github.com/exasol/script-languages-container-ci-setup TO UPDATE ----
-
-
+{% include "heading.tmpl" %}
+{% raw %}
 name: SLC-CI
 
 on:
@@ -51,4 +48,4 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Print message
-        run: echo SLCs CI finished
+        run: echo SLCs CI finished{% endraw %}
