@@ -5,7 +5,9 @@
     "test_sets": [
       {
         "name": "integration-test",
-        "folders": ["some_tests"]
+        "folders": ["some_tests"],
+        "goal": "release",
+        "generic_language_tests": []
       }
     ]
   }
