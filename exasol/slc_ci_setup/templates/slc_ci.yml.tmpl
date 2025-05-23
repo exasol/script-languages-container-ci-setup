@@ -1,0 +1,17 @@
+{% include "heading.tmpl" %}
+{% raw %}
+name: SLC-CI
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - develop
+      - 'rebuild/**'
+  pull_request:
+
+jobs:
+  prepare-test-container:
+    uses: ./.github/workflows/slc_ci_prepare_test_container.yml
+    secrets: inherit{% endraw %}
