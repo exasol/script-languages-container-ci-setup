@@ -67,6 +67,7 @@ jobs:
           FLAVOR: ${{inputs.flavor}}
 
       - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
         name: Upload log artifacts
         with:
           name: logs_${{inputs.flavor}}
