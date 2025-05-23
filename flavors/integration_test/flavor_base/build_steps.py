@@ -20,18 +20,6 @@ class AnalyzeBaseTestBuildRun(DockerFlavorAnalyzeImageTask):
         return "flavor_base"
 
 
-class AnalyzeFlavorTestBuildRun(DockerFlavorAnalyzeImageTask):
-
-    def get_build_step(self) -> str:
-        return "flavor_test_build_run"
-
-    def requires_tasks(self):
-        return {"base_test_build_run": AnalyzeBaseTestBuildRun}
-
-    def get_path_in_flavor(self):
-        return "flavor_base"
-
-
 class AnalyzeRelease(DockerFlavorAnalyzeImageTask):
     def get_build_step(self) -> str:
         return "release"
