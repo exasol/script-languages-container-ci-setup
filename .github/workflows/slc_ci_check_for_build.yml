@@ -28,7 +28,6 @@ jobs:
         uses: exasol/python-toolbox/.github/actions/python-environment@1.2.0
         with:
           python-version: "3.10"
-          poetry-version: "2.1.2"
       - name: Run check
         id: run-check
         run: |
