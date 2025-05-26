@@ -11,7 +11,7 @@ on:
           type: string
     outputs:
       continue:
-        description: "Indicates if need to build and test SLC"
+        description: "Indicates if we need to build and test SLC"
         value: ${{ jobs.check_for_build.outputs.continue }}
 
 jobs:
