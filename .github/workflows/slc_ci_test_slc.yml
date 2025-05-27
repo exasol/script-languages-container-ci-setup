@@ -73,3 +73,12 @@ jobs:
           FLAVOR: ${{ inputs.flavor }}
           TEST_SET_NAME: ${{ matrix.test-set-name }}
           SLC_DIRECTORY: ${{ steps.download-slc.outputs.download-path }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        name: Upload log artifacts
+        with:
+          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}
+          path: |
+            .build_output/jobs/**/*
+            .build_output/metadata/**/*
+          retention-days: 30
