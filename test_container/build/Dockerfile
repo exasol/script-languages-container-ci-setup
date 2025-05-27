@@ -21,7 +21,6 @@ RUN curl -fsSL https://get.docker.com | bash
 
 RUN mkdir -p downloads/ODBC downloads/JDBC downloads/EXAplus
 RUN curl -s https://x-up.s3.amazonaws.com/7.x/24.1.1/Exasol_ODBC-24.1.1-Linux_x86_64.tar.gz  | tar -C downloads/ODBC --strip-components 2 -zxf -
-RUN curl -s https://x-up.s3.amazonaws.com/7.x/24.1.1/Exasol_JDBC-24.1.1.tar.gz | tar -C downloads/JDBC --strip-components 2 -zxf -
 RUN curl -s https://x-up.s3.amazonaws.com/7.x/24.1.1/EXAplus-24.1.1.tar.gz | tar -C downloads/EXAplus --strip-components 2 -zxf -
 ENV EXAPLUS=/downloads/EXAplus/exaplus
 
