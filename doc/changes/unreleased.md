@@ -11,3 +11,8 @@
 
  - #93: Updated Github workflows from PTB
  - #105: Update script-languages-container-ci
+
+## Features
+
+ - #91: Create new templates for Github Workflows - prepare testcontainer
+ - #108: Create new templates for Github Workflows - export and scan vulnerabilities
