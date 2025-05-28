@@ -11,7 +11,7 @@
 
  - #93: Updated Github workflows from PTB
  - #105: Update script-languages-container-ci
- - #110: Removed build output preparation
+ - #110: Removed build output preparation and update exaslc-ci
 
 ## Features
 
