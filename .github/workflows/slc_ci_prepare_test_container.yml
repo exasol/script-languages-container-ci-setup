@@ -29,3 +29,12 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           COMMIT_SHA: ${{ github.sha }}
+      - uses: actions/upload-artifact@v4
+        if: ${{ always() }}
+        name: Upload log artifacts
+        with:
+          name: logs_prepare_test_container
+          path: |
+            .build_output/jobs/**/*
+            .build_output/metadata/**/*
+          retention-days: 30

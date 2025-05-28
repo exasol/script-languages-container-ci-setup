@@ -16,3 +16,4 @@
 
  - #91: Create new templates for Github Workflows - prepare testcontainer
  - #108: Create new templates for Github Workflows - export and scan vulnerabilities
+ - #111: Create new templates for Github Workflows - tests
