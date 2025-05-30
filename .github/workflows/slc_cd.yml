@@ -39,7 +39,7 @@ jobs:
     with:
       flavor: ${{ matrix.flavor }}
 
-  slc-ready:
+  release:
     needs: cd
     name: Create Github release
     runs-on: ubuntu-24.04
