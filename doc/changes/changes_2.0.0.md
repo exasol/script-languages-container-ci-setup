@@ -1,5 +1,8 @@
 # 2.0.0 - 2025-05-30
 
+This release adds the new Python module `exasol.slc_ci_setup` which allows creation of the SLC CI/CD Github workflows.
+Besides, it contains dependency updates, internal improvements and bugfixes.
+
 ## Internal
 
  - relocked poetry dependencies to fix CVE-2025-43859 (transitive dependency `h11`)
