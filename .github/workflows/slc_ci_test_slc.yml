@@ -66,13 +66,14 @@ jobs:
       - name: Run Test-Set ${{ matrix.test-set-name }}
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-          poetry run -- exaslc-ci run-tests --flavor "$FLAVOR" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD"  --test-set-name "$TEST_SET_NAME" --slc-directory "$SLC_DIRECTORY"
+          poetry run -- exaslc-ci run-tests --flavor "$FLAVOR" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD"  --test-set-name "$TEST_SET_NAME" --slc-directory "$SLC_DIRECTORY" --commit-sha "$COMMIT_SHA"
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           FLAVOR: ${{ inputs.flavor }}
           TEST_SET_NAME: ${{ matrix.test-set-name }}
           SLC_DIRECTORY: ${{ steps.download-slc.outputs.download-path }}
+          COMMIT_SHA: ${{github.sha}}
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         name: Upload log artifacts
