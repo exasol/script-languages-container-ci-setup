@@ -48,14 +48,16 @@ jobs:
         id: download-slcs
         uses: actions/download-artifact@v4
         with:
-          name: slc-*-release
+          pattern: slc-*-release
           path: "slc"
+          merge-multiple: true
 
       - name: Download Logs
         id: download-logs
         uses: actions/download-artifact@v4
         with:
-          name: logs-*
+          pattern: logs-*
+          merge-multiple: true
           path: "logs"
 
       - name: GitHub Release

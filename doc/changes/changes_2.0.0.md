@@ -24,3 +24,7 @@ Besides, it updates dependencies and fixes some bugs.
  - #111: Create new templates for Github Workflows - tests
  - #114: Addeed command for deploying cd workflows
  - #116: Added CD workflows
+
+## Bugs
+
+ - #119: Fixed Github release
