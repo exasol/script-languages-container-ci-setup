@@ -19,3 +19,4 @@
  - #108: Create new templates for Github Workflows - export and scan vulnerabilities
  - #111: Create new templates for Github Workflows - tests
  - #114: Addeed command for deploying cd workflows
+ - #116: Added CD workflows
