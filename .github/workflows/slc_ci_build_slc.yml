@@ -12,6 +12,12 @@ on:
           description: 'A flavor'
           required: true
           type: string
+      additional-build-arguments:
+          description: 'Additional build for command "exaslc-ci export-and-scan-vulnerabilities".'
+          required: false
+          default: ''
+          type: string
+
     secrets:
       DOCKER_USERNAME:
         required: true
@@ -56,7 +62,7 @@ jobs:
         id: build-slc
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
-          poetry run -- exaslc-ci export-and-scan-vulnerabilities --flavor "$FLAVOR" --branch-name "$BRANCH_NAME" --commit-sha "$COMMIT_SHA" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD" --github-output-var slc_paths
+          poetry run -- exaslc-ci export-and-scan-vulnerabilities --flavor "$FLAVOR" --branch-name "$BRANCH_NAME" --commit-sha "$COMMIT_SHA" --docker-user "$DOCKER_USERNAME" --docker-password "$DOCKER_PASSWORD" --github-output-var slc_paths ${{ inputs.additional-build-arguments }}
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
