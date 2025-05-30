@@ -3,7 +3,7 @@ import subprocess
 import pytest
 from git import Repo
 
-from exasol.slc_ci_setup.lib.deploy_ci_build import deploy_ci_build
+from exasol.slc_ci_setup.lib.deploy_build import deploy_ci_build
 
 
 @pytest.fixture()
