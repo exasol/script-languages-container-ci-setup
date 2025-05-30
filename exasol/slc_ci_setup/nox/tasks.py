@@ -18,7 +18,7 @@ def update_ci_github_workflows(session: nox.Session):
 @nox.session(name="update-cd-github-workflows", python=False)
 def update_cd_github_workflows(session: nox.Session):
     """
-    Updates the Github workflows for the SLC CD under ".github/workflows/" in this repository.
+    Updates the Github workflows for the SLC CD in directory ".github/workflows/".
     """
     deploy_build(build_type=BuildType.CD)
     session.run("git", "add", ".github/workflows/slc_cd*.yml")
