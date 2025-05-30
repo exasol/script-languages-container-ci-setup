@@ -1,4 +1,5 @@
 import logging
+from enum import Enum
 from pathlib import Path
 
 from exasol.slc_ci_setup.lib.template_access import (
@@ -7,9 +8,14 @@ from exasol.slc_ci_setup.lib.template_access import (
 )
 
 
-def deploy_ci_build():
+class BuildType(Enum):
+    CI = "slc_ci"
+    CD = "slc_cd"
+
+
+def deploy_build(build_type: BuildType):
     target_path = Path() / ".github" / "workflows"
-    templates = list_templates("slc_ci")
+    templates = list_templates(build_type.value)
 
     for template in templates:
         target_file = template.replace(".yml.tmpl", ".yml")
