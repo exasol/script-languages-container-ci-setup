@@ -35,6 +35,7 @@ def test_ci(prepare_github_folder, prepare_git_repo):
 
 
 def test_cd(prepare_github_folder, prepare_git_repo):
+    deploy_build(BuildType.CI)
     deploy_build(BuildType.CD)
     res = subprocess.run(["actionlint"], capture_output=True)
     if res.returncode != 0:
