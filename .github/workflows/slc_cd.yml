@@ -66,3 +66,5 @@ jobs:
           --title "SLC ${GITHUB_REF_NAME}"
           --notes-file "./doc/changes/changes_${GITHUB_REF_NAME}.md"
           slc/* logs/*
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
