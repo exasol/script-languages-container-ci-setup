@@ -54,7 +54,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: logs_*
-          merge-multiple: true
+          merge-multiple: false
           path: "logs"
       - name: Test logs
         run: tree logs
