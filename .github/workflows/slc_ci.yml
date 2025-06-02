@@ -49,5 +49,14 @@ jobs:
     name: SLC Allow Merge
     runs-on: ubuntu-24.04
     steps:
+      - name: Download Logs
+        id: download-logs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: logs_*
+          merge-multiple: true
+          path: "logs"
+      - name: Test logs
+        run: tree logs
       - name: Print message
         run: echo SLCs CI finished

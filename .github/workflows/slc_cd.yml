@@ -56,7 +56,7 @@ jobs:
         id: download-logs
         uses: actions/download-artifact@v4
         with:
-          pattern: logs-*
+          pattern: logs_*
           merge-multiple: true
           path: "logs"
 
