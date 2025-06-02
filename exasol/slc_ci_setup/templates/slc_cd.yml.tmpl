@@ -57,11 +57,14 @@ jobs:
           merge-multiple: false
           path: "logs"
 
+      - name: Zip logs
+        run: zip -r logs.zip logs
+
       - name: GitHub Release
         run: >
           gh release create "SLC-${GITHUB_REF_NAME}"
           --title "SLC ${GITHUB_REF_NAME}"
           --notes-file "./doc/changes/changes_${GITHUB_REF_NAME}.md"
-          slc/* logs/*
+          slc/* logs.zip
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
