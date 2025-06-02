@@ -62,4 +62,6 @@ jobs:
           gh release create "SLC-${GITHUB_REF_NAME}"
           --title "SLC ${GITHUB_REF_NAME}"
           --notes-file "./doc/changes/changes_${GITHUB_REF_NAME}.md"
-          slc/* logs/*{% endraw %}
+          slc/* logs/*
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
