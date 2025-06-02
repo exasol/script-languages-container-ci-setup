@@ -6,6 +6,10 @@ on:
   push:
     tags:
       - '**'
+
+env:
+  RELEASE_NAME: "SLC-${{ github.ref_name }}"
+
 jobs:
   prepare-test-container:
     uses: ./.github/workflows/slc_ci_prepare_test_container.yml
@@ -41,25 +45,47 @@ jobs:
     name: Create Github release
     runs-on: ubuntu-24.04
     steps:
-      - name: Download SLCs
-        id: download-slcs
-        uses: actions/download-artifact@v4
-        with:
-          pattern: slc-*-release
-          path: "slc"
-          merge-multiple: true
+      - name: SCM Checkout
+        uses: actions/checkout@v4
 
       - name: Download Logs
         id: download-logs
         uses: actions/download-artifact@v4
         with:
-          pattern: logs-*
-          merge-multiple: true
+          pattern: logs_*
+          merge-multiple: false
           path: "logs"
+
+      - name: Zip logs
+        run: zip -r logs.zip logs
 
       - name: GitHub Release
         run: >
-          gh release create "SLC-${GITHUB_REF_NAME}"
+          gh release create "$RELEASE_NAME"
           --title "SLC ${GITHUB_REF_NAME}"
           --notes-file "./doc/changes/changes_${GITHUB_REF_NAME}.md"
-          slc/* logs/*{% endraw %}
+          --draft
+          logs.zip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  upload-release-slc:
+    needs: [get-flavors, release]
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: true
+      matrix:
+        flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
+    steps:
+      - name: SCM Checkout
+        uses: actions/checkout@v4
+      - name: Download SLC
+        id: download-slc
+        uses: actions/download-artifact@v4
+        with:
+          name: slc-${{matrix.flavor}}-release
+          path: "slc"
+      - name: Upload to release
+        run: gh release upload "$RELEASE_NAME" slc/*
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
