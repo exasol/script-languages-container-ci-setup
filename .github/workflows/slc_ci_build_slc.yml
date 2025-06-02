@@ -66,7 +66,7 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          BRANCH_NAME: ${{github.head_ref || github.ref_name}}
+          BRANCH_NAME: ${{github.head_ref || github.ref}}
           COMMIT_SHA: ${{github.sha}}
           FLAVOR: ${{inputs.flavor}}
 
@@ -74,7 +74,7 @@ jobs:
         if: ${{ always() }}
         name: Upload log artifacts
         with:
-          name: logs_${{inputs.flavor}}
+          name: logs_build_${{inputs.flavor}}
           path: |
             .build_output/jobs/**/*
             .build_output/security_scan/**/*

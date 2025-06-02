@@ -22,8 +22,8 @@ jobs:
       - name: Build Artifacts
         run: poetry build
 
-      - name: PyPi Release
-        env:
-          POETRY_HTTP_BASIC_PYPI_USERNAME: "__token__"
-          POETRY_HTTP_BASIC_PYPI_PASSWORD: "${{ secrets.PYPI_TOKEN }}"
-        run: poetry publish
+#      - name: PyPi Release
+#        env:
+#          POETRY_HTTP_BASIC_PYPI_USERNAME: "__token__"
+#          POETRY_HTTP_BASIC_PYPI_PASSWORD: "${{ secrets.PYPI_TOKEN }}"
+#        run: poetry publish
