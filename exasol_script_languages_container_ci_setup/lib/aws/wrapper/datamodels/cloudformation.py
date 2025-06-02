@@ -31,7 +31,7 @@ class StackResourceSummary:
 
     @classmethod
     def from_boto(
-        cls, boto_stack_resource_summary: Dict[str, Any]
+        cls, boto_stack_resource_summary: dict[str, Any]
     ) -> "StackResourceSummary":
         physical_resource_id = cls._extract_physcial_resource_id(
             boto_stack_resource_summary
@@ -44,7 +44,7 @@ class StackResourceSummary:
 
     @classmethod
     def _extract_physcial_resource_id(
-        cls, boto_stack_resource_summary: Dict[str, Any]
+        cls, boto_stack_resource_summary: dict[str, Any]
     ) -> PhysicalResourceId:
         physical_resource_id = None
         if cls._has_physical_resource_id(boto_stack_resource_summary):
@@ -56,7 +56,7 @@ class StackResourceSummary:
         return physical_resource_id
 
     @classmethod
-    def _has_physical_resource_id(cls, boto_stack_resource_summary: Dict[str, Any]):
+    def _has_physical_resource_id(cls, boto_stack_resource_summary: dict[str, Any]):
         return (
             PHYSICAL_RESOURCE_ID in boto_stack_resource_summary
             and boto_stack_resource_summary[PHYSICAL_RESOURCE_ID] is not None
@@ -66,11 +66,11 @@ class StackResourceSummary:
 @dataclasses.dataclass(frozen=True)
 class ListStackResourcesResult:
     next_token: Optional[NextToken]
-    stack_resource_summaries: List[StackResourceSummary]
+    stack_resource_summaries: list[StackResourceSummary]
 
     @classmethod
     def from_boto(
-        cls, boto_list_stack_resources_result: Dict[str, Any]
+        cls, boto_list_stack_resources_result: dict[str, Any]
     ) -> "ListStackResourcesResult":
         next_token = None
         if cls._has_next_token(boto_list_stack_resources_result):
@@ -97,5 +97,5 @@ class ListStackResourcesResult:
 class ValidationResult:
 
     @classmethod
-    def from_boto(cls, boto_validation_result: Dict[str, Any]) -> "ValidationResult":
+    def from_boto(cls, boto_validation_result: dict[str, Any]) -> "ValidationResult":
         return ValidationResult()

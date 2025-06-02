@@ -40,7 +40,7 @@ PROJECT = "project"
 
 
 class TestSetup:
-    def __init__(self, batch_get_build_batches_return_values: List[List[BuildBatch]]):
+    def __init__(self, batch_get_build_batches_return_values: list[list[BuildBatch]]):
         self.batch_get_build_batches_return_values = (
             batch_get_build_batches_return_values
         )
@@ -103,7 +103,7 @@ class TestSetup:
 
 
 def create_batch_get_build_batches_return_values_for_success() -> (
-    List[List[BuildBatch]]
+    list[list[BuildBatch]]
 ):
     batch_get_build_batches_return_values = [
         [BuildBatch(build_batch_status=BuildBatchStatus.IN_PROGRESS, id=None)],
@@ -147,7 +147,7 @@ def test_success_sleep_function_mock_call():
 
 
 def create_batch_get_build_batches_return_values_for_timeout() -> (
-    List[List[BuildBatch]]
+    list[list[BuildBatch]]
 ):
     batch_get_build_batches_return_values = [
         [BuildBatch(build_batch_status=BuildBatchStatus.IN_PROGRESS, id=None)]

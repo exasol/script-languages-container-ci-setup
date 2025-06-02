@@ -50,7 +50,7 @@ def get_config_file_parameter(config_file: Optional[str]):
     return f"--config-file {config_file}"
 
 
-def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> List[Flavor]:
+def _find_flavors(flavor_root_paths: tuple[str, ...]) -> list[Flavor]:
     """
     Find flavors under the given path(s) and return them in ordered list.
     """
@@ -68,7 +68,7 @@ def _find_flavors(flavor_root_paths: Tuple[str, ...]) -> List[Flavor]:
 
 
 def write_batch_build_spec(
-    flavor_root_paths: Tuple[str, ...], output_pathname: str
+    flavor_root_paths: tuple[str, ...], output_pathname: str
 ) -> None:
     buildspec_body = []
     flavors = _find_flavors(flavor_root_paths)

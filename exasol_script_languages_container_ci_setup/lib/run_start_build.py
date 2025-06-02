@@ -25,12 +25,12 @@ AWS_CODE_BUILD_PROJECT_RESOURCE_TYPE = "AWS::CodeBuild::Project"
 DEFAULT_TIMEOUT = 3 * 60 * 60  # 3 hours
 
 
-def get_environment_variable_override(env_variable: Tuple[str, str]) -> Dict[str, str]:
+def get_environment_variable_override(env_variable: tuple[str, str]) -> dict[str, str]:
     return {"name": env_variable[0], "value": env_variable[1], "type": "PLAINTEXT"}
 
 
 def get_aws_codebuild_project(
-    resources: List[StackResourceSummary], project: str
+    resources: list[StackResourceSummary], project: str
 ) -> StackResourceSummary:
     matching_project = [
         resource

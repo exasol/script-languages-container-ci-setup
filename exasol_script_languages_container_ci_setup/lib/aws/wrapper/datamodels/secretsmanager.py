@@ -16,7 +16,7 @@ class Secret:
     arn: ARN
 
     @classmethod
-    def from_boto(cls, boto_secret: Dict[str, Any]) -> "Secret":
+    def from_boto(cls, boto_secret: dict[str, Any]) -> "Secret":
         aws_arn = boto_secret[ARN_KEY]
         if aws_arn is None:
             raise ValueError("ARN was None")

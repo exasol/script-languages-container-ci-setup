@@ -33,7 +33,7 @@ class StartCodeBuildContract:
         raise NotImplementedError()
 
     @pytest.fixture(scope="class")
-    def environment_variables_override(self) -> List[Dict[str, str]]:
+    def environment_variables_override(self) -> list[dict[str, str]]:
         raise NotImplementedError()
 
     @pytest.fixture(scope="class")
@@ -70,7 +70,7 @@ class BatchGetBuildBatchesWithBatchIdFromStartBuildCode:
         raise NotImplementedError()
 
     @pytest.fixture(scope="class")
-    def environment_variables_override(self) -> List[Dict[str, str]]:
+    def environment_variables_override(self) -> list[dict[str, str]]:
         raise NotImplementedError()
 
     @pytest.fixture(scope="class")
@@ -80,7 +80,7 @@ class BatchGetBuildBatchesWithBatchIdFromStartBuildCode:
         project_name,
         source_version,
         environment_variables_override,
-    ) -> Tuple[BuildBatch, BuildBatch]:
+    ) -> tuple[BuildBatch, BuildBatch]:
         build_batch_from_start = codebuild_service.start_build_batch(
             project_name=project_name,
             source_version=source_version,
@@ -112,7 +112,7 @@ class BatchGetBuildBatchesSingleBuildIdContract:
         raise NotImplementedError()
 
     @pytest.fixture(scope="class")
-    def build_batches(self, codebuild_service, build_batch_id) -> List[BuildBatch]:
+    def build_batches(self, codebuild_service, build_batch_id) -> list[BuildBatch]:
         build_batches = codebuild_service.batch_get_build_batches(
             build_batch_ids=[build_batch_id]
         )

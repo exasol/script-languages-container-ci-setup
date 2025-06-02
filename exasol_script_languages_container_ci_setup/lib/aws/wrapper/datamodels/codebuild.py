@@ -33,7 +33,7 @@ class BuildBatch:
     build_batch_status: Optional[BuildBatchStatus]
 
     @classmethod
-    def from_boto(self, boto_buildbatch: Dict[str, Any]) -> "BuildBatch":
+    def from_boto(self, boto_buildbatch: dict[str, Any]) -> "BuildBatch":
         batch_id = self._extract_build_id(boto_buildbatch)
         build_batch_status = self._extract_build_batch_status(boto_buildbatch)
         build_batch = BuildBatch(id=batch_id, build_batch_status=build_batch_status)
@@ -41,7 +41,7 @@ class BuildBatch:
 
     @classmethod
     def _extract_build_id(
-        cls, boto_buildbatch: Dict[str, Any]
+        cls, boto_buildbatch: dict[str, Any]
     ) -> Optional[PhysicalResourceId]:
         batch_id = None
         if BuildBatch._has_id(boto_buildbatch):
@@ -49,12 +49,12 @@ class BuildBatch:
         return batch_id
 
     @classmethod
-    def _has_id(cls, boto_buildbatch: Dict[str, Any]) -> bool:
+    def _has_id(cls, boto_buildbatch: dict[str, Any]) -> bool:
         return ID in boto_buildbatch and boto_buildbatch[ID] is not None
 
     @classmethod
     def _extract_build_batch_status(
-        cls, boto_buildbatch: Dict[str, Any]
+        cls, boto_buildbatch: dict[str, Any]
     ) -> Optional[BuildBatchStatus]:
         build_batch_status = None
         if BuildBatch._has_build_status(boto_buildbatch):
@@ -62,7 +62,7 @@ class BuildBatch:
         return build_batch_status
 
     @classmethod
-    def _has_build_status(cls, boto_buildbatch: Dict[str, Any]) -> bool:
+    def _has_build_status(cls, boto_buildbatch: dict[str, Any]) -> bool:
         return (
             BUILD_BATCH_STATUS in boto_buildbatch
             and boto_buildbatch[BUILD_BATCH_STATUS] is not None
