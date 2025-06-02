@@ -30,7 +30,7 @@ jobs:
         run: |
           poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --branch-name "$BRANCH_NAME" --base-ref "$BASE_REF" --github-output-var continue
         env:
-          BRANCH_NAME: ${{github.head_ref || github.ref_name}}
+          BRANCH_NAME: ${{github.head_ref || github.ref}}
           BASE_REF: ${{ github.base_ref }}
           FLAVOR: ${{ inputs.flavor }}
     outputs:
