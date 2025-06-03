@@ -13,7 +13,7 @@ class AnalyzeBaseTestBuildRun(DockerFlavorAnalyzeImageTask):
     def requires_tasks(self):
         return {}
 
-    def get_additional_build_directories_mapping(self) -> Dict[str, str]:
+    def get_additional_build_directories_mapping(self) -> dict[str, str]:
         return {}
 
     def get_path_in_flavor(self):

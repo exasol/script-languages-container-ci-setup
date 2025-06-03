@@ -16,7 +16,7 @@ from exasol_script_languages_container_ci_setup.lib.render_template import (
 
 
 def run_generate_release_buildspec(
-    flavor_root_paths: Tuple[str, ...], output_pathname: str, config_file: Optional[str]
+    flavor_root_paths: tuple[str, ...], output_pathname: str, config_file: Optional[str]
 ):
     validate_config_file(config_file)
     logging.info(f"Run run_generate_release_buildspec for paths: {flavor_root_paths}")

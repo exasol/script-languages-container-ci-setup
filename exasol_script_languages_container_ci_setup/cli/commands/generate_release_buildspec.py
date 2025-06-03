@@ -38,7 +38,7 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_release_buildsp
     help="Configuration file for build (project specific).",
 )
 def generate_release_buildspecs(
-    flavor_root_path: Tuple[str, ...],
+    flavor_root_path: tuple[str, ...],
     log_level: str,
     output_path: str,
     config_file: Optional[str],

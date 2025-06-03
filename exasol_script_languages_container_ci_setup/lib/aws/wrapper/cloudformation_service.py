@@ -27,7 +27,7 @@ class CloudFormationService:
         self,
         template_body: str,
         from_boto: Callable[
-            [Dict[str, Any]], ValidationResult
+            [dict[str, Any]], ValidationResult
         ] = ValidationResult.from_boto,
     ) -> ValidationResult:
         boto_validation_result = self._internal_aws_client.validate_template(
@@ -41,7 +41,7 @@ class CloudFormationService:
         stack_name: PhysicalResourceId,
         next_token: Optional[NextToken] = None,
         from_boto: Callable[
-            [Dict[str, Any]], ListStackResourcesResult
+            [dict[str, Any]], ListStackResourcesResult
         ] = ListStackResourcesResult.from_boto,
     ) -> ListStackResourcesResult:
         if next_token is not None:

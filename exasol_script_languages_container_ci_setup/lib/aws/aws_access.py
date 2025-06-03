@@ -1,9 +1,9 @@
 import logging
 import time
+from collections.abc import Iterable
 from typing import (
     Callable,
     Dict,
-    Iterable,
     List,
     Optional,
 )
@@ -127,7 +127,7 @@ class AwsAccess:
         client = self._get_aws_client().create_cloudformation_service()
         client.validate_template(template_body=cloudformation_yml)
 
-    def get_all_stack_resources(self, stack_name: str) -> List[StackResourceSummary]:
+    def get_all_stack_resources(self, stack_name: str) -> list[StackResourceSummary]:
         """
         This functions uses Boto3 to get all AWS Cloudformation resources for a specific Cloudformation stack,
         identified by parameter `stack_name`.
@@ -152,7 +152,7 @@ class AwsAccess:
     def start_codebuild(
         self,
         project: PhysicalResourceId,
-        environment_variables_overrides: List[Dict[str, str]],
+        environment_variables_overrides: list[dict[str, str]],
         branch: str,
         timeout_in_seconds: int,
         poll_interval_seconds: int = 30,

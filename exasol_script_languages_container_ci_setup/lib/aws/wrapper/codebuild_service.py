@@ -25,8 +25,8 @@ class CodeBuildService:
         self,
         project_name: PhysicalResourceId,
         source_version: str,
-        environment_variables_override: List[Dict[str, str]],
-        from_boto: Callable[[Dict[str, Any]], BuildBatch] = BuildBatch.from_boto,
+        environment_variables_override: list[dict[str, str]],
+        from_boto: Callable[[dict[str, Any]], BuildBatch] = BuildBatch.from_boto,
     ) -> BuildBatch:
         boto_build_batch = self._internal_aws_client.start_build_batch(
             projectName=project_name.aws_physical_resource_id,
@@ -38,9 +38,9 @@ class CodeBuildService:
 
     def batch_get_build_batches(
         self,
-        build_batch_ids: List[PhysicalResourceId],
-        from_boto: Callable[[Dict[str, Any]], BuildBatch] = BuildBatch.from_boto,
-    ) -> List[BuildBatch]:
+        build_batch_ids: list[PhysicalResourceId],
+        from_boto: Callable[[dict[str, Any]], BuildBatch] = BuildBatch.from_boto,
+    ) -> list[BuildBatch]:
         aws_ids = [
             build_batch_id.aws_physical_resource_id
             for build_batch_id in build_batch_ids

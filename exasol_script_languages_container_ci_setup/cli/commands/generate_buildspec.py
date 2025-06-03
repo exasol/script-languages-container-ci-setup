@@ -39,7 +39,7 @@ from exasol_script_languages_container_ci_setup.lib.run_generate_buildspec impor
     help="Configuration file for build (project specific).",
 )
 def generate_buildspecs(
-    flavor_root_path: Tuple[str, ...],
+    flavor_root_path: tuple[str, ...],
     log_level: str,
     output_path: str,
     config_file: Optional[str],

@@ -25,7 +25,7 @@ class SecretsManagerService:
     def get_secret_value(
         self,
         secret_id: PhysicalResourceId,
-        from_boto: Callable[[Dict[str, Any]], Secret] = Secret.from_boto,
+        from_boto: Callable[[dict[str, Any]], Secret] = Secret.from_boto,
     ) -> Secret:
         boto_secret = self._internal_aws_client.get_secret_value(
             SecretId=secret_id.aws_physical_resource_id

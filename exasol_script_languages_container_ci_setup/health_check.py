@@ -6,8 +6,8 @@ package and also provide help to find potential fixes.
 import shlex
 import subprocess
 import sys
+from collections.abc import Iterator
 from typing import (
-    Iterator,
     Optional,
 )
 
