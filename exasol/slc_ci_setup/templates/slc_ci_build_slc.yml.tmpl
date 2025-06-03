@@ -67,6 +67,9 @@ jobs:
           COMMIT_SHA: ${{github.sha}}
           FLAVOR: ${{inputs.flavor}}
 
+      - name: Check for password
+        run: grep -rq ${{ secrets.DOCKER_PASSWORD }} .build_output && exit 1 || exit 0
+
       - uses: actions/upload-artifact@v4
         if: ${{ always() }}
         name: Upload log artifacts
