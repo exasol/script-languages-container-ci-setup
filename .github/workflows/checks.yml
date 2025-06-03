@@ -20,7 +20,7 @@ jobs:
 
       - name: Check Version(s)
         run: |
-          poetry run -- nox -s version:check -- exasol/slc_ci_setup/version.py
+          poetry run -- nox -s version:check
 
   # removed Documentation as this is not needed in this project
 
