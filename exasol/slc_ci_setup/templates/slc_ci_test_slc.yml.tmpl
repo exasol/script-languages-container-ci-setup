@@ -60,6 +60,8 @@ jobs:
           path: "slc"
       - name: Print SLC's
         run: ls -la slc
+      - name: Allow unprivileged user namespaces
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Run Test-Set ${{ matrix.test-set-name }}
         run: |
           echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-stdin
