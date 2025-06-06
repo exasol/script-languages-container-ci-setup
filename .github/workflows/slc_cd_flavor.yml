@@ -24,7 +24,7 @@ jobs:
     uses: ./.github/workflows/slc_ci_build_slc.yml
     with:
       flavor: ${{ inputs.flavor }}
-      additional-build-arguments: '--release'
+      build-mode: 'release'
     secrets: inherit
 
   test:
