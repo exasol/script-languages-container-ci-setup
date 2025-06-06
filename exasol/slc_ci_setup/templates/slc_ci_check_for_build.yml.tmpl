@@ -12,12 +12,12 @@ on:
     outputs:
       result:
         description: "Build-Mode: Possible value 'no_build_needed', 'normal', 'rebuild'"
-        value: ${{ jobs.aggregate.outputs.result }}
+        value: ${{ jobs.check_for_build.outputs.result }}
 
 jobs:
-  on_pull_request:
+  check_for_build:
     runs-on: ubuntu-24.04
-    if: ${{github.event_name == 'pull_request'}}
+
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,32 +28,40 @@ jobs:
         with:
           python-version: "3.10"
       - name: Run check
+        if: ${{github.event_name == 'pull_request'}}
         id: run-check
         run: |
           poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --base-ref "$BASE_REF" --github-output-var continue
         env:
           BASE_REF: ${{ github.base_ref }}
           FLAVOR: ${{ inputs.flavor }}
-    outputs:
-      result: ${{ steps.run-check.outputs.continue == 'True' && 'normal' || 'no_build_needed' }}
-
-  on_push_event:
-    runs-on: ubuntu-24.04
-    if: ${{github.event_name == 'push'}}
-    steps:
-      - name: Write rebuild
-        id: write-rebuild
-        run: echo "result=rebuild" >> "$GITHUB_OUTPUT"
-    outputs:
-      result: ${{ steps.write-rebuild.outputs.result }}
-
-  aggregate:
-    needs: [on_pull_request, on_push_event]
-    runs-on: ubuntu-24.04
-    steps:
-      - name: debug
+      - name: Sanity
+        id: sanity
+        if: ${{github.event_name != 'push' && github.event_name != 'pull_request' }}
         run: |
-          echo "Job on_pull_request output: ${{ needs.on_pull_request.outputs.result }}"
-          echo "Job on_push_event output: ${{ needs.on_push_event.outputs.result }}"
+            echo invalid trigger event: only push and pull_request are allowed
+            exit 1
+      - name: Make result
+        id: make-result
+        run: |
+            case "$RUN_CHECK_OUTPUT" in
+              "True")
+              echo "result=normal" >> "$GITHUB_OUTPUT"
+              ;;
+              "False")
+              echo "result=no_build_needed" >> "$GITHUB_OUTPUT"
+              ;;
+              "")
+              # if "$RUN_CHECK_OUTPUT" is empty, step 'run-check' did not run. Then the workflow was trigger by a push event.
+              # Push events will always force a rebuild.
+              echo "result=rebuild" >> "$GITHUB_OUTPUT"
+              ;;
+              *)
+              exit 1
+              ;;
+            esac
+        env:
+           RUN_CHECK_OUTPUT: ${{ steps.run-check.outputs.continue}}
+
     outputs:
-      result: ${{ needs.on_pull_request.outputs.result != '' && needs.on_pull_request.outputs.result || needs.on_push_event.outputs.result }}{% endraw %}
+      result: ${{ steps.make-result.outputs.result }}{% endraw %}
