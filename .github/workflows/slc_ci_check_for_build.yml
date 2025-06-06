@@ -13,13 +13,14 @@ on:
           required: true
           type: string
     outputs:
-      continue:
-        description: "Indicates if we need to build and test SLC"
-        value: ${{ jobs.check_for_build.outputs.continue }}
+      result:
+        description: "Build-Mode: Possible value 'no_build_needed', 'normal', 'rebuild'"
+        value: ${{ jobs.aggregate.outputs.result }}
 
 jobs:
-  check_for_build:
+  on_pull_request:
     runs-on: ubuntu-24.04
+    if: ${{github.event_name == 'pull_request'}}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,10 +33,30 @@ jobs:
       - name: Run check
         id: run-check
         run: |
-          poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --branch-name "$BRANCH_NAME" --base-ref "$BASE_REF" --github-output-var continue
+          poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --base-ref "$BASE_REF" --github-output-var continue
         env:
-          BRANCH_NAME: ${{github.head_ref || github.ref}}
           BASE_REF: ${{ github.base_ref }}
           FLAVOR: ${{ inputs.flavor }}
     outputs:
-      continue: ${{ steps.run-check.outputs.continue }}
+      result: ${{ steps.run-check.outputs.continue == 'True' && 'normal' || 'no_build_needed' }}
+
+  on_push_event:
+    runs-on: ubuntu-24.04
+    if: ${{github.event_name == 'push'}}
+    steps:
+      - name: Write rebuild
+        id: write-rebuild
+        run: echo "result=rebuild" >> "$GITHUB_OUTPUT"
+    outputs:
+      result: ${{ steps.write-rebuild.outputs.result }}
+
+  aggregate:
+    needs: [on_pull_request, on_push_event]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: debug
+        run: |
+          echo "Job on_pull_request output: ${{ needs.on_pull_request.outputs.result }}"
+          echo "Job on_push_event output: ${{ needs.on_push_event.outputs.result }}"
+    outputs:
+      result: ${{ needs.on_pull_request.outputs.result != '' && needs.on_pull_request.outputs.result || needs.on_push_event.outputs.result }}
