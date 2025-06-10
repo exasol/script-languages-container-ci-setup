@@ -1,7 +1,0 @@
-    - identifier: build_{{flavor_formatted}}
-      env:
-        variables:
-          FLAVOR: {{flavor_original}}
-        compute-type: BUILD_GENERAL1_MEDIUM
-        privileged-mode: true
-      buildspec: {{out_path}}/build_buildspec.yaml

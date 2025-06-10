@@ -30,7 +30,6 @@ dependencies = [
 [tool.poetry]
 
 packages = [
-    {include = "exasol_script_languages_container_ci_setup"},
     {include = "exasol"}
 ]
 
