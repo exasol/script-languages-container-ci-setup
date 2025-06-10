@@ -22,3 +22,12 @@ def update_cd_github_workflows(session: nox.Session):
     """
     deploy_build(build_type=BuildType.CD)
     session.run("git", "add", ".github/workflows/slc_cd*.yml")
+
+
+@nox.session(name="update-nightly-github-workflows", python=False)
+def update_nightly_github_workflows(session: nox.Session):
+    """
+    Updates the Github workflows for the SLC Nightly builds in directory ".github/workflows/".
+    """
+    deploy_build(build_type=BuildType.NIGHTLY)
+    session.run("git", "add", ".github/workflows/slc_nightly*.yml")

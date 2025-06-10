@@ -18,8 +18,10 @@ def update_integration_test_github_workflows(session: nox.Session):
     """
     update_ci_github_workflows(session)
     update_cd_github_workflows(session)
+    update_nightly_github_workflows(session)
     _check_workflows(session, "slc_ci*.yml")
     _check_workflows(session, "slc_cd*.yml")
+    _check_workflows(session, "slc_nightly*.yml")
 
 
 def _check_workflows(session, pattern: str):

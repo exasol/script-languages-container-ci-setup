@@ -11,6 +11,7 @@ from exasol.slc_ci_setup.lib.template_access import (
 class BuildType(Enum):
     CI = "slc_ci"
     CD = "slc_cd"
+    NIGHTLY = "slc_nightly"
 
 
 def deploy_build(build_type: BuildType):

@@ -27,16 +27,10 @@ def prepare_git_repo(change_test_dir):
     Repo.init()
 
 
-def test_ci(prepare_github_folder, prepare_git_repo):
-    deploy_build(BuildType.CI)
-    res = subprocess.run(["actionlint"], capture_output=True)
-    if res.returncode != 0:
-        pytest.fail(res.stdout.decode("utf-8"))
-
-
-def test_cd(prepare_github_folder, prepare_git_repo):
+def test_workflow_files(prepare_github_folder, prepare_git_repo):
     deploy_build(BuildType.CI)
     deploy_build(BuildType.CD)
+    deploy_build(BuildType.NIGHTLY)
     res = subprocess.run(["actionlint"], capture_output=True)
     if res.returncode != 0:
         pytest.fail(res.stdout.decode("utf-8"))
