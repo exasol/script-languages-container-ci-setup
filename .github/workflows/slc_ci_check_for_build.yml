@@ -15,7 +15,7 @@ on:
     outputs:
       result:
         description: "Build-Mode: Possible value 'no_build_needed', 'normal', 'rebuild'"
-        value: ${{ jobs.check_for_build.outputs.result }}
+        value: ${{ jobs.check_for_build.outputs.build_mode }}
 
 jobs:
   check_for_build:
@@ -31,40 +31,13 @@ jobs:
         with:
           python-version: "3.10"
       - name: Run check
-        if: ${{github.event_name == 'pull_request'}}
         id: run-check
         run: |
-          poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --base-ref "$BASE_REF" --github-output-var continue
+          poetry run -- exaslc-ci check-if-build-needed --flavor "$FLAVOR" --base-ref "$BASE_REF" --github-event "$GITHUB_EVENT" --github-output-var build_mode
         env:
           BASE_REF: ${{ github.base_ref }}
           FLAVOR: ${{ inputs.flavor }}
-      - name: Sanity
-        id: sanity
-        if: ${{github.event_name != 'push' && github.event_name != 'pull_request' }}
-        run: |
-            echo invalid trigger event: only push and pull_request are allowed
-            exit 1
-      - name: Make result
-        id: make-result
-        run: |
-            case "$RUN_CHECK_OUTPUT" in
-              "True")
-              echo "result=normal" >> "$GITHUB_OUTPUT"
-              ;;
-              "False")
-              echo "result=no_build_needed" >> "$GITHUB_OUTPUT"
-              ;;
-              "")
-              # if "$RUN_CHECK_OUTPUT" is empty, step 'run-check' did not run. Then the workflow was trigger by a push event.
-              # Push events will always force a rebuild.
-              echo "result=rebuild" >> "$GITHUB_OUTPUT"
-              ;;
-              *)
-              exit 1
-              ;;
-            esac
-        env:
-           RUN_CHECK_OUTPUT: ${{ steps.run-check.outputs.continue}}
+          GITHUB_EVENT: ${{ github.event_name }}
 
     outputs:
-      result: ${{ steps.make-result.outputs.result }}
+      build_mode: ${{ steps.run-check.outputs.build_mode }}
