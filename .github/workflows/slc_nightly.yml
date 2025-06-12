@@ -1,18 +1,17 @@
-{% include "heading.tmpl" %}
+# ---- AUTOMATICALLY GENERATED FILE ----
+# ---- DO NOT EDIT MANUALLY, BUT USE PYTHON MODULE "exasol.slc_ci_setup" ----
+# ---- from https://github.com/exasol/script-languages-container-ci-setup TO UPDATE ----
+
 
 name: SLC-NIGHTLY
 
 
 on:
-{% if test_only %}
-  pull_request:
-{% else %}
-  schedule:
-    # Run at 1am on Monday, Wednesday & Friday
-    - cron:  '0 1 * * 1,3,5'
-{% endif %}
 
-{% raw %}
+  pull_request:
+
+
+
 jobs:
   prepare-test-container:
     uses: ./.github/workflows/slc_ci_prepare_test_container.yml
@@ -60,4 +59,4 @@ jobs:
           notification_title: "Nightly SLC build failed"
           message_format: "{emoji} *{workflow}* failed in <{repo_url}|{repo}>. See {run_url} for details."
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.INTEGRATION_TEAM_SLC_MONITORING_WEBHOOK }}{% endraw %}
+          SLACK_WEBHOOK_URL: ${{ secrets.INTEGRATION_TEAM_SLC_MONITORING_WEBHOOK }}
