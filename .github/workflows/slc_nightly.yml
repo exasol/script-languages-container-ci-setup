@@ -8,6 +8,7 @@ name: SLC-NIGHTLY
 on:
   schedule:
     - cron:  '0 1 * * 1,2,3,4,5'
+  push:
 
 jobs:
   prepare-test-container:
