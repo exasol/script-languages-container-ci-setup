@@ -3,7 +3,7 @@
 # ---- from https://github.com/exasol/script-languages-container-ci-setup TO UPDATE ----
 
 
-name: SLC-CI
+name: SLC-NIGHTLY
 
 on:
   schedule:
