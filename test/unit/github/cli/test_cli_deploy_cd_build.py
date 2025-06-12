@@ -36,5 +36,6 @@ def test_mock_deploy_ci_build(cli, mock_deploy_cd_build):
     # Validate the exact call using mock_calls and IsInstance matcher
     expected_call = call(
         build_type=lib_deploy_build.BuildType.CD,
+        test_only=False,
     )
     assert mock_deploy_cd_build.mock_calls == [expected_call]
