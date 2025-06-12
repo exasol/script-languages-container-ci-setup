@@ -49,7 +49,7 @@ jobs:
         id: report-failure-status-slack
         uses: ravsamhq/notify-slack-action@v2
         with:
-          status: failed
+          status: failure
           token: ${{ secrets.GITHUB_TOKEN }}
           notification_title: "Nightly SLC build failed"
           message_format: "{emoji} *{workflow}* failed in <{repo_url}|{repo}>. See {run_url} for details."
