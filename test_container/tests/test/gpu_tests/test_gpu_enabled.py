@@ -15,7 +15,7 @@ class TestGPUEnabled(udf.TestCase):
         rows = self.query(select_sql)
         self.assertRowsEqual(
             [
-                ("0", "acceleratorDeviceDetected"),
+                ("1", "acceleratorDeviceDetected"),
                 ("1", "acceleratorDeviceGpuNvidiaDetected"),
             ],
             rows,
