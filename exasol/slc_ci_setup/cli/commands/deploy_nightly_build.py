@@ -3,5 +3,5 @@ from exasol.slc_ci_setup.cli.cli import cli
 
 
 @cli.command()
-def deploy_ci_build():
+def deploy_nightly_build():
     lib_deploy_build.deploy_build(build_type=lib_deploy_build.BuildType.NIGHTLY)
