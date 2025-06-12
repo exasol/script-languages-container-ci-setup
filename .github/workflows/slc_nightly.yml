@@ -41,10 +41,20 @@ jobs:
     with:
       flavor: ${{ matrix.flavor }}
 
-  slc-ready:
-    needs: ci
-    name: SLC Allow Merge
+  report:
+    if: ${{ failure() }}
+    needs: [ci]
+    name: Report status to slack
     runs-on: ubuntu-24.04
     steps:
-      - name: Print message
-        run: echo SLCs CI finished
+      - name: Report failure Status to Slack channel
+        id: report-failure-status-slack
+        uses: ravsamhq/notify-slack-action@v2
+        with:
+          status: failed
+          token: ${{ github.token }}
+          notification_title: "Nightly SLC build failed"
+          message_format: "{emoji} *{workflow}* {status_message} in <{repo_url}|{repo}>"
+          notify_when: "failure,cancelled,warnings,skipped"
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.INTEGRATION_TEAM_SLC_MONITORING_WEBHOOK }}
