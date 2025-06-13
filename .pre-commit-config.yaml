@@ -42,4 +42,4 @@ repos:
         files: "^exasol/slc_ci_setup/.*"
         pass_filenames: false
         language: system
-        entry: poetry run -- nox -s update-integration-test-github-workflows
+        entry: poetry run -- nox -s update-integration-test-github-workflows -- --test-only

@@ -8,18 +8,18 @@ import pytest
 from _pytest.monkeypatch import MonkeyPatch
 
 import exasol.slc_ci_setup.lib.deploy_build as lib_deploy_build
-from exasol.slc_ci_setup.cli.commands.deploy_cd_build import (
-    deploy_cd_build,
+from exasol.slc_ci_setup.cli.commands.deploy_nightly_build import (
+    deploy_nightly_build,
 )
 
 
 @pytest.fixture
 def cli():
-    return CliRunner(deploy_cd_build)
+    return CliRunner(deploy_nightly_build)
 
 
 @pytest.fixture
-def mock_deploy_cd_build(monkeypatch: MonkeyPatch) -> MagicMock:
+def mock_deploy_nightly_build(monkeypatch: MonkeyPatch) -> MagicMock:
     mock_function_to_mock = MagicMock()
     monkeypatch.setattr(
         lib_deploy_build,
@@ -29,13 +29,13 @@ def mock_deploy_cd_build(monkeypatch: MonkeyPatch) -> MagicMock:
     return mock_function_to_mock
 
 
-def test_mock_deploy_ci_build(cli, mock_deploy_cd_build):
+def test_mock_deploy_nightly_build(cli, mock_deploy_nightly_build):
     cli.run()
     assert cli.succeeded
 
     # Validate the exact call using mock_calls and IsInstance matcher
     expected_call = call(
-        build_type=lib_deploy_build.BuildType.CD,
+        build_type=lib_deploy_build.BuildType.NIGHTLY,
         test_only=False,
     )
-    assert mock_deploy_cd_build.mock_calls == [expected_call]
+    assert mock_deploy_nightly_build.mock_calls == [expected_call]

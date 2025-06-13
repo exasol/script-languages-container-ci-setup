@@ -2,3 +2,4 @@ poetry.lock linguist-generated=true
 exasol_script_languages_container_ci_setup/version.py linguist-generated=true
 .github/workflows/slc_ci*.yml linguist-generated=true
 .github/workflows/slc_cd*.yml linguist-generated=true
+.github/workflows/slc_nightly*.yml linguist-generated=true
