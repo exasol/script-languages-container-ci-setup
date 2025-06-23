@@ -36,7 +36,7 @@ jobs:
   ci:
     needs: get-flavors
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
     uses: ./.github/workflows/slc_nightly_flavor.yml
