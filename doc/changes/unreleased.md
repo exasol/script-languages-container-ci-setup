@@ -1,1 +1,5 @@
 # Unreleased
+
+## Bugs
+
+ - #143: Fixed rebuild commit message for PR
