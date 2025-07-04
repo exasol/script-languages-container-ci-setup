@@ -14,7 +14,7 @@ nox.options.sessions = ["project:fix"]
 @nox.session(name="update-integration-test-github-workflows", python=False)
 def update_integration_test_github_workflows(session: nox.Session):
     """
-    Updates the Github workflows under ".github/workflows" for the dummy SLC in this repository.
+    Updates the GitHub workflows under ".github/workflows" for the dummy SLC in this repository.
     """
     update_ci_github_workflows(session)
     update_cd_github_workflows(session)
