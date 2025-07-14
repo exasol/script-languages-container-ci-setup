@@ -84,7 +84,6 @@ force_grid_wrap = 2
 [tool.pylint.master]
 output-format = "colorized,json:.lint.json,text:.lint.txt"
 ignore-paths = [
-    ".*/exasol_script_languages_container_ci_setup/.*", #legacy implementation for AWS, will be removed soon
     ".*/test/.*",
     ".*/flavors/.*",
     ".*/test_containers/.*",
