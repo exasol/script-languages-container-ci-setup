@@ -16,6 +16,7 @@ jobs:
     uses: ./.github/workflows/slow-checks.yml
     permissions:
       contents: read
+    secrets: inherit # added manually
 
   # This job ensures inputs have been executed successfully.
   approve-merge:
