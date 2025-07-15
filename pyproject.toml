@@ -50,7 +50,7 @@ toml = ">=0.10.2"
 pytest = "^7.1.1"
 pytest-mock = "^3.7.0"
 cfn-lint = "^0.75.1"
-exasol-toolbox = ">=0.20.0"
+exasol-toolbox = "^1.6.0"
 actionlint-py = "^1.7.7.23"
 
 [tool.pytest.ini_options]
@@ -110,7 +110,11 @@ ignore_errors = true
 
 [[tool.mypy.overrides]]
 module = [
-    "tests.*",
     "test.*",
 ]
 ignore_errors = true
+
+[tool.sonar]
+projectKey = "com.exasol:script-languages-container-ci-setup"
+hostUrl = "https://sonarcloud.io"
+organization = "exasol"

@@ -9,6 +9,7 @@ from pathlib import Path
 class Config:
     root: Path = Path(__file__).parent
     doc: Path = Path(__file__).parent / "doc"
+    source: Path = Path(__file__).parent / "exasol"
     version_file: Path = (
         Path(__file__).parent / "exasol" / "slc_ci_setup" / "version.py"
     )
