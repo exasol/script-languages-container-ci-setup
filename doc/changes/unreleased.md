@@ -7,3 +7,7 @@
 ## Refactorings
 
  - #149: Updated to PTB 1.6.0
+
+## Bugs
+
+ - #151: Fixed failing Github release workflow SLC is too large
