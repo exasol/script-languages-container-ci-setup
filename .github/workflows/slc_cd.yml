@@ -71,6 +71,7 @@ jobs:
         run: >
           gh release create "$RELEASE_NAME"
           --title "SLC ${GITHUB_REF_NAME}"
+          --target "${GITHUB_REF_NAME}"
           --notes-file "./doc/changes/changes_${GITHUB_REF_NAME}.md"
           --draft
           logs.zip

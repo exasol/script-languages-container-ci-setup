@@ -11,3 +11,4 @@
 ## Bugs
 
  - #151: Fixed failing Github release workflow SLC is too large
+ - #153: Use existing tag when creating a Github release
