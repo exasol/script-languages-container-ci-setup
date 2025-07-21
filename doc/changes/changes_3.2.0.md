@@ -1,4 +1,4 @@
-# 3.2.0 - 2025-07-21
+# 3.2.0 - 2025-07-22
 
 Bugfixes and dependency updates.
 
