@@ -5,18 +5,21 @@
     "test_sets": [
       {
         "name": "integration-test",
+        "files": [],
         "folders": ["some_tests"],
         "goal": "release",
         "generic_language_tests": []
       },
       {
         "name": "integration-test-for-base_test_build_run",
+        "files": [],
         "folders": ["some_tests"],
         "goal": "base_test_build_run",
         "generic_language_tests": []
       },
       {
         "name": "integration-test-gpu",
+        "files": [],
         "folders": ["gpu_tests"],
         "goal": "release",
         "generic_language_tests": [],
