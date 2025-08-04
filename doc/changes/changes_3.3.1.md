@@ -1,4 +1,5 @@
-# 3.3.1 - 2025-08-04
+# 3.3.1 - 2025-08-05
+
 This release updates the poetry lock file. Especially,  the Exasol Python Toolbox was updated to version 1.7.3
 
 ## Refactorings
