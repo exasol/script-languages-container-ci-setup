@@ -5,7 +5,6 @@ This release updates the poetry lock file. Especially, the Exasol Python Toolbox
 ## Refactorings
 
  - #161: Migrated to PTB 1.7.3
- - #164: Migrated to PTB 1.7.4
 
 ## Dependency Updates
 
