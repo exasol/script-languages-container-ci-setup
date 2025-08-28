@@ -1113,19 +1113,19 @@ pydantic = ">=2.10.2,<3.0.0"
 
 [[package]]
 name = "exasol-toolbox"
-version = "1.7.3"
+version = "1.9.0"
 description = "Your one-stop solution for managing all standard tasks and core workflows of your Python project."
 optional = false
 python-versions = "<4.0,>=3.9"
 groups = ["dev"]
 files = [
-    {file = "exasol_toolbox-1.7.3-py3-none-any.whl", hash = "sha256:da77c1261d2ac4cea0ed8599fcbbdbcf922554e86bd5af73a360d647f15f0a3a"},
-    {file = "exasol_toolbox-1.7.3.tar.gz", hash = "sha256:1e324e2fd988c86d6b004ab9229f7a41bfcf268f72580ea31330fe2008bda948"},
+    {file = "exasol_toolbox-1.9.0-py3-none-any.whl", hash = "sha256:651cabc8e1f52fe31fcbd16921be604dd603af5b782801fa104bddb7027f8c37"},
+    {file = "exasol_toolbox-1.9.0.tar.gz", hash = "sha256:e712291fba47520e889ea321c6738613e5e4b4f826586472c78ef7e5139753fd"},
 ]
 
 [package.dependencies]
 bandit = {version = ">=1.7.9,<2.0.0", extras = ["toml"]}
-black = ">=24.1.0"
+black = ">=24.1.0,<26"
 coverage = ">=6.4.4,<8.0.0"
 furo = ">=2022.9.15"
 import-linter = ">=2.0,<3.0"
@@ -1139,7 +1139,6 @@ pip-audit = ">=2.7.3,<3.0.0"
 pip-licenses = ">=5.0.0,<6.0.0"
 pluggy = ">=1.5.0,<2.0.0"
 pre-commit = ">=4"
-prysk = {version = ">0.17.0,<1", extras = ["pytest-plugin"]}
 pydantic = ">=2.11.5,<3.0.0"
 pylint = ">=2.15.4"
 pysonar = ">=1.0.1.1548,<2.0.0.0"
@@ -2505,25 +2504,6 @@ wcwidth = "*"
 tests = ["pytest", "pytest-cov", "pytest-lazy-fixtures"]
 
 [[package]]
-name = "prysk"
-version = "0.20.0"
-description = "Functional tests for command line applications"
-optional = false
-python-versions = "<4.0.0,>=3.8"
-groups = ["dev"]
-files = [
-    {file = "prysk-0.20.0-py3-none-any.whl", hash = "sha256:3758f59febe1ff27710c8ba69a8edad42286050d041ed8df519fc4bbeea41133"},
-    {file = "prysk-0.20.0.tar.gz", hash = "sha256:3499d24c9c8d534754d3915218cb2ab59cf59a8d6f37acfb68dc582650e67e33"},
-]
-
-[package.dependencies]
-pytest-prysk = {version = ">=0.2.0,<0.3.0", optional = true, markers = "extra == \"pytest-plugin\""}
-rich = ">=13.3.1,<14.0.0"
-
-[package.extras]
-pytest-plugin = ["pytest-prysk (>=0.2.0,<0.3.0)"]
-
-[[package]]
 name = "py-serializable"
 version = "2.1.0"
 description = "Library for serializing and deserializing Python Objects to and from JSON and XML."
@@ -2920,22 +2900,6 @@ pytest = ">=6.2.5"
 
 [package.extras]
 dev = ["pre-commit", "pytest-asyncio", "tox"]
-
-[[package]]
-name = "pytest-prysk"
-version = "0.2.0"
-description = "Pytest plugin for prysk"
-optional = false
-python-versions = ">=3.8,<4.0"
-groups = ["dev"]
-files = [
-    {file = "pytest_prysk-0.2.0-py3-none-any.whl", hash = "sha256:3180a9d3a6634e6e70107b2eed2a6a7420630b14ba2036598ef690f9b71be79f"},
-    {file = "pytest_prysk-0.2.0.tar.gz", hash = "sha256:488d1f77e35beec9cad13e11368dcc5d09555ec31a4d6a3f9d901e78bbeeb2d1"},
-]
-
-[package.dependencies]
-prysk = ">=0.15.0"
-pytest = ">=7.3.2,<8.0.0"
 
 [[package]]
 name = "python-daemon"
@@ -4174,4 +4138,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <4.0"
-content-hash = "9442235993df499513b0c7dd38b9e7a8cba3f9568da546878c9e9555489f147b"
+content-hash = "68a4c1d91f239a2e012270c693350bbc55a03244cab2eebbc47061f5b5b49cab"
