@@ -1,12 +1,12 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from dataclasses import dataclass
 from pathlib import Path
 
+from exasol.toolbox.config import BaseConfig
 
-@dataclass(frozen=True)
-class Config:
+
+class Config(BaseConfig):
     root: Path = Path(__file__).parent
     doc: Path = Path(__file__).parent / "doc"
     source: Path = Path(__file__).parent / "exasol"
@@ -19,9 +19,9 @@ class Config:
         "venv",
     )
 
-    plugins = []
-    python_versions = ["3.10", "3.11", "3.12", "3.13"]
-    exasol_versions = []
 
-
-PROJECT_CONFIG = Config()
+PROJECT_CONFIG = Config(
+    python_versions=("3.10", "3.11", "3.12", "3.13"),
+    exasol_versions=(),
+    create_major_version_tags=False,
+)

@@ -15,7 +15,7 @@ jobs:
       contents: write
     steps:
       - name: SCM Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Python & Poetry Environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v1
@@ -28,3 +28,5 @@ jobs:
           POETRY_HTTP_BASIC_PYPI_USERNAME: "__token__"
           POETRY_HTTP_BASIC_PYPI_PASSWORD: "${{ secrets.PYPI_TOKEN }}"
         run: poetry publish
+
+  #No need to call Github release here, as this is done in the SLC Github workflows

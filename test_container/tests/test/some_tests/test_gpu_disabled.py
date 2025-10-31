@@ -11,7 +11,7 @@ class TestGPUDisabled(udf.TestCase):
         select_sql = """
                      SELECT PARAM_VALUE, PARAM_NAME
                      FROM EXA_METADATA
-                     WHERE PARAM_NAME LIKE '%accelerator%'
+                     WHERE PARAM_NAME IN ('acceleratorDeviceDetected', 'acceleratorDeviceGpuNvidiaDetected') 
                      ORDER BY PARAM_NAME; \
                      """
         rows = self.query(select_sql)
