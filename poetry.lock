@@ -759,26 +759,9 @@ description = "Composable command line interface toolkit"
 optional = false
 python-versions = ">=3.10"
 groups = ["main", "dev"]
-markers = "python_version < \"3.12\""
 files = [
     {file = "click-8.2.1-py3-none-any.whl", hash = "sha256:61a3265b914e850b85317d0b3109c7f8cd35a670f963866005d6ef1d5175a12b"},
     {file = "click-8.2.1.tar.gz", hash = "sha256:27c491cc05d968d271d5a1db13e3b5a184636d9d930f148c50b038f0d0646202"},
-]
-
-[package.dependencies]
-colorama = {version = "*", markers = "platform_system == \"Windows\""}
-
-[[package]]
-name = "click"
-version = "8.3.1"
-description = "Composable command line interface toolkit"
-optional = false
-python-versions = ">=3.10"
-groups = ["main", "dev"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "click-8.3.1-py3-none-any.whl", hash = "sha256:981153a64e25f12d547d3426c367a4857371575ee7ad18df2a6183ab0545b2a6"},
-    {file = "click-8.3.1.tar.gz", hash = "sha256:12ff4785d337a1bb490bb7e9c2b1ee5da3112e94a8622f26a6c77f5d2fc6842a"},
 ]
 
 [package.dependencies]
@@ -1234,45 +1217,11 @@ files = [
 
 [[package]]
 name = "exasol-integration-test-docker-environment"
-version = "4.3.0"
-description = "Integration Test Docker Environment for Exasol"
-optional = false
-python-versions = "<4,>=3.9.2"
-groups = ["main"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "exasol_integration_test_docker_environment-4.3.0-py3-none-any.whl", hash = "sha256:0f694a2c723617c189b84c145a18154e2a40f2fb58f98c73b39277af740de7c6"},
-    {file = "exasol_integration_test_docker_environment-4.3.0.tar.gz", hash = "sha256:2c82bd667be4b654d48ea5c43617c31608f3ec73312c8b6b51b2bb324a75ced6"},
-]
-
-[package.dependencies]
-click = ">=7.0"
-docker = {version = ">=4.0.0,<7.0.0 || >7.0.0", markers = "sys_platform != \"win32\""}
-docutils = ">=0.21.2"
-exasol-error-reporting = ">=1.0.0,<2.0.0"
-fabric = ">=3.0.1,<4.0.0"
-gitpython = ">=2.1.0"
-humanfriendly = ">=4.18"
-importlib_resources = ">=5.4.0"
-jinja2 = ">=2.10.1"
-jsonpickle = ">=1.1"
-luigi = ">=2.8.4"
-netaddr = ">=0.7.19"
-networkx = ">=2.3"
-portalocker = ">=2.7.0,<3.0.0"
-pydot = ">=1.4.0"
-requests = ">=2.32.4"
-simplejson = ">=3.16.0"
-"stopwatch.py" = ">=1.0.0"
-
-[[package]]
-name = "exasol-integration-test-docker-environment"
 version = "5.0.0"
 description = "Integration Test Docker Environment for Exasol"
 optional = false
 python-versions = "<3.15,>=3.10"
 groups = ["main"]
-markers = "python_version < \"3.12\""
 files = [
     {file = "exasol_integration_test_docker_environment-5.0.0-py3-none-any.whl", hash = "sha256:b5d35ad409155f7705ec8c3f261f519295061c82b7ccd56cab39bb5097863b7c"},
     {file = "exasol_integration_test_docker_environment-5.0.0.tar.gz", hash = "sha256:66dc7cbe628bdaabdd6924a428e56bfdd817ea226eed7663fb33c378427282c4"},
@@ -1340,34 +1289,11 @@ setuptools = ">=80.0.0"
 
 [[package]]
 name = "exasol-script-languages-container-tool"
-version = "3.4.1"
-description = "Script Languages Container Tool"
-optional = false
-python-versions = "<4,>=3.10"
-groups = ["main"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "exasol_script_languages_container_tool-3.4.1-py3-none-any.whl", hash = "sha256:d0fabc5a8bfab38c2ad6e13309ebce813051f5e4a13ecfd6e50775bffb733af4"},
-    {file = "exasol_script_languages_container_tool-3.4.1.tar.gz", hash = "sha256:43264a85f2dbc6455993923583a0b73a58c5fb7e987852779fd83d89e3c63e2b"},
-]
-
-[package.dependencies]
-exasol-bucketfs = ">=1,<3"
-exasol-integration-test-docker-environment = ">=4.1.0,<5.0.0"
-importlib_metadata = ">=4.6.0"
-importlib-resources = ">=6.4.0"
-jsonschema = ">=4.23.0,<5.0.0"
-networkx = ">=3.3.0,<4.0.0"
-pydantic = ">=2.10.2,<3.0.0"
-
-[[package]]
-name = "exasol-script-languages-container-tool"
 version = "3.5.0"
 description = "Script Languages Container Tool"
 optional = false
 python-versions = "<3.14,>=3.10"
 groups = ["main"]
-markers = "python_version < \"3.12\""
 files = [
     {file = "exasol_script_languages_container_tool-3.5.0-py3-none-any.whl", hash = "sha256:d111af355e6bb47001da5b270921001075320f33dafa7ddad1877a9d6ed3abe1"},
     {file = "exasol_script_languages_container_tool-3.5.0.tar.gz", hash = "sha256:a2dc164498a811914da33bac17c69a08571cd0ffbb3948cc655ab832c81f9ec6"},
@@ -2760,36 +2686,12 @@ test = ["pytest (>=7.2)", "pytest-cov (>=4.0)"]
 
 [[package]]
 name = "networkx"
-version = "3.6"
-description = "Python package for creating and manipulating graphs and networks"
-optional = false
-python-versions = ">=3.11"
-groups = ["main", "dev"]
-markers = "python_version >= \"3.12\""
-files = [
-    {file = "networkx-3.6-py3-none-any.whl", hash = "sha256:cdb395b105806062473d3be36458d8f1459a4e4b98e236a66c3a48996e07684f"},
-    {file = "networkx-3.6.tar.gz", hash = "sha256:285276002ad1f7f7da0f7b42f004bcba70d381e936559166363707fdad3d72ad"},
-]
-
-[package.extras]
-benchmarking = ["asv", "virtualenv"]
-default = ["matplotlib (>=3.8)", "numpy (>=1.25)", "pandas (>=2.0)", "scipy (>=1.11.2)"]
-developer = ["mypy (>=1.15)", "pre-commit (>=4.1)"]
-doc = ["intersphinx-registry", "myst-nb (>=1.1)", "numpydoc (>=1.8.0)", "pillow (>=10)", "pydata-sphinx-theme (>=0.16)", "sphinx (>=8.0)", "sphinx-gallery (>=0.18)", "texext (>=0.6.7)"]
-example = ["cairocffi (>=1.7)", "contextily (>=1.6)", "igraph (>=0.11)", "iplotx (>=0.9.0)", "momepy (>=0.7.2)", "osmnx (>=2.0.0)", "scikit-learn (>=1.5)", "seaborn (>=0.13)"]
-extra = ["lxml (>=4.6)", "pydot (>=3.0.1)", "pygraphviz (>=1.14)", "sympy (>=1.10)"]
-release = ["build (>=0.10)", "changelist (==0.5)", "twine (>=4.0)", "wheel (>=0.40)"]
-test = ["pytest (>=7.2)", "pytest-cov (>=4.0)", "pytest-xdist (>=3.0)"]
-test-extras = ["pytest-mpl", "pytest-randomly"]
-
-[[package]]
-name = "networkx"
 version = "3.6.1"
 description = "Python package for creating and manipulating graphs and networks"
 optional = false
 python-versions = "!=3.14.1,>=3.11"
 groups = ["main", "dev"]
-markers = "python_version == \"3.11\""
+markers = "python_version >= \"3.11\""
 files = [
     {file = "networkx-3.6.1-py3-none-any.whl", hash = "sha256:d47fbf302e7d9cbbb9e2555a0d267983d2aa476bac30e90dfbe5669bd57f3762"},
     {file = "networkx-3.6.1.tar.gz", hash = "sha256:26b7c357accc0c8cde558ad486283728b65b6a95d85ee1cd66bafab4c8168509"},
@@ -4084,7 +3986,7 @@ description = "C version of reader, parser and emitter for ruamel.yaml derived f
 optional = false
 python-versions = ">=3.9"
 groups = ["dev"]
-markers = "python_version < \"3.14\" and platform_python_implementation == \"CPython\""
+markers = "platform_python_implementation == \"CPython\""
 files = [
     {file = "ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:88eea8baf72f0ccf232c22124d122a7f26e8a24110a0273d9bcddcb0f7e1fa03"},
     {file = "ruamel_yaml_clib-0.2.15-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:9b6f7d74d094d1f3a4e157278da97752f16ee230080ae331fcc219056ca54f77"},
@@ -4789,7 +4691,7 @@ description = "Standard library imghdr redistribution. \"dead battery\"."
 optional = false
 python-versions = "*"
 groups = ["dev"]
-markers = "python_version >= \"3.13\""
+markers = "python_version == \"3.13\""
 files = [
     {file = "standard_imghdr-3.10.14-py3-none-any.whl", hash = "sha256:cdf6883163349624dee9a81d2853a20260337c4cd41c04e99c082e01833a08e2"},
     {file = "standard_imghdr-3.10.14.tar.gz", hash = "sha256:2598fe2e7c540dbda34b233295e10957ab8dc8ac6f3bd9eaa8d38be167232e52"},
@@ -5255,5 +5157,5 @@ type = ["pytest-mypy"]
 
 [metadata]
 lock-version = "2.1"
-python-versions = ">=3.10, <4.0"
-content-hash = "68a4c1d91f239a2e012270c693350bbc55a03244cab2eebbc47061f5b5b49cab"
+python-versions = ">=3.10, <3.14"
+content-hash = "551c0f61f1e7cd230c040c91ca0c14a29c9bf59e1267b84123859c812f18ff71"
