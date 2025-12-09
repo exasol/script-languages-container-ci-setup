@@ -1,4 +1,7 @@
 # 3.4.0 - 2025-12-09
+
+This release updates serveral dependencies and has some internal improvements.
+
 ## Refactorings
 
  - #173: Updated poetry dependencies and Github workflows by PTB 1.12.0.
