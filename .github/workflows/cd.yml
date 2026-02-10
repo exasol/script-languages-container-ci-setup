@@ -15,7 +15,8 @@ jobs:
       contents: read
 
   cd-job:
-    needs: [ check-tag-version-job ]
+    needs:
+      - check-tag-version-job
     name: Continuous Delivery
     uses: ./.github/workflows/build-and-publish.yml
     permissions:

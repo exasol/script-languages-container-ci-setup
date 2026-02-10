@@ -20,7 +20,8 @@ jobs:
   # removed publish-docs as this is not needed in this project
 
   metrics:
-    needs: [ ci-job ]
+    needs:
+      - ci-job
     uses: ./.github/workflows/report.yml
     secrets: inherit
     permissions:
