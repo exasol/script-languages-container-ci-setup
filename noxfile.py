@@ -8,7 +8,7 @@ from exasol.toolbox.nox.tasks import *
 from exasol.slc_ci_setup.nox.tasks import *
 
 # default actions to be run if nothing is explicitly specified with the -s option
-nox.options.sessions = ["project:fix"]
+nox.options.sessions = ["format:fix"]
 
 
 @nox.session(name="update-integration-test-github-workflows", python=False)
