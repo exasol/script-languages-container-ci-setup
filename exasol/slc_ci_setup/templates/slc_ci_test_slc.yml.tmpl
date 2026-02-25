@@ -76,6 +76,10 @@ jobs:
         id: get-platform
         run: poetry run -- nox -s set-github-output-platform
 
+      - name: Get runner details
+        id: get-runner
+        run: poetry run -- nox -s set-github-output-runner
+
       - name: Download SLC ${{matrix.goal}}
         id: download-slc
         uses: actions/download-artifact@v7
@@ -108,7 +112,7 @@ jobs:
         if: ${{ always() }}
         name: Upload log artifacts
         with:
-          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}
+          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}_${{ steps.get-runner.outputs.runner }}
           path: |
             .build_output/jobs/**/*
             .build_output/meta_data/**/*

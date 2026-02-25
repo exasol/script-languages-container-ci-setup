@@ -91,6 +91,10 @@ jobs:
         id: get-platform
         run: poetry run -- nox -s set-github-output-platform
 
+      - name: Get runner details
+        id: get-runner
+        run: poetry run -- nox -s set-github-output-runner
+
       - name: Check for password
         run: grep -rq ${{ secrets.CI4_DOCKERHUB_TOKEN }} .build_output && exit 1 || exit 0
 
@@ -98,7 +102,7 @@ jobs:
         if: ${{ always() }}
         name: Upload log artifacts
         with:
-          name: logs_build_${{inputs.flavor}}
+          name: logs_build_${{inputs.flavor}}_${{ steps.get-runner.outputs.runner }}
           path: |
             .build_output/jobs/**/*
             .build_output/security_scan/**/*

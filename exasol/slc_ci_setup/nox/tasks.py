@@ -58,10 +58,31 @@ def set_github_output_platform(session: nox.Session):
         platform_name = "macos"
     else:
         platform_name = system
+
+    session.log(f"Detected platform: {platform_name}")
+
     github_output = os.environ.get("GITHUB_OUTPUT")
     if github_output:
-        with open(github_output, "a") as f:
+        with open(github_output, "a", encoding="utf-8") as f:
             f.write(f"platform={platform_name}\n")
     else:
         # Fallback for local testing or old GitHub
         print(f"::set-output name=platform::{platform_name}")
+
+
+@nox.session(name="set-github-output-runner", python=False)
+def set_github_output_runner(session: nox.Session):
+    """
+    Get the current runner name and set the same to GitHub.
+    """
+    runner_name = os.environ.get("RUNNER_NAME", "local-runner")
+
+    session.log(f"Detected runner: {runner_name}")
+
+    github_output = os.environ.get("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a", encoding="utf-8") as f:
+            f.write(f"runner={runner_name}\n")
+    else:
+        # Fallback for local testing or old GitHub
+        print(f"::set-output name=runner::{runner_name}")
