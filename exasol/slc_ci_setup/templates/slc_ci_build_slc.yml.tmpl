@@ -90,14 +90,6 @@ jobs:
           FLAVOR: ${{inputs.flavor}}
           BUILD_MODE: ${{inputs.build-mode}}
 
-      - name: Get platform details
-        id: get-platform
-        run: poetry run -- nox -s set-github-output-platform
-
-      - name: Get runner details
-        id: get-runner
-        run: poetry run -- nox -s set-github-output-runner
-
       - name: Check for password
         run: grep -rq ${{ secrets.CI4_DOCKERHUB_TOKEN }} .build_output && exit 1 || exit 0
 
@@ -115,7 +107,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         name: Upload release SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{ inputs.flavor }}-${{ steps.get-platform.outputs.platform }}-${{ matrix.runner }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.path }}"
           compression-level: 0
           retention-days: 1
@@ -123,7 +115,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         name: Upload test SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{ inputs.flavor }}-${{ steps.get-platform.outputs.platform }}-${{ matrix.runner }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.path }}"
           compression-level: 0
           retention-days: 1{% endraw %}
