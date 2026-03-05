@@ -40,7 +40,7 @@ jobs:
 
      - name: Detect runner
        id: detect-runner
-       run: poetry run -- exaslc-ci get-build-runner --flavor "$FLAVOR" --github-output-var runner-matrix
+       run: poetry run -- exaslc-ci get-build-runners --flavor "$FLAVOR" --github-output-var runner-matrix
        env:
          FLAVOR: ${{ inputs.flavor }}
 
