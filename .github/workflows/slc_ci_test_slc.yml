@@ -44,7 +44,7 @@ jobs:
   run-tests:
     needs: [detect-test-matrix]
     runs-on:
-      labels: ${{matrix.test-runners}}
+      labels: ${{matrix.test-runner}}
     strategy:
       fail-fast: true
       matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
