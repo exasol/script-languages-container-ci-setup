@@ -39,11 +39,9 @@ def detect_platform(session: nox.Session):
     """
     Detects the platform of the current runner and sets it as a GitHub Actions output.
     """
-    system = platform.system()
     machine = platform.machine()
 
     github_output = os.getenv("GITHUB_OUTPUT")
     if github_output:
         with open(github_output, "a") as f:
-            f.write(f"platform_system={system}\n")
             f.write(f"platform_machine={machine}\n")
