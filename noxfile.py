@@ -1,3 +1,5 @@
+import os
+import platform
 from pathlib import Path
 
 import nox
@@ -30,3 +32,18 @@ def _check_workflows(session, pattern: str):
     for slc_ci_yml_file in slc_ci_yml_files:
         session.log(f"Checking {slc_ci_yml_file}")
         session.run("actionlint", str(slc_ci_yml_file))
+
+
+@nox.session(name="detect-platform", python=False)
+def detect_platform(session: nox.Session):
+    """
+    Detects the platform of the current runner and sets it as a GitHub Actions output.
+    """
+    system = platform.system()
+    machine = platform.machine()
+
+    github_output = os.getenv("GITHUB_OUTPUT")
+    if github_output:
+        with open(github_output, "a") as f:
+            f.write(f"platform_system={system}\n")
+            f.write(f"platform_machine={machine}\n")

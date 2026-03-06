@@ -77,6 +77,10 @@ jobs:
           python-version: "3.10"
           poetry-version: "2.3.0"
 
+      - name: Detect Platform
+        id: detect-platform
+        run: poetry run nox -s detect-platform
+
       - name: Build SLC ${{ inputs.flavor }}
         id: build-slc
         run: |
@@ -107,7 +111,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         name: Upload release SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}_${{ matrix.runner }}
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.goal }}_${{ steps.detect-platform.outputs.platform_system }}_${{ steps.detect-platform.outputs.platform_machine }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_release.path }}"
           compression-level: 0
           retention-days: 1
@@ -115,7 +119,7 @@ jobs:
       - uses: actions/upload-artifact@v6
         name: Upload test SLC for flavor ${{inputs.flavor}}
         with:
-          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}_${{ matrix.runner }}
+          name: slc-${{ inputs.flavor }}-${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.goal }}_${{ steps.detect-platform.outputs.platform_system }}_${{ steps.detect-platform.outputs.platform_machine }}
           path: "${{ fromJson(steps.build-slc.outputs.slc_paths).slc_test.path }}"
           compression-level: 0
           retention-days: 1{% endraw %}

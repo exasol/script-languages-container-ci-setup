@@ -41,7 +41,7 @@ jobs:
   run-tests:
     needs: [detect-test-matrix]
     runs-on:
-      labels: ${{matrix.test-runner}}
+      labels: ${{matrix.test-runners}}
     strategy:
       fail-fast: true
       matrix: ${{fromJson(needs.detect-test-matrix.outputs.test-matrix)}}
@@ -72,19 +72,15 @@ jobs:
           python-version: "3.10"
           poetry-version: "2.3.0"
 
-      - name: Get platform details
-        id: get-platform
-        run: poetry run -- nox -s set-github-output-platform
-
-      - name: Get runner details
-        id: get-runner
-        run: poetry run -- nox -s set-github-output-runner
+      - name: Detect Platform
+        id: detect-platform
+        run: poetry run nox -s detect-platform
 
       - name: Download SLC ${{matrix.goal}}
         id: download-slc
         uses: actions/download-artifact@v7
         with:
-          name: slc-${{inputs.flavor}}-${{ steps.get-platform.outputs.platform }}-${{matrix.goal}}
+          name: slc-${{inputs.flavor}}-${{matrix.goal}}
           path: "slc"
 
       - name: Print SLC's
@@ -112,7 +108,7 @@ jobs:
         if: ${{ always() }}
         name: Upload log artifacts
         with:
-          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}_${{ steps.get-runner.outputs.runner }}
+          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}_${{ steps.detect-platform.outputs.platform_system }}
           path: |
             .build_output/jobs/**/*
             .build_output/meta_data/**/*
