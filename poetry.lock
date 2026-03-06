@@ -1266,7 +1266,7 @@ setuptools = ">=80.0.0"
 type = "git"
 url = "https://github.com/exasol/script-languages-container-ci.git"
 reference = "feature/137_x86-64_arm64_build_runners"
-resolved_reference = "5352979cb54938fa1053183d67f7308ff38ca241"
+resolved_reference = "4b1049f7bfd5b57fb9b665271d8bae801b23439e"
 
 [[package]]
 name = "exasol-script-languages-container-tool"
