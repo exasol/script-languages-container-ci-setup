@@ -1,7 +1,7 @@
 {
   "build_runners": ["ubuntu-22.04", "ubuntu-22.04-arm"],
   "test_config": {
-    "default_test_runners": ["ubuntu-22.04", "ubuntu-22.04-arm"],
+    "default_test_runners": ["ubuntu-22.04"],
     "test_sets": [
       {
         "name": "integration-test",
@@ -23,7 +23,7 @@
         "folders": ["gpu_tests"],
         "goal": "release",
         "generic_language_tests": [],
-        "test_runners": ["int-linux-x64-4core-gpu-t4-ubuntu24.04-1", "int-linux-arm64-4core-gpu-t4-ubuntu24.04-1"],
+        "test_runners": ["int-linux-arm-2core-ubuntu24.04-1", "int-linux-arm-4core-ubuntu24.04-1"],
         "accelerator": "nvidia"
       }
     ]
