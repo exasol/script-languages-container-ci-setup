@@ -80,7 +80,7 @@ jobs:
         id: download-slc
         uses: actions/download-artifact@v7
         with:
-          name: slc-${{inputs.flavor}}-${{matrix.goal}}
+          name: logs_tests_${{inputs.flavor}}_${{ matrix.test-set-name }}_${{ matrix.test-runner }}
           path: "slc"
 
       - name: Print SLC's
