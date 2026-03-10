@@ -1,7 +1,7 @@
 # 4.0.0 - 2026-03-10
 
 ## Summary
- This release contains support for x86 and arm runners. Also the ci.json has breaking change.
+ This release contains support for multiple build-runners and test-runners in CI/CD of the script-languages-container, which will be executed in a matrix build. Also the ci.json has breaking change.
 
 - #181: Adding multiplatform (x86 and arm) runner support
 
