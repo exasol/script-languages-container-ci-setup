@@ -1,8 +1,9 @@
 # 4.0.0 - 2026-03-10
 
-- #181: Adding multiplatform (x86 and arm) runner support
-
 ## Summary
+ This release contains support for x86 and arm runners. Also the ci.json has breaking change.
+
+- #181: Adding multiplatform (x86 and arm) runner support
 
 ## Dependency Updates
 
