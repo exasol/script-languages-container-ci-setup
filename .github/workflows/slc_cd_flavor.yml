@@ -27,9 +27,9 @@ jobs:
       build-mode: 'release'
     secrets: inherit
 
-#  test:
-#    needs: [build]
-#    uses: ./.github/workflows/slc_ci_test_slc.yml
-#    with:
-#      flavor: ${{ inputs.flavor }}
-#    secrets: inherit
+  test:
+    needs: [build]
+    uses: ./.github/workflows/slc_ci_test_slc.yml
+    with:
+      flavor: ${{ inputs.flavor }}
+    secrets: inherit
