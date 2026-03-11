@@ -83,7 +83,7 @@ jobs:
         id: download-slc
         uses: actions/download-artifact@v7
         with:
-          name: slc-${{ inputs.flavor }}-${{ matrix.goal }}_${{ steps.detect-platform.outputs.platform_machine }}
+          name: slc-${{ inputs.flavor }}-${{ matrix.goal }}-${{ steps.detect-platform.outputs.platform_machine }}
           path: "slc"
 
       - name: Print SLC's

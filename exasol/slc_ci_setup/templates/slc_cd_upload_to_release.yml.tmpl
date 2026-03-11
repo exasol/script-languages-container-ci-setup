@@ -9,10 +9,6 @@ on:
         description: 'A flavor'
         required: true
         type: string
-      build-mode:
-        description: 'Build mode: possible values: "normal", "rebuild", "release".'
-        required: true
-        type: string
       release-name:
         description: 'The name of the GitHub release.'
         required: true
@@ -74,7 +70,7 @@ jobs:
         id: download-slc
         uses: actions/download-artifact@v7
         with:
-          name: slc-${{ inputs.flavor }}-${{ steps.detect-platform.outputs.platform_machine }}
+          name: slc-${{ inputs.flavor }}-release-${{ steps.detect-platform.outputs.platform_machine }}
           path: "slc"
 
       - name: Upload to release

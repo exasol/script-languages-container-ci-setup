@@ -86,6 +86,5 @@ jobs:
     uses: ./.github/workflows/slc_cd_upload_to_release.yml
     with:
       flavor: ${{ matrix.flavor }}
-      build-mode: release
       release-name: ${{ github.ref_name }}
     secrets: inherit
