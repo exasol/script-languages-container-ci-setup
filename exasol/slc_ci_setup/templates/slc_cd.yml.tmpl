@@ -77,23 +77,12 @@ jobs:
 
   upload-release-slc:
     needs: [get-flavors, release]
-    runs-on: ubuntu-24.04
     strategy:
-      fail-fast: false
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
-    steps:
-      - name: SCM Checkout
-        uses: actions/checkout@v6
-
-      - name: Download SLC
-        id: download-slc
-        uses: actions/download-artifact@v7
-        with:
-          name: slc-${{matrix.flavor}}-release
-          path: "slc"
-
-      - name: Upload to release
-        run: gh release upload "$RELEASE_NAME" slc/* || echo "Upload failed due to size, see workflow logs."
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
+    uses: ./.github/workflows/slc_cd_upload_to_release.yml
+    with:
+      flavor: ${{ matrix.flavor }}
+      build-mode: release
+      release-name: ${{ github.ref_name }}
+    secrets: inherit{% endraw %}
