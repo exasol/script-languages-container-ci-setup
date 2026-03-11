@@ -38,12 +38,40 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
-  cd:
+  detect-runner:
     needs: get-flavors
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          submodules: 'recursive'
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@v5
+        with:
+          python-version: "3.10"
+          poetry-version: "2.3.0"
+
+      - name: Detect runner
+        id: detect-runner
+        run: poetry run -- exaslc-ci get-build-runners --flavor "$FLAVOR" --github-output-var runner-matrix
+        env:
+          FLAVOR: ${{ matrix.flavor }}
+
+    outputs:
+      runner-matrix: ${{ steps.detect-runner.outputs.runner-matrix }}
+      matrix: ${{ needs.get-flavors.outputs.matrix }}
+
+  cd:
+    needs: detect-runner
     strategy:
       fail-fast: true
       matrix:
-        flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
+        flavor: ${{fromJson(needs.detect-runner.outputs.matrix)}}
+        runner: ${{fromJson(needs.detect-runner.outputs.runner-matrix)}}
     uses: ./.github/workflows/slc_cd_flavor.yml
     secrets: inherit
     with:
@@ -79,21 +107,32 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   upload-release-slc:
-    needs: [get-flavors, release]
-    runs-on: ubuntu-24.04
+    needs: [detect-runner, release]
     strategy:
       fail-fast: false
       matrix:
-        flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
+        flavor: ${{fromJson(needs.detect-runner.outputs.matrix)}}
+        runner: ${{fromJson(needs.detect-runner.outputs.runner-matrix)}}
+    runs-on: ubuntu-24.04
     steps:
       - name: SCM Checkout
         uses: actions/checkout@v6
+
+      - name: Setup Python & Poetry Environment
+        uses: exasol/python-toolbox/.github/actions/python-environment@v5
+        with:
+          python-version: "3.10"
+          poetry-version: "2.3.0"
+
+      - name: Detect Platform
+        id: detect-platform
+        run: poetry run nox -s detect-platform
 
       - name: Download SLC
         id: download-slc
         uses: actions/download-artifact@v7
         with:
-          name: slc-${{matrix.flavor}}-release
+          name: slc-${{ matrix.flavor }}-release-${{ steps.detect-platform.outputs.platform_machine }}
           path: "slc"
 
       - name: Upload to release
