@@ -79,7 +79,7 @@ jobs:
 
       - name: Detect Platform
         id: detect-platform
-        run: poetry run -- python -c "from exasol.slc_ci.cli.commands.get_platform import get_platform; get_platform.main(args=['--github-output-var','platform_machine'], standalone_mode=False)"
+        run: poetry run -- exaslc-ci get_platform github-output-var platform_machine
 
       - name: Build SLC ${{ inputs.flavor }}
         id: build-slc
