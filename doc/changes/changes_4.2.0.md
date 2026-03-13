@@ -1,6 +1,7 @@
 # 4.2.0 - 2026-03-13
 
 ## Summary
+ This release uses the get-platform cli from slc-ci
 
 ## Refactoring
  - #188: Using get-platform cli from slc-ci
