@@ -2,7 +2,7 @@
 
 ## Summary
 
-This hotfix release fixes a bug with the CI concurrency group in Github when having multiple flavors. Besides it contains some intenral improvements.
+This hotfix release fixes a bug with the CI concurrency group in GitHub when having multiple flavors. Besides it contains some internal improvements.
 
 ## Bugs
 
