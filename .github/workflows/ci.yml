@@ -6,16 +6,17 @@ on:
   # removed schedule as not needed in this project
 
 jobs:
-
-  CI:
+  merge-gate:
+    name: Merge Gate
     uses: ./.github/workflows/merge-gate.yml
     secrets: inherit
     permissions:
       contents: read
 
-  Metrics:
+  report:
+    name: Report
     needs:
-      - CI
+      - merge-gate
     uses: ./.github/workflows/report.yml
     secrets: inherit
     permissions:
