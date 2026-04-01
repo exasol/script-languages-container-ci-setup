@@ -6,4 +6,4 @@ This hotfix release fixed another bug related to the CI concurrency group.
 
 ## Bugs
 
- - #200: Fixed conccurrency group
+ - #200: Fixed concurrency group
