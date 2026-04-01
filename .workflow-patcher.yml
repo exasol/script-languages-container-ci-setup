@@ -1,0 +1,19 @@
+workflows:
+  - name: cd
+    remove_jobs:
+      - publish-docs
+  - name: checks
+    remove_jobs:
+      - build-documentation-and-check-links
+  - name: pr-merge
+    remove_jobs:
+      - publish-docs
+  - name: build-and-publish
+    step_customizations:
+      - action: REPLACE
+        job: build-and-publish
+        step_id: publish-release-to-github
+        content:
+          - name: Dummy Publish Release to GitHub
+            id: publish-release-to-github
+            run: echo Not needed because this is managed in the SLC-CD workflow

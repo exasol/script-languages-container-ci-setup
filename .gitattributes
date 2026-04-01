@@ -3,3 +3,13 @@ exasol_script_languages_container_ci_setup/version.py linguist-generated=true
 .github/workflows/slc_ci*.yml linguist-generated=true
 .github/workflows/slc_cd*.yml linguist-generated=true
 .github/workflows/slc_nightly*.yml linguist-generated=true
+
+# PTB GitHub Workflows (CI/CD & Publishing)
+.github/workflows/build-and-publish.yml linguist-generated=true
+.github/workflows/check-release-tag.yml linguist-generated=true
+.github/workflows/checks.yml            linguist-generated=true
+.github/workflows/ci.yml                linguist-generated=true
+.github/workflows/matrix-python.yml     linguist-generated=true
+.github/workflows/merge-gate.yml        linguist-generated=true
+.github/workflows/pr-merge.yml          linguist-generated=true
+.github/workflows/report.yml            linguist-generated=true
