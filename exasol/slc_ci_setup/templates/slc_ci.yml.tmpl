@@ -39,7 +39,7 @@ jobs:
   ci:
     needs: get-flavors
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
+      group: ${{ github.workflow }}-${{ github.ref }}-{{ matrix.flavor }}
       cancel-in-progress: true
     strategy:
       fail-fast: true
