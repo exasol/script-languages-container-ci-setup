@@ -127,5 +127,5 @@ ignore_errors = true
 
 [tool.sonar]
 projectKey = "com.exasol:script-languages-container-ci-setup"
-hostUrl = "https://sonarcloud.io"
+host.url = "https://sonarcloud.io"
 organization = "exasol"
