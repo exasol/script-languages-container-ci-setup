@@ -25,7 +25,6 @@ dependencies = [
 "botocore (>=1.37.11, <2.0.0)",
 "jsonschema (>=4.22.0, <5.0.0)",
 "PyGithub (>=2.3.0, <3.0.0)",
-"requests (>=2.33.0)", #Needed because of `pysonar`, see https://github.com/exasol/script-languages-container-ci-setup/issues/197
 ]
 
 [tool.poetry]
@@ -52,7 +51,7 @@ dev = [
     "toml >=0.10.2, <1.0.0",
     "pytest >=7.1.1",
     "pytest-mock >=3.7.0, <4.0.0",
-    "exasol-toolbox >=6.1.1, <7",
+    "exasol-toolbox >=7, <8",
     "actionlint-py >=1.7.7.23, <2.0.0",
 ]
 [tool.pytest.ini_options]
@@ -128,5 +127,5 @@ ignore_errors = true
 
 [tool.sonar]
 projectKey = "com.exasol:script-languages-container-ci-setup"
-hostUrl = "https://sonarcloud.io"
+host.url = "https://sonarcloud.io"
 organization = "exasol"
