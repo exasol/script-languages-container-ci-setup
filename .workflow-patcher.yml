@@ -1,7 +1,6 @@
 workflows:
   - name: checks
     remove_jobs:
-      - check-workflows
       - build-documentation-and-check-links
   - name: gh-pages
     remove_jobs:
