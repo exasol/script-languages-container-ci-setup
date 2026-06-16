@@ -6,3 +6,4 @@
 
  - #202: Resolved vulnerabilities and updated PTB
  - #197: Removed explicit dependency to "requests"
+ - #204: Updated PTB

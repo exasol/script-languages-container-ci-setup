@@ -1,13 +1,26 @@
 workflows:
-  - name: cd
-    remove_jobs:
-      - publish-docs
   - name: checks
     remove_jobs:
+      - check-workflows
       - build-documentation-and-check-links
-  - name: pr-merge
+  - name: gh-pages
     remove_jobs:
-      - publish-docs
+      - deploy-documentation
+    step_customizations:
+      - action: REPLACE
+        job: build-documentation
+        step_id: build-documentation
+        content:
+          - name: Build Documentation
+            id: build-documentation
+            run: echo Do nothing
+      - action: REPLACE
+        job: build-documentation
+        step_id: upload-artifact
+        content:
+          - name: Upload Artifact
+            id: upload-artifact
+            run: echo Do nothing
   - name: build-and-publish
     step_customizations:
       - action: REPLACE
