@@ -1,30 +1,30 @@
+# Generated and maintained by the exasol-toolbox.
+# Last generated with exasol-toolbox version 9.0.0.
 name: CI
 
 on:
   pull_request:
-      types: [opened, synchronize, reopened]
-  # removed schedule as not needed in this project
+    types: [opened, synchronize, reopened]
 
 jobs:
   merge-gate:
     name: Merge Gate
     uses: ./.github/workflows/merge-gate.yml
-    with:
-      root-event: ${{ github.event_name }}
     secrets: inherit
     permissions:
       contents: read
 
   report:
-    # Job merge-gate requires manual approval for running the slow checks.  If
-    # current workflow ci.yml is triggered by schedule, there is no manual
-    # interaction, manual approval will never be given, slow checks will not
-    # be executed, merge-gate will never terminate, and the report will never
-    # be called.
     name: Report
     needs:
       - merge-gate
+    # This condition ensures the job runs if merge-gate finished (success or failure)
+    if: |
+      always() &&
+      needs.merge-gate.result != 'skipped' &&
+      needs.merge-gate.result != 'cancelled'
     uses: ./.github/workflows/report.yml
-    secrets: inherit
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     permissions:
       contents: read
