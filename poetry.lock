@@ -1275,14 +1275,14 @@ types-requests = ">=2.31.0.6,<3.0.0.0"
 
 [[package]]
 name = "exasol-script-languages-container-ci"
-version = "5.2.0"
+version = "5.2.1"
 description = "Implements CI builds for script-language-container."
 optional = false
 python-versions = "<3.14,>=3.10"
 groups = ["main"]
 files = [
-    {file = "exasol_script_languages_container_ci-5.2.0-py3-none-any.whl", hash = "sha256:cf35a2834fdf8279342523a43e3c890c0c1091a7234acee1ed2334b559ee25de"},
-    {file = "exasol_script_languages_container_ci-5.2.0.tar.gz", hash = "sha256:98a64060cbce993fd867598efb9dee98662c56b4ecdf9e9988a9f4801b64bd69"},
+    {file = "exasol_script_languages_container_ci-5.2.1-py3-none-any.whl", hash = "sha256:dc6a5265d0d595c10f24feba04c62b9305cb5554e9cd0deb612c57b3cd91f40f"},
+    {file = "exasol_script_languages_container_ci-5.2.1.tar.gz", hash = "sha256:3c928fb31879743bb458ad0c8bbf27b540c265a8c6039bcd43b803f62e55689f"},
 ]
 
 [package.dependencies]
@@ -5685,4 +5685,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "5e38d8b07b51c45749b793aa2f153c72625919d221e3e7d207cb7592d09b6f94"
+content-hash = "06f07379932ff2c9619def822eb529476ca53ee82dc95335ad6b4a1eccbf959b"
