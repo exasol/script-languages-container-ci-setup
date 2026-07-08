@@ -55,7 +55,7 @@ jobs:
     steps:
       - name: Report failure Status to Slack channel
         id: report-failure-status-slack
-        uses: ravsamhq/notify-slack-action@v2
+        uses: ravsamhq/notify-slack-action@be814b201e233b2dc673608aa46e5447c8ab13f2 # 2.5.0
         with:
           status: failure
           token: ${{ secrets.GITHUB_TOKEN }}
