@@ -1,5 +1,5 @@
 # Generated and maintained by the exasol-toolbox.
-# Last generated with exasol-toolbox version 9.0.0.
+# Last generated with exasol-toolbox version 10.2.1.
 name: CD
 
 on:
@@ -7,6 +7,7 @@ on:
     tags:
       - '**'
       - '!v*'
+      - '!latest'
 
 jobs:
   check-release-tag:
@@ -24,14 +25,3 @@ jobs:
       contents: write
     secrets:
       PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
-
-
-  publish-docs:
-    needs:
-      - build-and-publish
-    name: Publish Documentation
-    uses: ./.github/workflows/gh-pages.yml
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
