@@ -30,7 +30,7 @@ jobs:
 
       - name: Update Github workflow files
 
-        run: poetry run -- nox -s update-nightly-github-workflows
+        run: poetry run -- nox -s update-nightly-github-workflows -- --test-only
 
 
       - name: Check Git status
