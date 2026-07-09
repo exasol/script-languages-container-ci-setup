@@ -8,7 +8,9 @@ name: SLC-NIGHTLY
 
 on:
 
-  pull_request:
+  schedule:
+    # Run at 1am on Monday, Wednesday & Friday
+    - cron:  '0 1 * * 1,3,5'
 
 
 
