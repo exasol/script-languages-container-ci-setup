@@ -33,6 +33,7 @@ jobs:
     steps:
      - uses: actions/checkout@v6
        with:
+          persist-credentials: false
           submodules: 'recursive'
 
      - name: Setup Python & Poetry Environment
@@ -62,6 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+            persist-credentials: false
             submodules: 'recursive'
 
       - name: Setup Python & Poetry Environment

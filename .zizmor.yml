@@ -14,17 +14,4 @@ rules:
   template-injection:
     ignore: []
   artipacked:
-    ignore:
-      - slc_cd.yml
-      - slc_cd_self_check.yml
-      - slc_cd_upload_to_release.yml
-      - slc_ci.yml
-      - slc_ci_build_slc.yml
-      - slc_ci_check_for_build.yml
-      - slc_ci_prepare_test_container.yml
-      - slc_ci_self_check.yml
-      - slc_ci_test_slc.yml
-      - slc_nightly.yml
-      - slc_nightly_self_check.yml
-      - slow-checks.yml
-      - validate_slc_github_workflows.yml
+    ignore: []
