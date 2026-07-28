@@ -8,17 +8,7 @@ rules:
         exasol/python-toolbox/.github/actions/python-environment: ref-pin
         "*": hash-pin
   excessive-permissions:
-    ignore:
-      - slc_cd.yml
-      - slc_cd_flavor.yml
-      - slc_cd_self_check.yml
-      - slc_cd_upload_to_release.yml
-      - slc_ci.yml
-      - slc_ci_flavor.yml
-      - slc_ci_self_check.yml
-      - slc_nightly.yml
-      - slc_nightly_flavor.yml
-      - slc_nightly_self_check.yml
+    ignore: []
   secrets-inherit:
     ignore:
       - slc_cd.yml

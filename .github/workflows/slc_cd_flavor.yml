@@ -18,6 +18,9 @@ on:
       CI4_DOCKERHUB_TOKEN:
           required: true
 
+permissions:
+  contents: read
+
 jobs:
 
   build:

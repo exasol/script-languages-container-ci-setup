@@ -23,6 +23,9 @@ on:
       CI4_DOCKERHUB_TOKEN:
         required: true
 
+permissions:
+  contents: read
+
 jobs:
 
   detect-runner:
@@ -49,6 +52,8 @@ jobs:
 
   upload-release-slc:
     needs: detect-runner
+    permissions:
+      contents: write
     strategy:
       matrix:
         runner: ${{ fromJson(needs.detect-runner.outputs.runner-matrix) }}

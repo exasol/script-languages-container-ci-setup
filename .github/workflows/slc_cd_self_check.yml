@@ -13,6 +13,9 @@ on:
       - main
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
 
   Check-SLC-Github-Workflows-For-Updates:

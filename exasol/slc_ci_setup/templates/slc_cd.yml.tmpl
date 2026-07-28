@@ -7,16 +7,23 @@ on:
     tags:
       - '**'
 
+permissions:
+  contents: read
+
 env:
   RELEASE_NAME: "${{ github.ref_name }}"
 
 jobs:
   prepare-test-container:
+    permissions:
+      contents: read
     uses: ./.github/workflows/slc_ci_prepare_test_container.yml
     secrets: inherit
 
   get-flavors:
     needs: prepare-test-container
+    permissions:
+      contents: read
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
@@ -37,6 +44,8 @@ jobs:
 
   cd:
     needs: get-flavors
+    permissions:
+      contents: read
     strategy:
       fail-fast: true
       matrix:
@@ -49,6 +58,8 @@ jobs:
   release:
     needs: cd
     name: Create Github release
+    permissions:
+      contents: write
     runs-on: ubuntu-24.04
     steps:
       - name: SCM Checkout
@@ -77,6 +88,8 @@ jobs:
 
   upload-release-slc:
     needs: [get-flavors, release]
+    permissions:
+      contents: write
     strategy:
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
