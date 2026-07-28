@@ -82,6 +82,7 @@ jobs:
           path: "slc"
 
       - name: Upload to release
-        run: gh release upload "${{ inputs.release-name }}" slc/* || echo "Upload failed due to size, see workflow logs."
+        run: gh release upload "$RELEASE_NAME" slc/* || echo "Upload failed due to size, see workflow logs."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NAME: ${{ inputs.release-name }}

@@ -12,9 +12,7 @@ rules:
   secrets-inherit:
     ignore: []
   template-injection:
-    ignore:
-      - slc_cd_upload_to_release.yml
-      - slc_ci_flavor.yml
+    ignore: []
   artipacked:
     ignore:
       - slc_cd.yml
