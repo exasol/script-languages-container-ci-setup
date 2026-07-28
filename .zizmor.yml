@@ -7,11 +7,3 @@ rules:
         "actions/*": ref-pin
         exasol/python-toolbox/.github/actions/python-environment: ref-pin
         "*": hash-pin
-  excessive-permissions:
-    ignore: []
-  secrets-inherit:
-    ignore: []
-  template-injection:
-    ignore: []
-  artipacked:
-    ignore: []
