@@ -28,11 +28,15 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
       build-mode: 'release'
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
 
   test:
     needs: [build]
     uses: ./.github/workflows/slc_ci_test_slc.yml
     with:
       flavor: ${{ inputs.flavor }}
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}

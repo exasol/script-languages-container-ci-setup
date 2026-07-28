@@ -10,13 +10,7 @@ rules:
   excessive-permissions:
     ignore: []
   secrets-inherit:
-    ignore:
-      - slc_cd.yml
-      - slc_cd_flavor.yml
-      - slc_ci.yml
-      - slc_ci_flavor.yml
-      - slc_nightly.yml
-      - slc_nightly_flavor.yml
+    ignore: []
   template-injection:
     ignore:
       - slc_cd_upload_to_release.yml

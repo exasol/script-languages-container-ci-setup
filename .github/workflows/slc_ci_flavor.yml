@@ -43,7 +43,9 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
       build-mode: ${{ needs.check_for_build.outputs.result }}
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
 
   test:
     needs: [check_for_build, build]
@@ -51,4 +53,6 @@ jobs:
     uses: ./.github/workflows/slc_ci_test_slc.yml
     with:
       flavor: ${{ inputs.flavor }}
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}

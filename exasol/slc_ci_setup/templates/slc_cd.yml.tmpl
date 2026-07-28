@@ -18,7 +18,9 @@ jobs:
     permissions:
       contents: read
     uses: ./.github/workflows/slc_ci_prepare_test_container.yml
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
 
   get-flavors:
     needs: prepare-test-container
@@ -51,7 +53,9 @@ jobs:
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
     uses: ./.github/workflows/slc_cd_flavor.yml
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
     with:
       flavor: ${{ matrix.flavor }}
 
@@ -97,4 +101,6 @@ jobs:
     with:
       flavor: ${{ matrix.flavor }}
       release-name: ${{ github.ref_name }}
-    secrets: inherit{% endraw %}
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}{% endraw %}
