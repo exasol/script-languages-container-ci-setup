@@ -20,6 +20,9 @@ on:
       CI4_DOCKERHUB_TOKEN:
         required: true
 
+permissions:
+  contents: read
+
 jobs:
 
   detect-runner:
@@ -27,6 +30,7 @@ jobs:
     steps:
      - uses: actions/checkout@v6
        with:
+          persist-credentials: false
           submodules: 'recursive'
 
      - name: Setup Python & Poetry Environment
@@ -46,6 +50,8 @@ jobs:
 
   upload-release-slc:
     needs: detect-runner
+    permissions:
+      contents: write
     strategy:
       matrix:
         runner: ${{ fromJson(needs.detect-runner.outputs.runner-matrix) }}
@@ -54,6 +60,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+            persist-credentials: false
             submodules: 'recursive'
 
       - name: Setup Python & Poetry Environment
@@ -74,6 +81,7 @@ jobs:
           path: "slc"
 
       - name: Upload to release
-        run: gh release upload "${{ inputs.release-name }}" slc/* || echo "Upload failed due to size, see workflow logs."
+        run: gh release upload "$RELEASE_NAME" slc/* || echo "Upload failed due to size, see workflow logs."
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}{% endraw %}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_NAME: ${{ inputs.release-name }}{% endraw %}

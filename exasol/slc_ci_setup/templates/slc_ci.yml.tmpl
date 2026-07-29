@@ -11,10 +11,15 @@ on:
       - 'rebuild/**'
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   prepare-test-container:
     uses: ./.github/workflows/slc_ci_prepare_test_container.yml
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
 
   get-flavors:
     needs: prepare-test-container
@@ -22,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
         with:
+          persist-credentials: false
           submodules: 'recursive'
 
       - name: Setup Python & Poetry Environment
@@ -46,7 +52,9 @@ jobs:
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
     uses: ./.github/workflows/slc_ci_flavor.yml
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
     with:
       flavor: ${{ matrix.flavor }}
 
