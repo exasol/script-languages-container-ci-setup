@@ -15,6 +15,9 @@ on:
       CI4_DOCKERHUB_TOKEN:
           required: true
 
+permissions:
+  contents: read
+
 
 jobs:
   check_for_build:
@@ -28,7 +31,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Print message
-        run: echo skipping build and test for flavor ${{ inputs.flavor }}
+        run: echo "skipping build and test for flavor $FLAVOR"
+        env:
+          FLAVOR: ${{ inputs.flavor }}
 
   build:
     needs: check_for_build
@@ -37,7 +42,9 @@ jobs:
     with:
       flavor: ${{ inputs.flavor }}
       build-mode: ${{ needs.check_for_build.outputs.result }}
-    secrets: inherit
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
 
   test:
     needs: [check_for_build, build]
@@ -45,4 +52,6 @@ jobs:
     uses: ./.github/workflows/slc_ci_test_slc.yml
     with:
       flavor: ${{ inputs.flavor }}
-    secrets: inherit{% endraw %}
+    secrets:
+      CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
+      CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}{% endraw %}
