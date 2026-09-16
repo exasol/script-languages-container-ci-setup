@@ -1,3 +1,4 @@
+import subprocess
 from pathlib import Path
 
 import nox
@@ -29,4 +30,18 @@ def _check_workflows(session, pattern: str):
     slc_ci_yml_files = Path(".github/workflows").glob(pattern)
     for slc_ci_yml_file in slc_ci_yml_files:
         session.log(f"Checking {slc_ci_yml_file}")
-        session.run("actionlint", str(slc_ci_yml_file))
+        workflow_content = slc_ci_yml_file.read_text(encoding="utf-8")
+        result = subprocess.run(
+            [
+                "actionlint",
+                "-stdin-filename",
+                str(slc_ci_yml_file),
+                "-",
+            ],
+            input=workflow_content.replace("$/.github", "./.github"),
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0:
+            session.error(result.stdout + result.stderr)

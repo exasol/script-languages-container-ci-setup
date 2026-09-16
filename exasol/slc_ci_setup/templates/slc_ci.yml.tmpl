@@ -16,7 +16,7 @@ permissions:
 
 jobs:
   prepare-test-container:
-    uses: ./.github/workflows/slc_ci_prepare_test_container.yml
+    uses: $/.github/workflows/slc_ci_prepare_test_container.yml
     secrets:
       CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
       CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
@@ -51,7 +51,7 @@ jobs:
       fail-fast: true
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
-    uses: ./.github/workflows/slc_ci_flavor.yml
+    uses: $/.github/workflows/slc_ci_flavor.yml
     secrets:
       CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
       CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}

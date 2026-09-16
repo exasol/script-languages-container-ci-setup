@@ -20,7 +20,7 @@ jobs:
   prepare-test-container:
     permissions:
       contents: read
-    uses: ./.github/workflows/slc_ci_prepare_test_container.yml
+    uses: $/.github/workflows/slc_ci_prepare_test_container.yml
     secrets:
       CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
       CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
@@ -56,7 +56,7 @@ jobs:
       fail-fast: true
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
-    uses: ./.github/workflows/slc_cd_flavor.yml
+    uses: $/.github/workflows/slc_cd_flavor.yml
     secrets:
       CI4_DOCKERHUB_USERNAME: ${{ secrets.CI4_DOCKERHUB_USERNAME }}
       CI4_DOCKERHUB_TOKEN: ${{ secrets.CI4_DOCKERHUB_TOKEN }}
@@ -103,7 +103,7 @@ jobs:
     strategy:
       matrix:
         flavor: ${{fromJson(needs.get-flavors.outputs.matrix)}}
-    uses: ./.github/workflows/slc_cd_upload_to_release.yml
+    uses: $/.github/workflows/slc_cd_upload_to_release.yml
     with:
       flavor: ${{ matrix.flavor }}
       release-name: ${{ github.ref_name }}
