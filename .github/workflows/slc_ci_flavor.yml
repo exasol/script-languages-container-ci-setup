@@ -24,7 +24,7 @@ permissions:
 
 jobs:
   check_for_build:
-    uses: ./.github/workflows/slc_ci_check_for_build.yml
+    uses: $/.github/workflows/slc_ci_check_for_build.yml
     with:
       flavor: ${{ inputs.flavor }}
 
@@ -40,7 +40,7 @@ jobs:
 
   build:
     needs: check_for_build
-    uses: ./.github/workflows/slc_ci_build_slc.yml
+    uses: $/.github/workflows/slc_ci_build_slc.yml
     if: ${{ needs.check_for_build.outputs.result != 'no_build_needed' }}
     with:
       flavor: ${{ inputs.flavor }}
@@ -52,7 +52,7 @@ jobs:
   test:
     needs: [check_for_build, build]
     if: ${{ needs.check_for_build.outputs.result != 'no_build_needed' }}
-    uses: ./.github/workflows/slc_ci_test_slc.yml
+    uses: $/.github/workflows/slc_ci_test_slc.yml
     with:
       flavor: ${{ inputs.flavor }}
     secrets:
