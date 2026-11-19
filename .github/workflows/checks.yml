@@ -24,7 +24,7 @@ jobs:
         id: set-up-python-and-poetry-environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v10
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Changelog was Updated
@@ -39,7 +39,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
     steps:
       - name: Check out Repository
         id: check-out-repository
@@ -76,7 +76,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
 
     steps:
       - name: Check out Repository
@@ -104,7 +104,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
 
     steps:
       - name: Check out Repository
@@ -149,7 +149,7 @@ jobs:
         id: set-up-python-and-poetry-environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v10
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Format
@@ -172,7 +172,7 @@ jobs:
         id: set-up-python-and-poetry-environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v10
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Build Package
@@ -195,7 +195,7 @@ jobs:
         id: set-up-python-and-poetry-environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v10
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Workflows
@@ -218,7 +218,7 @@ jobs:
         id: set-up-python-and-poetry-environment
         uses: exasol/python-toolbox/.github/actions/python-environment@v10
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Audit Workflows
