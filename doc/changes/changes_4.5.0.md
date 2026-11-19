@@ -2,7 +2,7 @@
 
 ## Summary
 
- - #226: Dropped support for Python 3.10, raised the minimum supported version to Python 3.11.5, and regenerated workflows with PTB 12.0.0, including updating SLC workflow templates to action v12.
+ - #226: Dropped support for Python 3.10, raised the minimum supported version to Python 3.11.5, and regenerated workflows with PTB 12.0.0, including updating SLC workflow templates to action v12 and Python 3.11.
 
 ## Security Issues
 
