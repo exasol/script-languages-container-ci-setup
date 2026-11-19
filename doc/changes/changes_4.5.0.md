@@ -6,15 +6,24 @@
 
 ## Security Issues
 
-This release fixes vulnerabilities by updating the locked SoupSieve dependency:
+This release fixes vulnerabilities by updating dependencies:
 
 | Dependency | Vulnerability | Affected | Fixed in |
 |------------|---------------|----------|----------|
+| tornado | CVE-2026-126347 | 6.6 | 6.6.1 |
 | soupsieve | CVE-2026-126189 | 2.10 | 4.0.1 |
 | soupsieve | CVE-2026-126190 | 2.10 | 4.0.0 |
 | soupsieve | CVE-2026-126193 | 2.10 | 3.0 |
 
 ## Dependency Updates
+
+### `main`
+
+* Updated dependency `boto3:1.43.125` to `1.44.7`
+* Updated dependency `botocore:1.43.125` to `1.44.7`
+* Updated dependency `click:8.5.0` to `8.5.1`
+* Updated dependency `exasol-script-languages-container-ci:5.3.0` to `5.4.0`
+* Updated dependency `exasol-script-languages-container-tool:4.4.0` to `4.5.0`
 
 ### `dev`
 
