@@ -1,5 +1,4 @@
 # Generated and maintained by the exasol-toolbox.
-# Last generated with exasol-toolbox version 10.5.0.
 name: Checks
 
 on:
@@ -9,7 +8,7 @@ jobs:
 
   check-changelog-was-updated:
     name: Check Changelog was Updated
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     if: github.ref != format('refs/heads/{0}', github.event.repository.default_branch)
@@ -22,9 +21,9 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Changelog was Updated
@@ -33,13 +32,13 @@ jobs:
 
   lint-code:
     name: Lint Code (Python-${{ matrix.python-versions }})
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
     steps:
       - name: Check out Repository
         id: check-out-repository
@@ -49,7 +48,7 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
           python-version: ${{ matrix.python-versions }}
           poetry-version: "2.3.0"
@@ -70,13 +69,13 @@ jobs:
 
   lint-typing:
     name: Lint Typing (Python-${{ matrix.python-versions }})
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
 
     steps:
       - name: Check out Repository
@@ -87,7 +86,7 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
           python-version: ${{ matrix.python-versions }}
           poetry-version: "2.3.0"
@@ -98,13 +97,13 @@ jobs:
 
   audit-security:
     name: Audit Security (Python-${{ matrix.python-versions }})
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
-        python-versions: ["3.10", "3.11", "3.12", "3.13"]
+        python-versions: ["3.11", "3.12", "3.13"]
 
     steps:
       - name: Check out Repository
@@ -115,7 +114,7 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
           python-version: ${{ matrix.python-versions }}
           poetry-version: "2.3.0"
@@ -135,7 +134,7 @@ jobs:
 
   check-format:
     name: Check Format
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     steps:
@@ -147,9 +146,9 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Format
@@ -158,7 +157,7 @@ jobs:
 
   build-package:
     name: Build Package
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     steps:
@@ -170,9 +169,9 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Build Package
@@ -181,7 +180,7 @@ jobs:
 
   check-workflows:
     name: Check Workflows
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     steps:
@@ -193,9 +192,9 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Check Workflows
@@ -204,7 +203,7 @@ jobs:
 
   audit-workflows:
     name: Audit Workflows
-    runs-on: "ubuntu-24.04"
+    runs-on: "ubuntu-26.04"
     permissions:
       contents: read
     steps:
@@ -216,9 +215,9 @@ jobs:
 
       - name: Set up Python & Poetry Environment
         id: set-up-python-and-poetry-environment
-        uses: exasol/python-toolbox/.github/actions/python-environment@v10
+        uses: exasol/python-toolbox/.github/actions/python-environment@v12
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           poetry-version: "2.3.0"
 
       - name: Audit Workflows
