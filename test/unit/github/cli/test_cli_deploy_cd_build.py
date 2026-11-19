@@ -1,4 +1,3 @@
-from test.unit.github.cli.cli_runner import CliRunner
 from unittest.mock import (
     MagicMock,
     call,
@@ -11,6 +10,7 @@ import exasol.slc_ci_setup.lib.deploy_build as lib_deploy_build
 from exasol.slc_ci_setup.cli.commands.deploy_cd_build import (
     deploy_cd_build,
 )
+from test.unit.github.cli.cli_runner import CliRunner
 
 
 @pytest.fixture
